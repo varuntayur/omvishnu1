@@ -1,0 +1,60 @@
+<?xml version="1.0"?><!-- This is a comment -->
+<sahasranama>
+
+    <section name="Meditation On Vishnu">
+        <shloka num="1">
+            <text>ॐ शुक्लाम्बरधरं विष्णुं शशिवर्णं चथुर्भुजम् ।
+                प्रसन्नवदनं ध्यायेत् सर्वविघ्नोपशान्त्ये ॥१॥
+            </text>
+            <explanation>For the eradication of all obstructions, I meditate ("dhyayeth") on Vishnu,
+                who is wearing ("dharam") a white ("shukla") cloth ("ambara"), who is of the color
+                ("varnam") of the moon ("sashi"), who has four ("chatur") arms ("bhujam"), and who
+                has a placid expression ("prasanna") on His face ("vadanam").
+            </explanation>
+        </shloka>
+        <shloka num="2">
+            <text>यस्य द्विरदवत्राध्या: पारिष्ध्या: पर: श्तम्।
+                विध्नं निघ्नन्ति सततं विष्वकसेनं तमाश्र् ये ॥२॥
+            </text>
+            <explanation>The elephant faced one along with his innumerable attendants,
+                Would always remove obstacles as we depend on Vishvaksena.
+            </explanation>
+        </shloka>
+    </section>
+
+    <section name="Dhyanam">
+        <shloka num="1">
+            <text>ॐ शुक्लाम्बरधरं विष्णुं शशिवर्णं चथुर्भुजम् ।
+                प्रसन्नवदनं ध्यायेत् सर्वविघ्नोपशान्त्ये ॥१॥
+            </text>
+            <explanation>For the eradication of all obstructions, I meditate ("dhyayeth") on Vishnu,
+                who is wearing ("dharam") a white ("shukla") cloth ("ambara"), who is of the color
+                ("varnam") of the moon ("sashi"), who has four ("chatur") arms ("bhujam"), and who
+                has a placid expression ("prasanna") on His face ("vadanam").
+            </explanation>
+        </shloka>
+        <shloka num="2">
+            <text>यस्य द्विरदवत्राध्या: पारिष्ध्या: पर: श्तम्।
+                विध्नं निघ्नन्ति सततं विष्वकसेनं तमाश्र् ये ॥२॥
+            </text>
+            <explanation>The elephant faced one along with his innumerable attendants,
+                Would always remove obstacles as we depend on Vishvaksena.
+            </explanation>
+        </shloka>
+    </section>
+
+    <section name="Sahasranama">
+        <shloka num="1">
+            <text></text>
+            <explanation></explanation>
+        </shloka>
+    </section>
+
+    <section name="Phala Shruthi">
+        <shloka num="1">
+            <text></text>
+            <explanation></explanation>
+        </shloka>
+    </section>
+
+</sahasranama>
