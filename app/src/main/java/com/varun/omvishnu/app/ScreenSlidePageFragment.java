@@ -24,6 +24,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.varun.omvishnu.app.model.Sahasranama;
+import com.varun.omvishnu.app.model.Section;
+
 /**
  * A fragment representing a single step in a wizard. The fragment shows a dummy title indicating
  * the page number, along with some dummy text.
@@ -39,6 +42,8 @@ public class ScreenSlidePageFragment extends Fragment {
 
     private static Typeface devanagariTf;
 
+    private Sahasranama sahasranama;
+
     /**
      * The fragment's page number, which is set to the argument value for {@link #ARG_PAGE}.
      */
@@ -47,12 +52,13 @@ public class ScreenSlidePageFragment extends Fragment {
     /**
      * Factory method for this fragment class. Constructs a new fragment for the given page number.
      */
-    public static ScreenSlidePageFragment create(int pageNumber,Typeface tface) {
+    public static ScreenSlidePageFragment create(int pageNumber, Typeface tface, Sahasranama sahasranama) {
         ScreenSlidePageFragment fragment = new ScreenSlidePageFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, pageNumber);
         fragment.setArguments(args);
         devanagariTf = tface;
+        sahasranama = sahasranama;
         return fragment;
     }
 
@@ -72,13 +78,18 @@ public class ScreenSlidePageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.fragment_screen_slide_page, container, false);
 
+//        Section section = sahasranama.getSections().get(mPageNumber);
+
         // Set the title view to show the page number.
+//        ((TextView) rootView.findViewById(android.R.id.text1)).setText(
+//                section.getName());
         ((TextView) rootView.findViewById(android.R.id.text1)).setText(
-                getString(R.string.title_template_step, mPageNumber + 1));
+                "temp");
 //
         TextView viewById = (TextView) rootView.findViewById(R.id.textcontent);
         viewById.setTypeface(devanagariTf);
-        viewById.setText(R.string.vishnu);
+//        viewById.setText(section.getShlokaList().get(mPageNumber).getText());
+        viewById.setText("exp");
 
         return rootView;
     }
