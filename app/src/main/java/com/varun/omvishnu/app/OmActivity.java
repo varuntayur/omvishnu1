@@ -7,14 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.varun.omvishnu.app.model.Sahasranama;
-
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
-
-import java.io.IOException;
-import java.io.InputStream;
-
 
 public class OmActivity extends ActionBarActivity {
 
@@ -22,24 +14,6 @@ public class OmActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_om);
-//
-//        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/droidsansdevanagari.ttf");
-//        TextView tv = (TextView) findViewById(R.id.hello_world);
-//        tv.setTypeface(tf);
-//        tv.setText(R.string.vishnu);
-
-//        Serializer serializer = new Persister();
-//        InputStream inputStream = null;
-//        try {
-//            inputStream = getAssets().open("db/db.xml");
-//            serializer = new Persister();
-//            Sahasranama sahasranama = serializer.read(Sahasranama.class, inputStream);
-//            System.out.println("*****" + sahasranama);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
         Intent intent = new Intent(OmActivity.this, ScreenSlideActivity.class);
         startActivity(intent);
@@ -68,23 +42,7 @@ public class OmActivity extends ActionBarActivity {
 
     public void startMainActivity(View view) {
         Intent intent = new Intent(this, ScreenSlideActivity.class);
-        Serializer serializer = new Persister();
-        InputStream inputStream = null;
-        Sahasranama sahasranama = null;
-        try {
-            inputStream = getAssets().open("db/db.xml");
-            serializer = new Persister();
-            sahasranama = serializer.read(Sahasranama.class, inputStream);
-            System.out.println("* Finished de-serializing the file *");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        System.out.println("-> Before putting data into intent <-");
-        intent.putExtra("db", sahasranama);
-        System.out.println("-> After putting data into intent <-");
         startActivity(intent);
     }
 

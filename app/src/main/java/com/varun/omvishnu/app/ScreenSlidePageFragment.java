@@ -38,8 +38,6 @@ public class ScreenSlidePageFragment extends Fragment {
     /**
      * The argument key for the page number this fragment represents.
      */
-    public static final String ARG_PAGE = "page";
-
     private static Typeface devanagariTf;
 
     private Sahasranama sahasranama;
@@ -49,17 +47,10 @@ public class ScreenSlidePageFragment extends Fragment {
      */
     private int mPageNumber;
 
-    /**
-     * Factory method for this fragment class. Constructs a new fragment for the given page number.
-     */
-    public static ScreenSlidePageFragment create(int pageNumber, Typeface tface, Sahasranama sahasranama) {
-        ScreenSlidePageFragment fragment = new ScreenSlidePageFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_PAGE, pageNumber);
-        fragment.setArguments(args);
-        devanagariTf = tface;
-        sahasranama = sahasranama;
-        return fragment;
+    public ScreenSlidePageFragment(Typeface tf, Sahasranama sahasranama, int position) {
+        this.sahasranama = sahasranama;
+        this.devanagariTf = tf;
+        this.mPageNumber = position;
     }
 
     public ScreenSlidePageFragment() {
@@ -68,7 +59,6 @@ public class ScreenSlidePageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPageNumber = getArguments().getInt(ARG_PAGE);
     }
 
     @Override
@@ -78,18 +68,17 @@ public class ScreenSlidePageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.fragment_screen_slide_page, container, false);
 
-//        Section section = sahasranama.getSections().get(mPageNumber);
+        Section section = sahasranama.getSections().get(mPageNumber);
 
-        // Set the title view to show the page number.
-//        ((TextView) rootView.findViewById(android.R.id.text1)).setText(
-//                section.getName());
-        ((TextView) rootView.findViewById(android.R.id.text1)).setText(
-                "temp");
-//
-        TextView viewById = (TextView) rootView.findViewById(R.id.textcontent);
+        ((TextView) rootView.findViewById(R.id.sectiontitle)).setText(
+                section.getName());
+
+        TextView viewById = (TextView) rootView.findViewById(R.id.shlokatext);
         viewById.setTypeface(devanagariTf);
-//        viewById.setText(section.getShlokaList().get(mPageNumber).getText());
-        viewById.setText("exp");
+        viewById.setText(section.getShlokaList().get(mPageNumber).getText());
+
+        viewById = (TextView) rootView.findViewById(R.id.shlokaexplanation);
+        viewById.setText(section.getShlokaList().get(mPageNumber).getText());
 
         return rootView;
     }

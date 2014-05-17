@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item type="id" name="textcontent"/>
+    <item type="id" name="shlokaexplanation"/>
+    <item name="shlokatext" type="id" />
+    <item name="sectiontitle" type="id" />
 </resources>

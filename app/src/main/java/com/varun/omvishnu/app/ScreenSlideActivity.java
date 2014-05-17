@@ -71,7 +71,7 @@ public class ScreenSlideActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
 
-        System.out.println("-> Before putting data into intent <-");
+        System.out.println("-> Starting ScreenSlideActivity <-");
         Serializer serializer = new Persister();
         InputStream inputStream = null;
         Sahasranama sahasranama = null;
@@ -82,16 +82,13 @@ public class ScreenSlideActivity extends FragmentActivity {
             System.out.println("* Finished de-serializing the file *");
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("* IOException de-serializing the file *" + e);
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("* Exception de-serializing the file *" + e);
         }
-        System.out.println("-> After putting data into intent <-");
 
-        System.out.println("* ScreenSlideActivity created - fetching sahasranama *");
-        sahasranama = (Sahasranama) getIntent().getParcelableExtra("db");
-//        Sahasranama sahasranama = new Sahasranama();
-//        System.out.println("* ScreenSlideActivity created - fetched sahasranama *" + sahasranama.toString().substring(0, 100));
-        System.out.println("* ScreenSlideActivity created - fetched sahasranama *" + sahasranama.toString());
+        System.out.println("* ScreenSlideActivity created - fetched sahasranama *" + sahasranama.toString().substring(0, 100));
 
         Typeface devnanagariTf = Typeface.createFromAsset(getAssets(), "fonts/droidsansdevanagari.ttf");
         System.out.println(devnanagariTf);
@@ -110,7 +107,7 @@ public class ScreenSlideActivity extends FragmentActivity {
                 invalidateOptionsMenu();
             }
         });
-        System.out.println("* ScreenSlideActivty created *");
+        System.out.println("* ScreenSlideActivity created *");
     }
 
     @Override
@@ -151,6 +148,12 @@ public class ScreenSlideActivity extends FragmentActivity {
                 // will do nothing.
                 mPager.setCurrentItem(mPager.getCurrentItem() + 1);
                 return true;
+
+            case R.string.action_finish:
+                // Navigate "up" the demo structure to the launchpad activity.
+                // See http://developer.android.com/design/patterns/navigation.html for more.
+                NavUtils.navigateUpTo(this, new Intent(this, OmActivity.class));
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -173,7 +176,7 @@ public class ScreenSlideActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return ScreenSlidePageFragment.create(position, tf, sahasranama);
+            return new ScreenSlidePageFragment(tf, sahasranama, position);
         }
 
         @Override
