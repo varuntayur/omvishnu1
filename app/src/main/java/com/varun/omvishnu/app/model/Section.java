@@ -1,34 +1,30 @@
 package com.varun.omvishnu.app.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by varuntayur on 4/5/2014.
  */
 @Root
-public class Section implements Parcelable {
+public class Section {
 
-    public Section() {
-    }
-
-    // example constructor that takes a Parcel and gives you an object populated with it's values
-    private Section(Parcel in) {
-        in.readList(shlokaList, null);
-        name = in.readString();
-    }
 
     @Attribute(name = "name")
     private String name;
 
     @ElementList(inline = true, name = "shloka")
     private List<Shloka> shlokaList;
+
+    private Map<String, Shloka> mapShlName2Shl = new HashMap<String, Shloka>();
+
+    public Section() {
+    }
 
     @Override
     public String toString() {
@@ -54,27 +50,14 @@ public class Section implements Parcelable {
         this.shlokaList = shlokaList;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public Shloka getShloka(String shlokaNum) {
+
+        if (mapShlName2Shl.keySet().isEmpty())
+            for (Shloka shloka : this.shlokaList) {
+                mapShlName2Shl.put(shloka.getNum(), shloka);
+            }
+
+        return mapShlName2Shl.get(shlokaNum);
     }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeList(shlokaList);
-        parcel.writeString(name);
-    }
-
-
-    public static final Parcelable.Creator<Section> CREATOR
-            = new Parcelable.Creator<Section>() {
-        public Section createFromParcel(Parcel in) {
-            return new Section(in);
-        }
-
-        public Section[] newArray(int size) {
-            return new Section[size];
-        }
-    };
 
 }

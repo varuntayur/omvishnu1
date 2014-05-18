@@ -1,28 +1,25 @@
 package com.varun.omvishnu.app.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by varuntayur on 4/5/2014.
  */
 @Root
-public class Sahasranama implements Parcelable {
-
-    public Sahasranama(){}
-
-    // example constructor that takes a Parcel and gives you an object populated with it's values
-    private Sahasranama(Parcel in) {
-        in.readList(sections, null);
-    }
+public class Sahasranama {
 
     @ElementList(inline = true, name = "section")
     List<Section> sections;
+
+    private Map<String, Section> mapSecName2Sec = new HashMap<String, Section>();
+
+    public Sahasranama() {
+    }
 
     @Override
     public String toString() {
@@ -39,25 +36,14 @@ public class Sahasranama implements Parcelable {
         this.sections = sections;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public Section getSection(String sectionName) {
+
+        if (mapSecName2Sec.keySet().isEmpty())
+            for (Section section : sections) {
+                mapSecName2Sec.put(section.getName(), section);
+            }
+
+        return mapSecName2Sec.get(sectionName);
     }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeList(sections);
-    }
-
-    public static final Parcelable.Creator<Sahasranama> CREATOR
-            = new Parcelable.Creator<Sahasranama>() {
-        public Sahasranama createFromParcel(Parcel in) {
-            return new Sahasranama(in);
-        }
-
-        public Sahasranama[] newArray(int size) {
-            return new Sahasranama[size];
-        }
-    };
 
 }

@@ -1,11 +1,19 @@
 package com.varun.omvishnu.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class OmActivity extends ActionBarActivity {
@@ -15,8 +23,37 @@ public class OmActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_om);
 
-        Intent intent = new Intent(OmActivity.this, ScreenSlideActivity.class);
-        startActivity(intent);
+        String[] values = new String[]{"Meditation On Vishnu", "Dhyanam", "Sahasranama", "Phala Shruthi", "Mangala"};
+
+        final List<String> list = Arrays.asList(values);
+        final ListView listview = (ListView) findViewById(R.id.listSahasranamaSections);
+        final StableArrayAdapter adapter = new StableArrayAdapter(this,
+                android.R.layout.simple_list_item_1, list);
+        listview.setAdapter(adapter);
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view,
+                                    int position, long id) {
+                final String item = (String) parent.getItemAtPosition(position);
+                view.animate().setDuration(1000).alpha(0)
+                        .withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+//                                list.remove(item);
+                                adapter.notifyDataSetChanged();
+                                view.setAlpha(1);
+
+                                Intent intent = new Intent(OmActivity.this, ScreenSlideActivity.class);
+                                intent.putExtra("sectionName", item);
+                                startActivity(intent);
+                            }
+                        });
+            }
+
+        });
+
     }
 
 
@@ -46,50 +83,31 @@ public class OmActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    private class StableArrayAdapter extends ArrayAdapter<String> {
+
+        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+
+        public StableArrayAdapter(Context context, int textViewResourceId,
+                                  List<String> objects) {
+            super(context, textViewResourceId, objects);
+            for (int i = 0; i < objects.size(); ++i) {
+                mIdMap.put(objects.get(i), i);
+            }
+        }
+
+        @Override
+        public long getItemId(int position) {
+            String item = getItem(position);
+            return mIdMap.get(item);
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return true;
+        }
+
+    }
+
 }
 
-//try {
-//        InputStream inputStream = getAssets().open("db/example.xml");
-//        Serializer serializer = new Persister();
-////            Example example = serializer.read(Example.class, inputStream);
-////            System.out.println(example);
-//
-//        inputStream = getAssets().open("db/db.xml");
-//        serializer = new Persister();
-//        Sahasranama sahasranama = serializer.read(Sahasranama.class, inputStream);
-//        System.out.println("*****" + sahasranama);
-//
-//        Shloka shloka = new Shloka();
-//        shloka.setNum("1");
-//        shloka.setText("test");
-//        shloka.setExplanation("exp");
-//        Section section = new Section();
-//        section.setName("test1");
-//
-//        List<Shloka> lstShlokas = new ArrayList<Shloka>();
-//        lstShlokas.add(shloka);
-//        section.setShlokaList(lstShlokas);
-//
-//        List<Section> lstSections = new ArrayList<Section>();
-//        lstSections.add(section);
-//        Sahasranama sah = new Sahasranama();
-//        sah.setSections(lstSections);
-//
-//        File file = new File(getCacheDir() + "/dump.xml");
-//        OutputStream outputStream = new FileOutputStream(file);
-//        serializer.write(sah, outputStream);
-//
-////            System.out.println(sahasranama);
-//        System.out.println(file.getAbsolutePath());
-//
-//        BufferedReader is1 = new BufferedReader(new FileReader(file));
-//        String line = null;
-//        while ((line = is1.readLine()) != null)
-//        System.out.println(line);
-//
-//        is1.close();
-//
-//        } catch (Exception e) {
-//        e.printStackTrace();
-//        }
 

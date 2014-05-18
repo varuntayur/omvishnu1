@@ -26,6 +26,9 @@ import android.widget.TextView;
 
 import com.varun.omvishnu.app.model.Sahasranama;
 import com.varun.omvishnu.app.model.Section;
+import com.varun.omvishnu.app.model.Shloka;
+
+import java.util.List;
 
 /**
  * A fragment representing a single step in a wizard. The fragment shows a dummy title indicating
@@ -40,6 +43,8 @@ public class ScreenSlidePageFragment extends Fragment {
      */
     private static Typeface devanagariTf;
 
+    private final String sectionName;
+
     private Sahasranama sahasranama;
 
     /**
@@ -47,13 +52,11 @@ public class ScreenSlidePageFragment extends Fragment {
      */
     private int mPageNumber;
 
-    public ScreenSlidePageFragment(Typeface tf, Sahasranama sahasranama, int position) {
+    public ScreenSlidePageFragment(Typeface tf, Sahasranama sahasranama, int position, String sectionName) {
         this.sahasranama = sahasranama;
         this.devanagariTf = tf;
         this.mPageNumber = position;
-    }
-
-    public ScreenSlidePageFragment() {
+        this.sectionName = sectionName;
     }
 
     @Override
@@ -68,17 +71,21 @@ public class ScreenSlidePageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.fragment_screen_slide_page, container, false);
 
-        Section section = sahasranama.getSections().get(mPageNumber);
+        Section section = sahasranama.getSection(this.sectionName);
 
         ((TextView) rootView.findViewById(R.id.sectiontitle)).setText(
                 section.getName());
 
         TextView viewById = (TextView) rootView.findViewById(R.id.shlokatext);
+
         viewById.setTypeface(devanagariTf);
-        viewById.setText(section.getShlokaList().get(mPageNumber).getText());
+
+        final List<Shloka> shlokaList = section.getShlokaList();
+
+        viewById.setText(shlokaList.get(mPageNumber).getText());
 
         viewById = (TextView) rootView.findViewById(R.id.shlokaexplanation);
-        viewById.setText(section.getShlokaList().get(mPageNumber).getText());
+        viewById.setText(shlokaList.get(mPageNumber).getExplanation());
 
         return rootView;
     }
@@ -87,6 +94,6 @@ public class ScreenSlidePageFragment extends Fragment {
      * Returns the page number represented by this fragment object.
      */
     public int getPageNumber() {
-        return mPageNumber;
+        return sahasranama.getSection(this.sectionName).getShlokaList().size();
     }
 }

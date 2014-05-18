@@ -31,12 +31,6 @@ import android.view.MenuItem;
 
 import com.varun.omvishnu.app.model.Sahasranama;
 
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
-
-import java.io.IOException;
-import java.io.InputStream;
-
 /**
  * Demonstrates a "screen-slide" animation using a {@link android.support.v4.view.ViewPager}. Because {@link android.support.v4.view.ViewPager}
  * automatically plays such an animation when calling {@link android.support.v4.view.ViewPager#setCurrentItem(int)}, there
@@ -65,6 +59,8 @@ public class ScreenSlideActivity extends FragmentActivity {
      */
     private PagerAdapter mPagerAdapter;
 
+    private String mSectionName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,30 +68,16 @@ public class ScreenSlideActivity extends FragmentActivity {
         setContentView(R.layout.activity_screen_slide);
 
         System.out.println("-> Starting ScreenSlideActivity <-");
-        Serializer serializer = new Persister();
-        InputStream inputStream = null;
-        Sahasranama sahasranama = null;
-        try {
-            inputStream = getAssets().open("db/db.xml");
-            serializer = new Persister();
-            sahasranama = serializer.read(Sahasranama.class, inputStream);
-            System.out.println("* Finished de-serializing the file *");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("* IOException de-serializing the file *" + e);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("* Exception de-serializing the file *" + e);
-        }
-
+        Sahasranama sahasranama = new DataProvider(getAssets()).getSahasranama();
         System.out.println("* ScreenSlideActivity created - fetched sahasranama *" + sahasranama.toString().substring(0, 100));
 
         Typeface devnanagariTf = Typeface.createFromAsset(getAssets(), "fonts/droidsansdevanagari.ttf");
-        System.out.println(devnanagariTf);
+        System.out.println("-> ScreenSlideActivity created font typeface <-" + devnanagariTf);
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager(), devnanagariTf, sahasranama);
+        mSectionName = getIntent().getStringExtra("sectionName");
+        mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager(), devnanagariTf, sahasranama, mSectionName);
         mPager.setAdapter(mPagerAdapter);
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -166,22 +148,24 @@ public class ScreenSlideActivity extends FragmentActivity {
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
         private final Typeface tf;
+        private final String sectionName;
         private Sahasranama sahasranama;
 
-        public ScreenSlidePagerAdapter(FragmentManager fm, Typeface tf, Sahasranama sahasranama) {
+        public ScreenSlidePagerAdapter(FragmentManager fm, Typeface tf, Sahasranama sahasranama, String sectionName) {
             super(fm);
             this.tf = tf;
             this.sahasranama = sahasranama;
+            this.sectionName = sectionName;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return new ScreenSlidePageFragment(tf, sahasranama, position);
+            return new ScreenSlidePageFragment(tf, sahasranama, position, sectionName);
         }
 
         @Override
         public int getCount() {
-            return NUM_PAGES;
+            return this.sahasranama.getSection(sectionName).getShlokaList().size();
         }
     }
 }
