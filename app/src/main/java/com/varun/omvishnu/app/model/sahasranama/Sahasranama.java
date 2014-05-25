@@ -1,9 +1,10 @@
-package com.varun.omvishnu.app.model;
+package com.varun.omvishnu.app.model.sahasranama;
 
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public class Sahasranama {
     @ElementList(inline = true, name = "section")
     List<Section> sections;
 
-    private Map<String, Section> mapSecName2Sec = new HashMap<String, Section>();
+    private Map<String, Section> mapSecName2Sec = new LinkedHashMap<String, Section>();
 
     public Sahasranama() {
     }
@@ -38,12 +39,23 @@ public class Sahasranama {
 
     public Section getSection(String sectionName) {
 
+        buildMap();
+
+        return mapSecName2Sec.get(sectionName);
+    }
+
+    public Collection<String> getSectionNames() {
+
+        buildMap();
+
+        return mapSecName2Sec.keySet();
+    }
+
+    private void buildMap() {
         if (mapSecName2Sec.keySet().isEmpty())
             for (Section section : sections) {
                 mapSecName2Sec.put(section.getName(), section);
             }
-
-        return mapSecName2Sec.get(sectionName);
     }
 
 }

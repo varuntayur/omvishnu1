@@ -30,6 +30,15 @@
                 android:value=".MainActivity" />
         </activity>
 
+        <activity
+            android:name="com.varun.omvishnu.app.ThousandNamesFragment"
+            android:label="@string/title_screen_slide"
+            android:parentActivityName="com.varun.omvishnu.app.OmActivity"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 
     </application>
 

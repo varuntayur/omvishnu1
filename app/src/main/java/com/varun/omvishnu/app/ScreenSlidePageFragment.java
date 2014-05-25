@@ -24,9 +24,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.varun.omvishnu.app.model.Sahasranama;
-import com.varun.omvishnu.app.model.Section;
-import com.varun.omvishnu.app.model.Shloka;
+import com.varun.omvishnu.app.model.sahasranama.Sahasranama;
+import com.varun.omvishnu.app.model.sahasranama.Section;
+import com.varun.omvishnu.app.model.sahasranama.Shloka;
 
 import java.util.List;
 

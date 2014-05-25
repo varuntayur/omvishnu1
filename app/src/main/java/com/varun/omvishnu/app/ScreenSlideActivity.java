@@ -29,7 +29,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.varun.omvishnu.app.model.Sahasranama;
+import com.varun.omvishnu.app.model.sahasranama.Sahasranama;
 
 /**
  * Demonstrates a "screen-slide" animation using a {@link android.support.v4.view.ViewPager}. Because {@link android.support.v4.view.ViewPager}
@@ -68,7 +68,7 @@ public class ScreenSlideActivity extends FragmentActivity {
         setContentView(R.layout.activity_screen_slide);
 
         System.out.println("-> Starting ScreenSlideActivity <-");
-        Sahasranama sahasranama = new DataProvider(getAssets()).getSahasranama();
+        Sahasranama sahasranama =  OmActivity.getSahasranama(); //new DataProvider(getAssets()).getSahasranama();
         System.out.println("* ScreenSlideActivity created - fetched sahasranama *" + sahasranama.toString().substring(0, 100));
 
         Typeface devnanagariTf = Typeface.createFromAsset(getAssets(), "fonts/droidsansdevanagari.ttf");

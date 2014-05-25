@@ -1,4 +1,4 @@
-package com.varun.omvishnu.app.model;
+package com.varun.omvishnu.app.model.sahasranama;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
@@ -20,6 +20,11 @@ public class Section {
 
     @ElementList(inline = true, name = "shloka")
     private List<Shloka> shlokaList;
+
+
+    @Attribute
+    private String num;
+
 
     private Map<String, Shloka> mapShlName2Shl = new HashMap<String, Shloka>();
 
@@ -58,6 +63,14 @@ public class Section {
             }
 
         return mapShlName2Shl.get(shlokaNum);
+    }
+
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
     }
 
 }

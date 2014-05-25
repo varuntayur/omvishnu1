@@ -12,7 +12,6 @@
             android:layout_height="wrap_content"
             android:inputType="none"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold|italic"
             android:text="@string/app_sections" />
 
     </TableRow>
