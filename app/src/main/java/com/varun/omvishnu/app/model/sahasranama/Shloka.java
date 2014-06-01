@@ -56,5 +56,7 @@ public class Shloka {
         this.explanation = explanation;
     }
 
-
+    public String getFormattedShloka() {
+        return String.format("%s\n", text);
+    }
 }

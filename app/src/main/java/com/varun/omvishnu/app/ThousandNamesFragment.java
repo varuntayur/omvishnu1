@@ -54,6 +54,7 @@ public class ThousandNamesFragment extends FragmentActivity {
 
         view.setAdapter(adapter);
 
+
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {

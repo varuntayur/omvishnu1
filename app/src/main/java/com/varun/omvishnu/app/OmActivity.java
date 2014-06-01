@@ -98,6 +98,8 @@ public class OmActivity extends ActionBarActivity {
     private void setupLaunchMenu() {
         final List<String> list = new ArrayList<String>(dataProvider.getSahasranama().getSectionNames());
         list.add("ThousandNames");
+        list.add("ThousandNamesByBirthStars");
+        list.add("ThousandNamesByGods");
         final ListView listview = (ListView) findViewById(R.id.listSahasranamaSections);
         final StableArrayAdapter adapter = new StableArrayAdapter(this,
                 android.R.layout.simple_list_item_1, list);
@@ -109,7 +111,7 @@ public class OmActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
                 final String item = (String) parent.getItemAtPosition(position);
-                view.animate().setDuration(200).alpha(0)
+                view.animate().setDuration(100).alpha(0)
                         .withEndAction(new Runnable() {
                             @Override
                             public void run() {
@@ -122,10 +124,22 @@ public class OmActivity extends ActionBarActivity {
                                     Intent intent = new Intent(OmActivity.this, ThousandNamesFragment.class);
                                     startActivity(intent);
 
+                                } else if (item.equals("ThousandNamesByBirthStars")) {
+
+                                    Intent intent = new Intent(OmActivity.this, ThousandNamesByBirthStarsFragment.class);
+                                    startActivity(intent);
+
+                                } else if (item.equals("ThousandNamesByGods")) {
+
+                                    Intent intent = new Intent(OmActivity.this, ThousandNamesFragment.class);
+                                    startActivity(intent);
+
                                 } else {
+
                                     Intent intent = new Intent(OmActivity.this, ScreenSlideActivity.class);
                                     intent.putExtra("sectionName", item);
                                     startActivity(intent);
+
                                 }
                                 view.setAlpha(1);
                             }
