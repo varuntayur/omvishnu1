@@ -1,13 +1,11 @@
 package com.varun.omvishnu.app;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.varun.omvishnu.app.model.sahasranama.Section;
 import com.varun.omvishnu.app.model.sahasranama.Shloka;
@@ -40,7 +38,7 @@ public class ThousandNamesByBirthStarsFragment extends FragmentActivity {
      */
     private ListAdapter mAdapter;
 
-    private List<String> nakshatraList = new ArrayList<String>(Arrays.asList("Ashvini", "Bharani", "Krithika", "Rohini", "Mrigashirsha", "Ardra", "Punarvasu", "Pushya", "Ashlesha", "Magha", "Purva Phalguni", "Uttara Phalguni", "Hasta", "Chitra", "Swati", "Vishakha", "Anuradha", "Jyeshtha", "Mula", "Purva Ashadha", "Uttara Ashadha", "Shravana", "Dhanishtha", "Shatabhisha", "Purva Bhadrapada", "Uttara Bhadrapada", "Revati"));
+    private List<String> nakshatraList = new ArrayList<String>(Arrays.asList("Ashwini", "Bharani", "Krithika", "Rohini", "Mrigashirsha", "Ardra", "Punarvasu", "Pushya", "Ashlesha", "Magha", "Purva Phalguni", "Uttara Phalguni", "Hasta", "Chitra", "Swati", "Vishakha", "Anuradha", "Jyeshtha", "Mula", "Purva Ashadha", "Uttara Ashadha", "Shravana", "Dhanishtha", "Shatabhisha", "Purva Bhadrapada", "Uttara Bhadrapada", "Revati"));
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -69,12 +67,12 @@ public class ThousandNamesByBirthStarsFragment extends FragmentActivity {
             lstShlokas.add(shlokas.get(i).getFormattedShloka());
         }
 
-        Typeface devnanagariTf = Typeface.createFromAsset(getAssets(), "fonts/droidsansdevanagari.ttf");
-        TextView view = (TextView) findViewById(R.id.namesByBirthStars);
-
-        view.setTypeface(devnanagariTf);
-
-        view.setText(lstShlokas.toString().replaceAll("\\[", "").replaceAll("\\]", ""));
+//        Typeface devnanagariTf = Typeface.createFromAsset(getAssets(), "fonts/droidsansdevanagari.ttf");
+//        TextView view = (TextView) findViewById(R.id.namesByBirthStars);
+//
+//        view.setTypeface(devnanagariTf);
+//
+//        view.setText(lstShlokas.toString().replaceAll("\\[", "").replaceAll("\\]", ""));
 
     }
 
