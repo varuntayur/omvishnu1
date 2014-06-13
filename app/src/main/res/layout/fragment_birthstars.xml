@@ -22,8 +22,7 @@
                 android:layout_toLeftOf="@+id/bharani"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
+                android:onClick="showBirthStarShlokas"
                 android:scaleType="centerInside"
                 android:src="@drawable/ashwini"/>
 
@@ -38,8 +37,6 @@
                 android:layout_marginTop="0dp"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/bharani"/>
         </LinearLayout>
@@ -57,8 +54,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/ashwini"/>
 
@@ -69,8 +64,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/rohini"/>
         </LinearLayout>
@@ -88,8 +81,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/mrigashirsha"/>
 
@@ -100,8 +91,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/ardra"/>
         </LinearLayout>
@@ -119,8 +108,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/punarvasu"/>
 
@@ -131,8 +118,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/pushya"/>
         </LinearLayout>
@@ -150,8 +135,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/ashlesha"/>
 
@@ -162,8 +145,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/magha"/>
         </LinearLayout>
@@ -181,8 +162,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/purvaphalguni"/>
 
@@ -193,8 +172,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/uttaraphalguni"/>
         </LinearLayout>
@@ -212,8 +189,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/hasta"/>
 
@@ -224,8 +199,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/chitra"/>
         </LinearLayout>
@@ -243,8 +216,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/swathi"/>
 
@@ -255,8 +226,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/vishaka"/>
         </LinearLayout>
@@ -274,8 +243,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/anuradha"/>
 
@@ -286,8 +253,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/jyestha"/>
         </LinearLayout>
@@ -305,8 +270,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/mula"/>
 
@@ -317,8 +280,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/purvaashada"/>
         </LinearLayout>
@@ -336,8 +297,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/uttaraashada"/>
 
@@ -348,8 +307,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/shravana"/>
         </LinearLayout>
@@ -367,8 +324,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/dhanista"/>
 
@@ -379,8 +334,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/shatabisha"/>
         </LinearLayout>
@@ -398,8 +351,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/purvabhadrapada"/>
 
@@ -410,8 +361,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/uttarabhadrapada"/>
         </LinearLayout>
@@ -429,8 +378,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight=".50"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:clickable="false"
                 android:scaleType="centerInside"
                 android:src="@drawable/revathi"/>
 

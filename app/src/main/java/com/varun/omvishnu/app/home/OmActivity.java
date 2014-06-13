@@ -1,6 +1,5 @@
-package com.varun.omvishnu.app;
+package com.varun.omvishnu.app.home;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
@@ -10,14 +9,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.varun.omvishnu.app.model.names.ThousandNames;
-import com.varun.omvishnu.app.model.sahasranama.Sahasranama;
+import com.varun.omvishnu.app.R;
+import com.varun.omvishnu.app.birthstars.BirthStarsFragment;
+import com.varun.omvishnu.app.common.StableArrayAdapter;
+import com.varun.omvishnu.app.data.DataProvider;
+import com.varun.omvishnu.app.history.HistoryFragment;
+import com.varun.omvishnu.app.indetail.ScreenSlideActivity;
+import com.varun.omvishnu.app.thousandnames.ThousandNamesFragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -28,7 +30,7 @@ public class OmActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_om);
+        setContentView(R.layout.activity_home);
 
         new DataProviderTask().execute(getAssets());
 
@@ -61,39 +63,6 @@ public class OmActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    public static Sahasranama getSahasranama() {
-        return dataProvider.getSahasranama();
-    }
-
-    public static ThousandNames getThousandNames() {
-        return dataProvider.getThousandNames();
-    }
-
-
-    private class StableArrayAdapter extends ArrayAdapter<String> {
-
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-        public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
-            }
-        }
-
-        @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
-
-    }
 
     private void setupLaunchMenu() {
         final List<String> list = new ArrayList<String>(dataProvider.getSahasranama().getSectionNames());
@@ -115,9 +84,15 @@ public class OmActivity extends ActionBarActivity {
                         .withEndAction(new Runnable() {
                             @Override
                             public void run() {
-//                                list.remove(item);
+
                                 adapter.notifyDataSetChanged();
 
+                                launchActivity();
+
+                                view.setAlpha(1);
+                            }
+
+                            private void launchActivity() {
 
                                 if (item.equals("ThousandNames")) {
 
@@ -126,7 +101,7 @@ public class OmActivity extends ActionBarActivity {
 
                                 } else if (item.equals("ThousandNamesByBirthStars")) {
 
-                                    Intent intent = new Intent(OmActivity.this, ThousandNamesByBirthStarsFragment.class);
+                                    Intent intent = new Intent(OmActivity.this, BirthStarsFragment.class);
                                     startActivity(intent);
 
                                 } else if (item.equals("ThousandNamesByGods")) {
@@ -134,14 +109,19 @@ public class OmActivity extends ActionBarActivity {
                                     Intent intent = new Intent(OmActivity.this, ThousandNamesFragment.class);
                                     startActivity(intent);
 
-                                } else {
+                                }else if (item.equals("History")) {
+
+                                    Intent intent = new Intent(OmActivity.this, HistoryFragment.class);
+                                    startActivity(intent);
+
+                                }
+                                else {
 
                                     Intent intent = new Intent(OmActivity.this, ScreenSlideActivity.class);
                                     intent.putExtra("sectionName", item);
                                     startActivity(intent);
 
                                 }
-                                view.setAlpha(1);
                             }
                         });
             }

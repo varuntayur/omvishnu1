@@ -1,4 +1,4 @@
-package com.varun.omvishnu.app.model.names;
+package com.varun.omvishnu.app.data.model.names;
 
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;

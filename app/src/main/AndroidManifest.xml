@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.varun.omvishnu.app.OmActivity"
+            android:name=".home.OmActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,9 +21,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.varun.omvishnu.app.ScreenSlideActivity"
+            android:name=".indetail.ScreenSlideActivity"
             android:label="@string/title_screen_slide"
-            android:parentActivityName="com.varun.omvishnu.app.OmActivity"
+            android:parentActivityName=".home.OmActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -31,18 +31,38 @@
         </activity>
 
         <activity
-            android:name="com.varun.omvishnu.app.ThousandNamesFragment"
+            android:name=".thousandnames.ThousandNamesFragment"
             android:label="@string/title_screen_slide"
-            android:parentActivityName="com.varun.omvishnu.app.OmActivity"
+            android:parentActivityName=".home.OmActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name="com.varun.omvishnu.app.ThousandNamesByBirthStarsFragment"
+            android:name=".birthstars.BirthStarsFragment"
             android:label="@string/title_screen_slide"
-            android:parentActivityName="com.varun.omvishnu.app.OmActivity"
+            android:parentActivityName=".home.OmActivity"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".birthstars.BirthStarsShlokaFragment"
+            android:label="@string/title_screen_slide"
+            android:parentActivityName=".home.OmActivity"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".history.HistoryFragment"
+            android:label="@string/title_screen_slide"
+            android:parentActivityName=".home.OmActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.varun.omvishnu.app;
+package com.varun.omvishnu.app.indetail;
 
 import android.app.Fragment;
 import android.graphics.Typeface;
@@ -24,9 +24,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.varun.omvishnu.app.model.sahasranama.Sahasranama;
-import com.varun.omvishnu.app.model.sahasranama.Section;
-import com.varun.omvishnu.app.model.sahasranama.Shloka;
+import com.varun.omvishnu.app.R;
+import com.varun.omvishnu.app.data.model.sahasranama.Sahasranama;
+import com.varun.omvishnu.app.data.model.sahasranama.Section;
+import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 
 import java.util.List;
 

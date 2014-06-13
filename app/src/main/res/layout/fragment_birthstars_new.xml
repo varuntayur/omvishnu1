@@ -3,17 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.varun.omvishnu.app.ThousandNamesFragment">
+    tools:context="com.varun.omvishnu.app.birthstars.BirthStarsFragment">
 
     <ListView
-        android:id="@+id/listNama"
+        android:id="@+id/listStars"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@android:id/empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center" />
 
 </FrameLayout>
