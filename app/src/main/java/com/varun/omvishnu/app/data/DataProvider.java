@@ -79,6 +79,14 @@ public class DataProvider {
         return nakshatraName2Shlokas;
     }
 
+    public static List<String> getSectionNames() {
+        final List<String> list = new ArrayList<String>(getSahasranama().getSectionNames());
+        list.add("ThousandNames");
+        list.add("ThousandNamesByBirthStars");
+        list.add("ThousandNamesByGods");
+        return list;
+    }
+
     private static void buildNakshatraToShlokaMap() {
         Section sahasranama = getSahasranama().getSection("Sahasranama");
         List<Shloka> shlokas = sahasranama.getShlokaList();

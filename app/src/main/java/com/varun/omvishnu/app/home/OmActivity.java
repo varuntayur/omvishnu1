@@ -19,9 +19,6 @@ import com.varun.omvishnu.app.history.HistoryFragment;
 import com.varun.omvishnu.app.indetail.ScreenSlideActivity;
 import com.varun.omvishnu.app.thousandnames.ThousandNamesFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class OmActivity extends ActionBarActivity {
 
@@ -65,13 +62,9 @@ public class OmActivity extends ActionBarActivity {
 
 
     private void setupLaunchMenu() {
-        final List<String> list = new ArrayList<String>(dataProvider.getSahasranama().getSectionNames());
-        list.add("ThousandNames");
-        list.add("ThousandNamesByBirthStars");
-        list.add("ThousandNamesByGods");
         final ListView listview = (ListView) findViewById(R.id.listSahasranamaSections);
         final StableArrayAdapter adapter = new StableArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
+                android.R.layout.simple_list_item_1, dataProvider.getSectionNames());
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -109,13 +102,12 @@ public class OmActivity extends ActionBarActivity {
                                     Intent intent = new Intent(OmActivity.this, ThousandNamesFragment.class);
                                     startActivity(intent);
 
-                                }else if (item.equals("History")) {
+                                } else if (item.equals("History")) {
 
                                     Intent intent = new Intent(OmActivity.this, HistoryFragment.class);
                                     startActivity(intent);
 
-                                }
-                                else {
+                                } else {
 
                                     Intent intent = new Intent(OmActivity.this, ScreenSlideActivity.class);
                                     intent.putExtra("sectionName", item);

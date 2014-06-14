@@ -44,7 +44,7 @@ public class ScreenSlidePageFragment extends Fragment {
      */
     private static Typeface devanagariTf;
 
-    private final String sectionName;
+    private String sectionName;
 
     private Sahasranama sahasranama;
 
@@ -52,6 +52,10 @@ public class ScreenSlidePageFragment extends Fragment {
      * The fragment's page number, which is set to the argument value for {@link #ARG_PAGE}.
      */
     private int mPageNumber;
+
+    public ScreenSlidePageFragment(){
+
+    }
 
     public ScreenSlidePageFragment(Typeface tf, Sahasranama sahasranama, int position, String sectionName) {
         this.sahasranama = sahasranama;
