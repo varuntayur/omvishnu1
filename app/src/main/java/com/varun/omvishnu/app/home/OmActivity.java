@@ -5,31 +5,47 @@ import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.birthstars.BirthStarsFragment;
 import com.varun.omvishnu.app.common.StableArrayAdapter;
 import com.varun.omvishnu.app.data.DataProvider;
+import com.varun.omvishnu.app.data.model.home.Group;
 import com.varun.omvishnu.app.history.HistoryFragment;
 import com.varun.omvishnu.app.indetail.ScreenSlideActivity;
 import com.varun.omvishnu.app.thousandnames.ThousandNamesFragment;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 
 public class OmActivity extends ActionBarActivity {
 
     private static DataProvider dataProvider;
 
+    // more efficient than HashMap for mapping integers to objects
+    SparseArray<Group> groups = new SparseArray<Group>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
         new DataProviderTask().execute(getAssets());
+//        setContentView(R.layout.activity_home);
+
+        setContentView(R.layout.activity_main);
+//        createData();
+//        ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
+//        MyExpandableListAdapter adapter = new MyExpandableListAdapter(this,
+//                groups);
+//        listView.setAdapter(adapter);
 
     }
 
@@ -129,7 +145,8 @@ public class OmActivity extends ActionBarActivity {
         protected void onPostExecute(Long result) {
             runOnUiThread(new Runnable() {
                 public void run() {
-                    setupLaunchMenu();
+//                    setupLaunchMenu();
+                    createData();
                 }
             });
             System.out.println("Finished launching main-menu");
@@ -142,6 +159,37 @@ public class OmActivity extends ActionBarActivity {
             System.out.println("Finished background task execution");
             return 1l;
         }
+    }
+
+    public void createData() {
+//        for (int j = 0; j < 1; j++) {
+//            Group group = new Group("Test " + j);
+//            for (int i = 0; i < 5; i++) {
+//                group.children.add("Sub Item" + i);
+//            }
+//            groups.append(j, group);
+//        }
+        final Collection<String> sectionNames = DataProvider.getSahasranama().getSectionNames();
+        Group group = new Group("Sahasranama");
+        for (String secName : sectionNames) {
+            group.children.add(secName);
+        }
+        groups.append(0, group);
+
+        final ListView listview = (ListView) findViewById(R.id.listSahasranamaSections);
+        final List<String> list = new ArrayList<String>();
+        list.add("ThousandNames");
+        list.add("ThousandNamesByBirthStars");
+        list.add("ThousandNamesByGods");
+        final StableArrayAdapter adapter = new StableArrayAdapter(this,
+                android.R.layout.simple_list_item_1, list);
+        listview.setAdapter(adapter);
+
+        ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
+        MyExpandableListAdapter adapter1 = new MyExpandableListAdapter(this,
+                groups);
+        listView.setAdapter(adapter1);
+
     }
 
 
