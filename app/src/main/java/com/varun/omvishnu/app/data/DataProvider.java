@@ -32,6 +32,8 @@ public class DataProvider {
 
     private static List<String> nakshatraList = new ArrayList<String>(Arrays.asList("ashwini", "bharani", "krithika", "rohini", "mrigashirsha", "ardra", "punarvasu", "pushya", "ashlesha", "magha", "purvaphalguni", "uttaraphalguni", "hasta", "chitra", "swati", "vishakha", "anuradha", "jyeshtha", "mula", "purvaashadha", "uttaraashadha", "shravana", "dhanishtha", "shatabhisha", "purvabhadrapada", "uttarabhadrapada", "revati"));
 
+    private static List<String> dashavataraList = new ArrayList<String>(Arrays.asList("matsya", "koorma", "varaha", "narasimha", "vamana", "parashurama", "rama", "krishna", "buddha", "kalki"));
+
     private static Map<String, List<String>> nakshatraName2Shlokas = new ConcurrentHashMap<String, List<String>>();
 
     public DataProvider(AssetManager am) {
@@ -75,8 +77,11 @@ public class DataProvider {
     }
 
     public static Map<String, List<String>> getBirthStarToShloka() {
-
         return nakshatraName2Shlokas;
+    }
+
+    public static List<String> getDashavataraList() {
+        return dashavataraList;
     }
 
     public static List<String> getSectionNames() {
