@@ -2,6 +2,8 @@ package com.varun.omvishnu.app.data;
 
 import android.content.res.AssetManager;
 
+import com.varun.omvishnu.app.data.model.birthstars.BirthStars;
+import com.varun.omvishnu.app.data.model.birthstars.Star;
 import com.varun.omvishnu.app.data.model.names.ThousandNames;
 import com.varun.omvishnu.app.data.model.sahasranama.Sahasranama;
 import com.varun.omvishnu.app.data.model.sahasranama.Section;
@@ -14,7 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,6 +30,8 @@ public class DataProvider {
     private static Sahasranama sahasranama;
 
     private static ThousandNames thousandNames;
+
+    private static BirthStars birthstars;
 
     private static List<String> nakshatraList = new ArrayList<String>(Arrays.asList("ashwini", "bharani", "krithika", "rohini", "mrigashirsha", "ardra", "punarvasu", "pushya", "ashlesha", "magha", "purvaphalguni", "uttaraphalguni", "hasta", "chitra", "swati", "vishakha", "anuradha", "jyeshtha", "mula", "purvaashadha", "uttaraashadha", "shravana", "dhanishtha", "shatabhisha", "purvabhadrapada", "uttarabhadrapada", "revati"));
 
@@ -55,6 +58,11 @@ public class DataProvider {
             serializer = new Persister();
             thousandNames = serializer.read(ThousandNames.class, inputStream);
             System.out.println("* Finished de-serializing the file - thousandNames.xml *");
+
+            inputStream = am.open("db/stars.xml");
+            serializer = new Persister();
+            birthstars = serializer.read(BirthStars.class, inputStream);
+            System.out.println("* Finished de-serializing the file - stars.xml *");
 
             if (nakshatraName2Shlokas.isEmpty())
                 buildNakshatraToShlokaMap();
@@ -93,26 +101,19 @@ public class DataProvider {
     }
 
     private static void buildNakshatraToShlokaMap() {
+
         Section sahasranama = getSahasranama().getSection("Sahasranama");
-        List<Shloka> shlokas = sahasranama.getShlokaList();
 
-        List<String> lstShlokas = new ArrayList<String>();
-        String nakshatraName = "";
-        Iterator<String> nakshatraListIter = nakshatraList.listIterator();
+        for (Star star : birthstars.getLstStars()) {
 
-        for (int i = 0; i < shlokas.size(); i++) {
+            final List<Shloka> starShlokas = star.getShlokas();
+            final List<Shloka> shlokaList = sahasranama.getShlokaList(Integer.parseInt(starShlokas.get(0).getNum()), Integer.parseInt(starShlokas.get(3).getNum()));
 
-            if (i % 4 == 0) {
-                lstShlokas = new ArrayList<String>();
-                lstShlokas.add(shlokas.get(i).getFormattedShloka());
-                nakshatraName = nakshatraListIter.next();
-                nakshatraName2Shlokas.put(nakshatraName, lstShlokas);
-                System.out.println("nakshatraName:" + nakshatraName + " -> " + " shloka: " + lstShlokas);
-                continue;
+            final List<String> stringShlokas = new ArrayList<String>();
+            for (Shloka shloka : shlokaList) {
+                stringShlokas.add(shloka.getFormattedShloka());
             }
-
-            lstShlokas.add(shlokas.get(i).getFormattedShloka());
-            System.out.println("nakshatraName:" + nakshatraName + " -> " + " shloka: " + lstShlokas);
+            nakshatraName2Shlokas.put(star.getName(), stringShlokas);
         }
     }
 }

@@ -32,8 +32,7 @@ public class OmActivity extends ActionBarActivity {
 
     private static DataProvider dataProvider;
 
-    // more efficient than HashMap for mapping integers to objects
-    SparseArray<Group> groups = new SparseArray<Group>();
+    private SparseArray<Group> groups = new SparseArray<Group>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,6 @@ public class OmActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.om, menu);
         return true;
     }
@@ -54,9 +52,7 @@ public class OmActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
@@ -64,189 +60,7 @@ public class OmActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    private void setupLaunchMenu() {
-//        final ListView listview = (ListView) findViewById(R.id.listSahasranamaSections);
-//        final StableArrayAdapter adapter = new StableArrayAdapter(this,
-//                android.R.layout.simple_list_item_1, dataProvider.getSectionNames());
-//        listview.setAdapter(adapter);
-//
-//        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, final View view,
-//                                    int position, long id) {
-//                final String item = (String) parent.getItemAtPosition(position);
-//                view.animate().setDuration(100).alpha(0)
-//                        .withEndAction(new Runnable() {
-//                            @Override
-//                            public void run() {
-//
-//                                adapter.notifyDataSetChanged();
-//
-//                                launchActivity();
-//
-//                                view.setAlpha(1);
-//                            }
-//
-//                            private void launchActivity() {
-//
-//                                if (item.equals("ThousandNames")) {
-//
-//                                    Intent intent = new Intent(OmActivity.this, ThousandNamesFragment.class);
-//                                    startActivity(intent);
-//
-//                                } else if (item.equals("ThousandNamesByBirthStars")) {
-//
-//                                    Intent intent = new Intent(OmActivity.this, BirthStarsFragment.class);
-//                                    startActivity(intent);
-//
-//                                } else if (item.equals("ThousandNamesByGods")) {
-//
-//                                    Intent intent = new Intent(OmActivity.this, ThousandNamesFragment.class);
-//                                    startActivity(intent);
-//
-//                                } else if (item.equals("History")) {
-//
-//                                    Intent intent = new Intent(OmActivity.this, HistoryFragment.class);
-//                                    startActivity(intent);
-//
-//                                } else {
-//
-//                                    Intent intent = new Intent(OmActivity.this, ScreenSlideActivity.class);
-//                                    intent.putExtra("sectionName", item);
-//                                    startActivity(intent);
-//
-//                                }
-//                            }
-//                        });
-//            }
-//
-//        });
-//    }
-
-    private class DataProviderTask extends AsyncTask<AssetManager, Void, Long> {
-
-        protected void onProgressUpdate(Integer... progress) {
-        }
-
-        protected void onPostExecute(Long result) {
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    createData();
-                }
-            });
-            System.out.println("Finished launching main-menu");
-        }
-
-        @Override
-        protected Long doInBackground(AssetManager... assetManagers) {
-
-            dataProvider = new DataProvider(getAssets());
-            System.out.println("Finished background task execution");
-            return 1l;
-        }
-    }
-
-    public void createData() {
-
-        final Collection<String> sectionNames = DataProvider.getSahasranama().getSectionNames();
-        Group group = new Group("Sahasranama Explained");
-        for (String secName : sectionNames) {
-            group.children.add(secName);
-        }
-        groups.append(0, group);
-
-        final Collection<String> stars = DataProvider.getBirthStarToShloka().keySet();
-        group = new Group("Birth Star Shlokas");
-        for (String secName : stars) {
-            group.children.add(secName);
-        }
-        groups.append(1, group);
-
-        final Collection<String> dashavataras = DataProvider.getDashavataraList();
-        group = new Group("Dashaavathara Shlokas");
-        for (String dashavatara : dashavataras) {
-            group.children.add(dashavatara);
-        }
-        groups.append(2, group);
-
-        final Collection<String> sahasranamas = DataProvider.getThousandNames().getLstStringNamas();
-        group = new Group("1000 Names");
-        for (String name : sahasranamas) {
-            group.children.add(name);
-        }
-        groups.append(3, group);
-
-        ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
-        MyExpandableListAdapter adapter1 = new MyExpandableListAdapter(this,
-                groups);
-        listView.setAdapter(adapter1);
-
-
-//        final ListView listview = (ListView) findViewById(R.id.listSahasranamaSections);
-//        final List<String> list = new ArrayList<String>();
-//        list.add("ThousandNames");
-//        final StableArrayAdapter adapter = new StableArrayAdapter(this,
-//                android.R.layout.simple_list_item_1, list);
-//        listview.setAdapter(adapter);
-
-//        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, final View view,
-//                                    int position, long id) {
-//                final String item = (String) parent.getItemAtPosition(position);
-//                view.animate().setDuration(100).alpha(0)
-//                        .withEndAction(new Runnable() {
-//                            @Override
-//                            public void run() {
-//
-//                                adapter.notifyDataSetChanged();
-//
-//                                launchActivity();
-//
-//                                view.setAlpha(1);
-//                            }
-//
-//                            private void launchActivity() {
-//
-//                                if (item.equals("ThousandNames")) {
-//
-//                                    Intent intent = new Intent(OmActivity.this, ThousandNamesFragment.class);
-//                                    startActivity(intent);
-//
-//                                } else if (item.equals("ThousandNamesByBirthStars")) {
-//
-//                                    Intent intent = new Intent(OmActivity.this, BirthStarsFragment.class);
-//                                    startActivity(intent);
-//
-//                                } else if (item.equals("ThousandNamesByGods")) {
-//
-//                                    Intent intent = new Intent(OmActivity.this, ThousandNamesFragment.class);
-//                                    startActivity(intent);
-//
-//                                } else if (item.equals("History")) {
-//
-//                                    Intent intent = new Intent(OmActivity.this, HistoryFragment.class);
-//                                    startActivity(intent);
-//
-//                                } else {
-//
-//                                    Intent intent = new Intent(OmActivity.this, ScreenSlideActivity.class);
-//                                    intent.putExtra("sectionName", item);
-//                                    startActivity(intent);
-//
-//                                }
-//                            }
-//                        });
-//            }
-//
-//        });
-
-
-    }
-
-    class MyExpandableListAdapter extends BaseExpandableListAdapter {
+    private class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
         private final SparseArray<Group> groups;
         public LayoutInflater inflater;
@@ -275,35 +89,11 @@ public class OmActivity extends ActionBarActivity {
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.activity_main_listrow_details, null);
             }
+
             final TextView text = (TextView) convertView.findViewById(R.id.textView1);
             text.setText(children);
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(activity, children,
-                            Toast.LENGTH_SHORT).show();
 
-                    if (groupPosition == 1) {
-                        System.out.println("nakshatra -> " + children);
-                        System.out.println("shlokas -> " + DataProvider.getBirthStarToShloka().get(children));
-
-                        Intent intent = new Intent(OmActivity.this, BirthStarsShlokaFragment.class);
-                        intent.putExtra("nakshatraName", children);
-                        startActivity(intent);
-                    } else if (children.equals("History")) {
-
-                        Intent intent = new Intent(OmActivity.this, HistoryFragment.class);
-                        startActivity(intent);
-
-                    } else {
-
-                        Intent intent = new Intent(OmActivity.this, ScreenSlideActivity.class);
-                        intent.putExtra("sectionName", children);
-                        startActivity(intent);
-
-                    }
-                }
-            });
+            convertView.setOnClickListener(mainMenuClickListener(groupPosition, children));
             return convertView;
         }
 
@@ -357,8 +147,113 @@ public class OmActivity extends ActionBarActivity {
         public boolean isChildSelectable(int groupPosition, int childPosition) {
             return false;
         }
+
+        private View.OnClickListener mainMenuClickListener(final int groupPosition, final String children) {
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Toast.makeText(activity, children,
+                            Toast.LENGTH_SHORT).show();
+
+                    if (groupPosition == 0) {
+
+                        if (children.equals("History")) {
+
+                            Intent intent = new Intent(OmActivity.this, HistoryFragment.class);
+                            startActivity(intent);
+
+                            return;
+                        }
+
+                        Intent intent = new Intent(OmActivity.this, ScreenSlideActivity.class);
+                        intent.putExtra("sectionName", children);
+                        startActivity(intent);
+
+                    }
+
+                    if (groupPosition == 1) {
+
+                        System.out.println("nakshatra -> " + children);
+                        System.out.println("shlokas -> " + DataProvider.getBirthStarToShloka().get(children));
+
+                        Intent intent = new Intent(OmActivity.this, BirthStarsShlokaFragment.class);
+                        intent.putExtra("nakshatraName", children);
+                        startActivity(intent);
+
+                        return;
+                    }
+
+
+                    if (groupPosition == 2) {
+                    }
+
+                    if (groupPosition == 3) {
+                    }
+                }
+            };
+        }
     }
 
+    private class DataProviderTask extends AsyncTask<AssetManager, Void, Long> {
+
+        protected void onProgressUpdate(Integer... progress) {
+        }
+
+        protected void onPostExecute(Long result) {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    createMainMenu();
+                }
+            });
+            System.out.println("Finished launching main-menu");
+        }
+
+        @Override
+        protected Long doInBackground(AssetManager... assetManagers) {
+
+            dataProvider = new DataProvider(getAssets());
+            System.out.println("Finished background task execution");
+            return 1l;
+        }
+    }
+
+    private void createMainMenu() {
+
+        final Collection<String> sectionNames = DataProvider.getSahasranama().getSectionNames();
+        Group group = new Group(MainMenuGroupName.SAHASRANAMA_EXPLAINED.toString());
+        for (String secName : sectionNames) {
+            group.children.add(secName);
+        }
+        groups.append(MainMenuGroupName.SAHASRANAMA_EXPLAINED.ordinal(), group);
+
+        final Collection<String> stars = DataProvider.getBirthStarToShloka().keySet();
+        group = new Group(MainMenuGroupName.BIRTH_STAR_SHLOKAS.toString());
+        for (String starName : stars) {
+            group.children.add(starName);
+        }
+        groups.append(MainMenuGroupName.BIRTH_STAR_SHLOKAS.ordinal(), group);
+
+        final Collection<String> dashavataras = DataProvider.getDashavataraList();
+        group = new Group(MainMenuGroupName.DASHAAVATARA_SHLOKAS.toString());
+        for (String dashavatara : dashavataras) {
+            group.children.add(dashavatara);
+        }
+        groups.append(MainMenuGroupName.DASHAAVATARA_SHLOKAS.ordinal(), group);
+
+        final Collection<String> sahasranamas = DataProvider.getThousandNames().getLstStringNamas();
+        group = new Group(MainMenuGroupName.NAMES_1000.toString());
+        for (String name : sahasranamas) {
+            group.children.add(name);
+        }
+        groups.append(MainMenuGroupName.NAMES_1000.ordinal(), group);
+
+        ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
+        MyExpandableListAdapter adapter1 = new MyExpandableListAdapter(this,
+                groups);
+        listView.setAdapter(adapter1);
+
+    }
 
 }
 

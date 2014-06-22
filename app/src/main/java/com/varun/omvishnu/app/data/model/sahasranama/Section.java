@@ -26,7 +26,7 @@ public class Section {
     private String num;
 
 
-    private Map<String, Shloka> mapShlName2Shl = new HashMap<String, Shloka>();
+    private Map<String, Shloka> mapShlokaNum2Shloka = new HashMap<String, Shloka>();
 
     public Section() {
     }
@@ -51,18 +51,22 @@ public class Section {
         return shlokaList;
     }
 
+    public List<Shloka> getShlokaList(int startRange, int endRange) {
+        return shlokaList.subList(startRange, endRange);
+    }
+
     public void setShlokaList(List<Shloka> shlokaList) {
         this.shlokaList = shlokaList;
     }
 
     public Shloka getShloka(String shlokaNum) {
 
-        if (mapShlName2Shl.keySet().isEmpty())
+        if (mapShlokaNum2Shloka.keySet().isEmpty())
             for (Shloka shloka : this.shlokaList) {
-                mapShlName2Shl.put(shloka.getNum(), shloka);
+                mapShlokaNum2Shloka.put(shloka.getNum(), shloka);
             }
 
-        return mapShlName2Shl.get(shlokaNum);
+        return mapShlokaNum2Shloka.get(shlokaNum);
     }
 
     public String getNum() {
