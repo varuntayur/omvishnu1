@@ -41,7 +41,7 @@ public class Shloka {
     }
 
     public String getText() {
-        return text;
+        return text.replaceAll("[^\\S\\r\\n]+", " ");
     }
 
     public void setText(String text) {
@@ -49,7 +49,7 @@ public class Shloka {
     }
 
     public String getExplanation() {
-        return explanation;
+        return explanation.replaceAll("[^\\S\\r\\n]+", " ");
     }
 
     public void setExplanation(String explanation) {
@@ -57,10 +57,10 @@ public class Shloka {
     }
 
     public String getFormattedShlokaText() {
-        return String.format("%s\n", text);
+        return String.format("%s\n", getText());
     }
 
     public String getFormattedShloka() {
-        return String.format("%s\n%s\n", text, explanation);
+        return String.format("%s\n%s\n", getText(), getExplanation());
     }
 }
