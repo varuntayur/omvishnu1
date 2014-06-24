@@ -207,6 +207,7 @@ public class OmActivity extends ActionBarActivity {
                 }
             });
             System.out.println("Finished launching main-menu");
+
         }
 
         @Override
@@ -252,6 +253,7 @@ public class OmActivity extends ActionBarActivity {
         MyExpandableListAdapter adapter1 = new MyExpandableListAdapter(this,
                 groups);
         listView.setAdapter(adapter1);
+        listView.expandGroup(0);
 
     }
 

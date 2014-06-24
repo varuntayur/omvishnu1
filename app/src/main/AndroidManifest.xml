@@ -39,15 +39,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity
-            android:name=".birthstars.BirthStarsFragment"
-            android:label="@string/title_screen_slide"
-            android:parentActivityName=".home.OmActivity"
-            android:uiOptions="splitActionBarWhenNarrow" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
 
         <activity
             android:name=".birthstars.BirthStarsShlokaFragment"
