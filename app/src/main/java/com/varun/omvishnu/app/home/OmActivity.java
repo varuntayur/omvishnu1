@@ -156,7 +156,7 @@ public class OmActivity extends ActionBarActivity {
                     Toast.makeText(activity, children,
                             Toast.LENGTH_SHORT).show();
 
-                    if (groupPosition == 0) {
+                    if (groupPosition == MainMenuGroupName.SAHASRANAMA_EXPLAINED.ordinal()) {
 
                         if (children.equals("History")) {
 
@@ -172,7 +172,7 @@ public class OmActivity extends ActionBarActivity {
 
                     }
 
-                    if (groupPosition == 1) {
+                    if (groupPosition == MainMenuGroupName.BIRTH_STAR_SHLOKAS.ordinal()) {
 
                         System.out.println("nakshatra -> " + children);
                         System.out.println("shlokas -> " + DataProvider.getBirthStarToShloka().get(children));
@@ -185,10 +185,10 @@ public class OmActivity extends ActionBarActivity {
                     }
 
 
-                    if (groupPosition == 2) {
+                    if (groupPosition == MainMenuGroupName.DASHAAVATARA_SHLOKAS.ordinal()) {
                     }
 
-                    if (groupPosition == 3) {
+                    if (groupPosition == MainMenuGroupName.NAMES_1000.ordinal()) {
                     }
                 }
             };
@@ -235,7 +235,7 @@ public class OmActivity extends ActionBarActivity {
         }
         groups.append(MainMenuGroupName.BIRTH_STAR_SHLOKAS.ordinal(), group);
 
-        final Collection<String> dashavataras = DataProvider.getDashavataraList();
+        final Collection<String> dashavataras = DataProvider.getDashavatara2Shlokas().keySet();
         group = new Group(MainMenuGroupName.DASHAAVATARA_SHLOKAS.toString());
         for (String dashavatara : dashavataras) {
             group.children.add(dashavatara);

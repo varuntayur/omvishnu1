@@ -2,6 +2,8 @@ package com.varun.omvishnu.app.data;
 
 import android.content.res.AssetManager;
 
+import com.varun.omvishnu.app.data.model.avataras.Avatara;
+import com.varun.omvishnu.app.data.model.avataras.Avataras;
 import com.varun.omvishnu.app.data.model.birthstars.BirthStars;
 import com.varun.omvishnu.app.data.model.birthstars.Star;
 import com.varun.omvishnu.app.data.model.names.ThousandNames;
@@ -15,7 +17,6 @@ import org.simpleframework.xml.core.Persister;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,11 +34,11 @@ public class DataProvider {
 
     private static BirthStars birthstars;
 
-    private static List<String> nakshatraList = new ArrayList<String>(Arrays.asList("ashwini", "bharani", "krithika", "rohini", "mrigashirsha", "ardra", "punarvasu", "pushya", "ashlesha", "magha", "purvaphalguni", "uttaraphalguni", "hasta", "chitra", "swati", "vishakha", "anuradha", "jyeshtha", "mula", "purvaashadha", "uttaraashadha", "shravana", "dhanishtha", "shatabhisha", "purvabhadrapada", "uttarabhadrapada", "revati"));
-
-    private static List<String> dashavataraList = new ArrayList<String>(Arrays.asList("matsya", "koorma", "varaha", "narasimha", "vamana", "parashurama", "rama", "krishna", "buddha", "kalki"));
+    private static Avataras avataras;
 
     private static Map<String, List<String>> nakshatraName2Shlokas = new ConcurrentHashMap<String, List<String>>();
+
+    private static Map<String, List<String>> dashavatara2Shlokas = new ConcurrentHashMap<String, List<String>>();
 
     public DataProvider(AssetManager am) {
         this.am = am;
@@ -64,8 +65,16 @@ public class DataProvider {
             birthstars = serializer.read(BirthStars.class, inputStream);
             System.out.println("* Finished de-serializing the file - stars.xml *");
 
+            inputStream = am.open("db/avataras.xml");
+            serializer = new Persister();
+            avataras = serializer.read(Avataras.class, inputStream);
+            System.out.println("* Finished de-serializing the file - avataras.xml *");
+
             if (nakshatraName2Shlokas.isEmpty())
                 buildNakshatraToShlokaMap();
+
+            if (dashavatara2Shlokas.isEmpty())
+                buildDashavataraToShlokaMap();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,19 +97,11 @@ public class DataProvider {
         return nakshatraName2Shlokas;
     }
 
-    public static List<String> getDashavataraList() {
-        return dashavataraList;
+    public static Map<String, List<String>> getDashavatara2Shlokas() {
+        return dashavatara2Shlokas;
     }
 
-    public static List<String> getSectionNames() {
-        final List<String> list = new ArrayList<String>(getSahasranama().getSectionNames());
-        list.add("ThousandNames");
-        list.add("ThousandNamesByBirthStars");
-        list.add("ThousandNamesByGods");
-        return list;
-    }
-
-    private static void buildNakshatraToShlokaMap() {
+    private void buildNakshatraToShlokaMap() {
 
         Section sahasranama = getSahasranama().getSection("Sahasranama");
 
@@ -115,5 +116,23 @@ public class DataProvider {
             }
             nakshatraName2Shlokas.put(star.getName(), stringShlokas);
         }
+    }
+
+    private void buildDashavataraToShlokaMap() {
+
+        Section sahasranama = getSahasranama().getSection("Sahasranama");
+
+        for (Avatara avatara : avataras.getLstAvataras()) {
+
+            final List<Shloka> avataraShlokas = avatara.getShlokas();
+            final List<Shloka> shlokaList = sahasranama.getShlokaList(Integer.parseInt(avataraShlokas.get(0).getNum()), Integer.parseInt(avataraShlokas.get(3).getNum()));
+
+            final List<String> stringShlokas = new ArrayList<String>();
+            for (Shloka shloka : shlokaList) {
+                stringShlokas.add(shloka.getFormattedShloka());
+            }
+            dashavatara2Shlokas.put(avatara.getName(), stringShlokas);
+        }
+
     }
 }
