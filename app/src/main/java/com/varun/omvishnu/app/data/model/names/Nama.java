@@ -3,11 +3,13 @@ package com.varun.omvishnu.app.data.model.names;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+import java.io.Serializable;
+
 /**
  * Created by varuntayur on 5/19/2014.
  */
 @Root
-public class Nama {
+public class Nama implements Serializable {
 
     @Element(required = true)
     private String name;

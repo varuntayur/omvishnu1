@@ -3,6 +3,7 @@ package com.varun.omvishnu.app.data.model.names;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by varuntayur on 5/19/2014.
  */
 @Root
-public class ThousandNames {
+public class ThousandNames implements Serializable {
 
     @ElementList(inline = true, name = "shloka")
     private List<Nama> lstNamas;

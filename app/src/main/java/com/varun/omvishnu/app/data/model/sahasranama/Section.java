@@ -4,6 +4,7 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
  * Created by varuntayur on 4/5/2014.
  */
 @Root
-public class Section {
+public class Section implements Serializable {
 
 
     @Attribute(name = "name")

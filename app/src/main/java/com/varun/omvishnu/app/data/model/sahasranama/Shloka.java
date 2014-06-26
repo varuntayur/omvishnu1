@@ -4,11 +4,13 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+import java.io.Serializable;
+
 /**
  * Created by varuntayur on 4/5/2014.
  */
 @Root
-public class Shloka {
+public class Shloka implements Serializable {
 
 
     @Attribute

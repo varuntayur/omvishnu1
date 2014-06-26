@@ -3,6 +3,7 @@ package com.varun.omvishnu.app.data.model.sahasranama;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Map;
  * Created by varuntayur on 4/5/2014.
  */
 @Root
-public class Sahasranama {
+public class Sahasranama implements Serializable {
 
     @ElementList(inline = true, name = "section")
     List<Section> sections;

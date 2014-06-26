@@ -30,9 +30,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.varun.omvishnu.app.R;
-import com.varun.omvishnu.app.data.DataProvider;
-import com.varun.omvishnu.app.data.model.sahasranama.Sahasranama;
+import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 import com.varun.omvishnu.app.home.OmActivity;
+
+import java.util.List;
 
 /**
  * Demonstrates a "screen-slide" animation using a {@link android.support.v4.view.ViewPager}. Because {@link android.support.v4.view.ViewPager}
@@ -43,9 +44,9 @@ import com.varun.omvishnu.app.home.OmActivity;
  * animating the current screen out (to the left) and the next screen in (from the right). The
  * reverse animation is played when the user presses the "previous" button.</p>
  *
- * @see ScreenSlidePageFragment
+ * @see ShlokaPageFragment
  */
-public class ScreenSlideActivity extends FragmentActivity {
+public class ShlokaSlideActivity extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
@@ -64,6 +65,8 @@ public class ScreenSlideActivity extends FragmentActivity {
 
     private String mSectionName;
 
+    private List<Shloka> mShlokas;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +74,6 @@ public class ScreenSlideActivity extends FragmentActivity {
         setContentView(R.layout.activity_screen_slide);
 
         System.out.println("-> Starting ScreenSlideActivity <-");
-        Sahasranama sahasranama =  DataProvider.getSahasranama(); //new DataProvider(getAssets()).getSahasranama();
-        System.out.println("* ScreenSlideActivity created - fetched sahasranama *" + sahasranama.toString().substring(0, 100));
 
         Typeface devnanagariTf = Typeface.createFromAsset(getAssets(), "fonts/droidsansdevanagari.ttf");
         System.out.println("-> ScreenSlideActivity created font typeface <-" + devnanagariTf);
@@ -80,7 +81,8 @@ public class ScreenSlideActivity extends FragmentActivity {
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mSectionName = getIntent().getStringExtra("sectionName");
-        mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager(), devnanagariTf, sahasranama, mSectionName);
+        mShlokas = (List<Shloka>) getIntent().getSerializableExtra("shlokaList");
+        mPagerAdapter = new ShlokaSlidePagerAdapter(mSectionName, mShlokas, getFragmentManager(), devnanagariTf);
         mPager.setAdapter(mPagerAdapter);
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -145,30 +147,30 @@ public class ScreenSlideActivity extends FragmentActivity {
     }
 
     /**
-     * A simple pager adapter that represents 5 {@link ScreenSlidePageFragment} objects, in
+     * A simple pager adapter that represents 5 {@link ShlokaPageFragment} objects, in
      * sequence.
      */
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+    private class ShlokaSlidePagerAdapter extends FragmentStatePagerAdapter {
 
         private final Typeface tf;
         private final String sectionName;
-        private Sahasranama sahasranama;
+        private List<Shloka> shlokas;
 
-        public ScreenSlidePagerAdapter(FragmentManager fm, Typeface tf, Sahasranama sahasranama, String sectionName) {
+        public ShlokaSlidePagerAdapter(String sectionName, List<Shloka> shlokas, FragmentManager fm, Typeface tf) {
             super(fm);
             this.tf = tf;
-            this.sahasranama = sahasranama;
+            this.shlokas = shlokas;
             this.sectionName = sectionName;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return new ScreenSlidePageFragment(tf, sahasranama, position, sectionName);
+            return new ShlokaPageFragment(sectionName, shlokas, position, tf);
         }
 
         @Override
         public int getCount() {
-            return this.sahasranama.getSection(sectionName).getShlokaList().size();
+            return shlokas.size();
         }
     }
 }

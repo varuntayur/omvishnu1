@@ -25,8 +25,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.varun.omvishnu.app.R;
-import com.varun.omvishnu.app.data.model.sahasranama.Sahasranama;
-import com.varun.omvishnu.app.data.model.sahasranama.Section;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 
 import java.util.List;
@@ -36,9 +34,9 @@ import java.util.List;
  * the page number, along with some dummy text.
  * <p/>
  * <p>This class is used by the {} and {@link
- * ScreenSlideActivity} samples.</p>
+ * ShlokaSlideActivity} samples.</p>
  */
-public class ScreenSlidePageFragment extends Fragment {
+public class ShlokaPageFragment extends Fragment {
     /**
      * The argument key for the page number this fragment represents.
      */
@@ -46,19 +44,16 @@ public class ScreenSlidePageFragment extends Fragment {
 
     private String sectionName;
 
-    private Sahasranama sahasranama;
+    private List<Shloka> shlokas;
 
-    /**
-     * The fragment's page number, which is set to the argument value for {@link #ARG_PAGE}.
-     */
     private int mPageNumber;
 
-    public ScreenSlidePageFragment(){
+    public ShlokaPageFragment() {
 
     }
 
-    public ScreenSlidePageFragment(Typeface tf, Sahasranama sahasranama, int position, String sectionName) {
-        this.sahasranama = sahasranama;
+    public ShlokaPageFragment(String sectionName, List<Shloka> shlokas, int position, Typeface tf) {
+        this.shlokas = shlokas;
         this.devanagariTf = tf;
         this.mPageNumber = position;
         this.sectionName = sectionName;
@@ -76,16 +71,13 @@ public class ScreenSlidePageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.fragment_screen_slide_page, container, false);
 
-        Section section = sahasranama.getSection(this.sectionName);
-
-        ((TextView) rootView.findViewById(R.id.sectiontitle)).setText(
-                section.getName());
+        ((TextView) rootView.findViewById(R.id.sectiontitle)).setText(sectionName);
 
         TextView viewById = (TextView) rootView.findViewById(R.id.shlokatext);
 
         viewById.setTypeface(devanagariTf);
 
-        final List<Shloka> shlokaList = section.getShlokaList();
+        final List<Shloka> shlokaList = shlokas;
 
         viewById.setText(shlokaList.get(mPageNumber).getText());
 
@@ -99,6 +91,6 @@ public class ScreenSlidePageFragment extends Fragment {
      * Returns the page number represented by this fragment object.
      */
     public int getPageNumber() {
-        return sahasranama.getSection(this.sectionName).getShlokaList().size();
+        return shlokas.size();
     }
 }

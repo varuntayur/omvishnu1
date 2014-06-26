@@ -5,12 +5,13 @@ import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by varuntayur on 6/22/2014.
  */
-public class Avatara {
+public class Avatara implements Serializable {
 
     @Attribute(name = "name")
     private String name;

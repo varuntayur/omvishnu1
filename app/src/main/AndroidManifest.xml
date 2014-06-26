@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".indetail.ScreenSlideActivity"
+            android:name=".indetail.ShlokaSlideActivity"
             android:label="@string/title_screen_slide"
             android:parentActivityName=".home.OmActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
@@ -32,16 +32,6 @@
 
         <activity
             android:name=".thousandnames.ThousandNamesFragment"
-            android:label="@string/title_screen_slide"
-            android:parentActivityName=".home.OmActivity"
-            android:uiOptions="splitActionBarWhenNarrow" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-
-        <activity
-            android:name=".birthstars.BirthStarsShlokaFragment"
             android:label="@string/title_screen_slide"
             android:parentActivityName=".home.OmActivity"
             android:uiOptions="splitActionBarWhenNarrow" >

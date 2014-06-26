@@ -36,9 +36,9 @@ public class DataProvider {
 
     private static Avataras avataras;
 
-    private static Map<String, List<String>> nakshatraName2Shlokas = new ConcurrentHashMap<String, List<String>>();
+    private static Map<String, List<Shloka>> nakshatraName2Shlokas = new ConcurrentHashMap<String, List<Shloka>>();
 
-    private static Map<String, List<String>> dashavatara2Shlokas = new ConcurrentHashMap<String, List<String>>();
+    private static Map<String, List<Shloka>> avatara2Shlokas = new ConcurrentHashMap<String, List<Shloka>>();
 
     public DataProvider(AssetManager am) {
         this.am = am;
@@ -73,7 +73,7 @@ public class DataProvider {
             if (nakshatraName2Shlokas.isEmpty())
                 buildNakshatraToShlokaMap();
 
-            if (dashavatara2Shlokas.isEmpty())
+            if (avatara2Shlokas.isEmpty())
                 buildDashavataraToShlokaMap();
 
         } catch (IOException e) {
@@ -93,12 +93,20 @@ public class DataProvider {
         return thousandNames;
     }
 
-    public static Map<String, List<String>> getBirthStarToShloka() {
+    public static Map<String, List<Shloka>> getBirthStarToShloka() {
         return nakshatraName2Shlokas;
     }
 
-    public static Map<String, List<String>> getDashavatara2Shlokas() {
-        return dashavatara2Shlokas;
+    public static List<Shloka> getShlokasForBirthStar(String name) {
+        return new ArrayList<Shloka>(nakshatraName2Shlokas.get(name));
+    }
+
+    public static Map<String, List<Shloka>> getAvatara2Shlokas() {
+        return avatara2Shlokas;
+    }
+
+    public static List<Shloka> getShlokaForAvatara(String name) {
+        return new ArrayList<Shloka>(avatara2Shlokas.get(name));
     }
 
     private void buildNakshatraToShlokaMap() {
@@ -108,13 +116,11 @@ public class DataProvider {
         for (Star star : birthstars.getLstStars()) {
 
             final List<Shloka> starShlokas = star.getShlokas();
-            final List<Shloka> shlokaList = sahasranama.getShlokaList(Integer.parseInt(starShlokas.get(0).getNum()), Integer.parseInt(starShlokas.get(3).getNum()));
+            int startIndex = 0;
+            int lastIndex = starShlokas.size();
+            final List<Shloka> shlokaList = sahasranama.getShlokaList(startIndex, lastIndex);
 
-            final List<String> stringShlokas = new ArrayList<String>();
-            for (Shloka shloka : shlokaList) {
-                stringShlokas.add(shloka.getFormattedShloka());
-            }
-            nakshatraName2Shlokas.put(star.getName(), stringShlokas);
+            nakshatraName2Shlokas.put(star.getName(), shlokaList);
         }
     }
 
@@ -125,13 +131,11 @@ public class DataProvider {
         for (Avatara avatara : avataras.getLstAvataras()) {
 
             final List<Shloka> avataraShlokas = avatara.getShlokas();
-            final List<Shloka> shlokaList = sahasranama.getShlokaList(Integer.parseInt(avataraShlokas.get(0).getNum()), Integer.parseInt(avataraShlokas.get(3).getNum()));
+            int startIndex = 0;
+            int lastIndex = avataraShlokas.size();
+            final List<Shloka> shlokaList = sahasranama.getShlokaList(startIndex, lastIndex);
 
-            final List<String> stringShlokas = new ArrayList<String>();
-            for (Shloka shloka : shlokaList) {
-                stringShlokas.add(shloka.getFormattedShloka());
-            }
-            dashavatara2Shlokas.put(avatara.getName(), stringShlokas);
+            avatara2Shlokas.put(avatara.getName(), shlokaList);
         }
 
     }

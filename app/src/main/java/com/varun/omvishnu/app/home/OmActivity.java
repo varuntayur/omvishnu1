@@ -19,12 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.varun.omvishnu.app.R;
-import com.varun.omvishnu.app.birthstars.BirthStarsShlokaFragment;
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.model.home.Group;
 import com.varun.omvishnu.app.history.HistoryFragment;
-import com.varun.omvishnu.app.indetail.ScreenSlideActivity;
+import com.varun.omvishnu.app.indetail.ShlokaSlideActivity;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 
@@ -166,8 +166,9 @@ public class OmActivity extends ActionBarActivity {
                             return;
                         }
 
-                        Intent intent = new Intent(OmActivity.this, ScreenSlideActivity.class);
+                        Intent intent = new Intent(OmActivity.this, ShlokaSlideActivity.class);
                         intent.putExtra("sectionName", children);
+                        intent.putExtra("shlokaList", (Serializable) DataProvider.getSahasranama().getSection(children).getShlokaList());
                         startActivity(intent);
 
                     }
@@ -175,10 +176,11 @@ public class OmActivity extends ActionBarActivity {
                     if (groupPosition == MainMenuGroupName.BIRTH_STAR_SHLOKAS.ordinal()) {
 
                         System.out.println("nakshatra -> " + children);
-                        System.out.println("shlokas -> " + DataProvider.getBirthStarToShloka().get(children));
+                        System.out.println("shlokas -> " + DataProvider.getShlokasForBirthStar(children));
 
-                        Intent intent = new Intent(OmActivity.this, BirthStarsShlokaFragment.class);
-                        intent.putExtra("nakshatraName", children);
+                        Intent intent = new Intent(OmActivity.this, ShlokaSlideActivity.class);
+                        intent.putExtra("sectionName", children);
+                        intent.putExtra("shlokaList", (Serializable) DataProvider.getShlokasForBirthStar(children));
                         startActivity(intent);
 
                         return;
@@ -186,6 +188,16 @@ public class OmActivity extends ActionBarActivity {
 
 
                     if (groupPosition == MainMenuGroupName.DASHAAVATARA_SHLOKAS.ordinal()) {
+
+                        System.out.println("avatara -> " + children);
+                        System.out.println("shlokas -> " + DataProvider.getShlokaForAvatara(children));
+
+                        Intent intent = new Intent(OmActivity.this, ShlokaSlideActivity.class);
+                        intent.putExtra("sectionName", children);
+                        intent.putExtra("shlokaList", (Serializable) DataProvider.getShlokaForAvatara(children));
+                        startActivity(intent);
+
+                        return;
                     }
 
                     if (groupPosition == MainMenuGroupName.NAMES_1000.ordinal()) {
@@ -235,7 +247,7 @@ public class OmActivity extends ActionBarActivity {
         }
         groups.append(MainMenuGroupName.BIRTH_STAR_SHLOKAS.ordinal(), group);
 
-        final Collection<String> dashavataras = DataProvider.getDashavatara2Shlokas().keySet();
+        final Collection<String> dashavataras = DataProvider.getAvatara2Shlokas().keySet();
         group = new Group(MainMenuGroupName.DASHAAVATARA_SHLOKAS.toString());
         for (String dashavatara : dashavataras) {
             group.children.add(dashavatara);
