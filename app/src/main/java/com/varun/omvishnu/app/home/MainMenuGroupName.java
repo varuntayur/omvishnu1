@@ -5,7 +5,7 @@ package com.varun.omvishnu.app.home;
  */
 public enum MainMenuGroupName {
 
-    SAHASRANAMA_EXPLAINED("Sahasranama Explained"), BIRTH_STAR_SHLOKAS("Birth Star Shlokas"), DASHAAVATARA_SHLOKAS("Dashaavathara Shlokas"), NAMES_1000("1000 Names");
+    SAHASRANAMA_EXPLAINED("Sahasranama Explained"), BIRTH_STAR_SHLOKAS("Birth Star Shlokas"), AVATARA_SHLOKAS("Avathara Shlokas"), NAMES_1000("1000 Names");
 
     private String menu;
 

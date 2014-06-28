@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.model.home.Group;
-import com.varun.omvishnu.app.history.HistoryFragment;
 import com.varun.omvishnu.app.indetail.ShlokaSlideActivity;
 
 import java.io.Serializable;
@@ -158,14 +157,6 @@ public class OmActivity extends ActionBarActivity {
 
                     if (groupPosition == MainMenuGroupName.SAHASRANAMA_EXPLAINED.ordinal()) {
 
-                        if (children.equals("History")) {
-
-                            Intent intent = new Intent(OmActivity.this, HistoryFragment.class);
-                            startActivity(intent);
-
-                            return;
-                        }
-
                         Intent intent = new Intent(OmActivity.this, ShlokaSlideActivity.class);
                         intent.putExtra("sectionName", children);
                         intent.putExtra("shlokaList", (Serializable) DataProvider.getSahasranama().getSection(children).getShlokaList());
@@ -187,7 +178,7 @@ public class OmActivity extends ActionBarActivity {
                     }
 
 
-                    if (groupPosition == MainMenuGroupName.DASHAAVATARA_SHLOKAS.ordinal()) {
+                    if (groupPosition == MainMenuGroupName.AVATARA_SHLOKAS.ordinal()) {
 
                         System.out.println("avatara -> " + children);
                         System.out.println("shlokas -> " + DataProvider.getShlokaForAvatara(children));
@@ -248,11 +239,11 @@ public class OmActivity extends ActionBarActivity {
         groups.append(MainMenuGroupName.BIRTH_STAR_SHLOKAS.ordinal(), group);
 
         final Collection<String> dashavataras = DataProvider.getAvatara2Shlokas().keySet();
-        group = new Group(MainMenuGroupName.DASHAAVATARA_SHLOKAS.toString());
+        group = new Group(MainMenuGroupName.AVATARA_SHLOKAS.toString());
         for (String dashavatara : dashavataras) {
             group.children.add(dashavatara);
         }
-        groups.append(MainMenuGroupName.DASHAAVATARA_SHLOKAS.ordinal(), group);
+        groups.append(MainMenuGroupName.AVATARA_SHLOKAS.ordinal(), group);
 
         final Collection<String> sahasranamas = DataProvider.getThousandNames().getLstStringNamas();
         group = new Group(MainMenuGroupName.NAMES_1000.toString());

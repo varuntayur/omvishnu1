@@ -6,6 +6,7 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class Avatara implements Serializable {
     @Attribute(name = "num")
     private String num;
 
-    @ElementList(inline = true, name = "shloka")
+    @ElementList(inline = true, name = "shloka", required = false)
     private List<Shloka> shlokas;
 
     public String getNum() {
@@ -39,6 +40,9 @@ public class Avatara implements Serializable {
     }
 
     public List<Shloka> getShlokas() {
+
+        if (shlokas == null) return Collections.EMPTY_LIST;
+
         return shlokas;
     }
 

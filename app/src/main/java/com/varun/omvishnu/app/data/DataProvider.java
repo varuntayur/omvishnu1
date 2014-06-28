@@ -17,6 +17,7 @@ import org.simpleframework.xml.core.Persister;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -74,7 +75,7 @@ public class DataProvider {
                 buildNakshatraToShlokaMap();
 
             if (avatara2Shlokas.isEmpty())
-                buildDashavataraToShlokaMap();
+                buildAvataraToShlokaMap();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -116,24 +117,31 @@ public class DataProvider {
         for (Star star : birthstars.getLstStars()) {
 
             final List<Shloka> starShlokas = star.getShlokas();
-            int startIndex = 0;
-            int lastIndex = starShlokas.size();
-            final List<Shloka> shlokaList = sahasranama.getShlokaList(startIndex, lastIndex);
+            List<Shloka> shlokaList = Collections.EMPTY_LIST;
+            if (!starShlokas.isEmpty()) {
+
+                int startIndex = Integer.parseInt(starShlokas.get(0).getNum());
+                int lastIndex = Integer.parseInt(starShlokas.get(starShlokas.size() - 1).getNum());
+                shlokaList = sahasranama.getShlokaList(startIndex, lastIndex);
+            }
 
             nakshatraName2Shlokas.put(star.getName(), shlokaList);
         }
     }
 
-    private void buildDashavataraToShlokaMap() {
+    private void buildAvataraToShlokaMap() {
 
         Section sahasranama = getSahasranama().getSection("Sahasranama");
 
         for (Avatara avatara : avataras.getLstAvataras()) {
 
             final List<Shloka> avataraShlokas = avatara.getShlokas();
-            int startIndex = 0;
-            int lastIndex = avataraShlokas.size();
-            final List<Shloka> shlokaList = sahasranama.getShlokaList(startIndex, lastIndex);
+
+            final List<Shloka> shlokaList = new ArrayList<Shloka>();
+
+            for (Shloka shloka : avataraShlokas) {
+                shlokaList.add(sahasranama.getShloka(shloka.getNum()));
+            }
 
             avatara2Shlokas.put(avatara.getName(), shlokaList);
         }

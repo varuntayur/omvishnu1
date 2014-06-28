@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class Shloka implements Serializable {
 
 
+    public static final String EMPTY_STRING = "";
     @Attribute
     private String num;
 
@@ -43,7 +44,9 @@ public class Shloka implements Serializable {
     }
 
     public String getText() {
-        return text.replaceAll("[^\\S\\r\\n]+", " ");
+        if (text != null)
+            return text.replaceAll("[^\\S\\r\\n]+", " ");
+        return EMPTY_STRING;
     }
 
     public void setText(String text) {
