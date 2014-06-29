@@ -91,8 +91,9 @@ public class OmActivity extends ActionBarActivity {
 
             final TextView text = (TextView) convertView.findViewById(R.id.textView1);
             text.setText(children);
+            text.setCompoundDrawablesWithIntrinsicBounds(DataProvider.getMenuName2Resource(children), 0, 0, 0);
 
-            convertView.setOnClickListener(mainMenuClickListener(groupPosition, children));
+            convertView.setOnClickListener(mainMenuClickListener(groupPosition, children, text));
             return convertView;
         }
 
@@ -133,8 +134,10 @@ public class OmActivity extends ActionBarActivity {
                 convertView = inflater.inflate(R.layout.activity_main_listrow_group, null);
             }
             Group group = (Group) getGroup(groupPosition);
-            ((CheckedTextView) convertView).setText(group.string);
-            ((CheckedTextView) convertView).setChecked(isExpanded);
+            final CheckedTextView checkedView = (CheckedTextView) convertView;
+            checkedView.setText(group.string);
+            checkedView.setChecked(isExpanded);
+//            checkedView.setCompoundDrawablesWithIntrinsicBounds(isExpanded ? 0 : android.R.drawable.ic_menu_more, 0, isExpanded ? 0 : android.R.drawable.ic_menu_more, 0);
             return convertView;
         }
 
@@ -147,7 +150,7 @@ public class OmActivity extends ActionBarActivity {
             return false;
         }
 
-        private View.OnClickListener mainMenuClickListener(final int groupPosition, final String children) {
+        private View.OnClickListener mainMenuClickListener(final int groupPosition, final String children, View view) {
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

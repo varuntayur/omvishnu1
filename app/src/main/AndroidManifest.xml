@@ -27,28 +27,9 @@
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".home.OmActivity" />
         </activity>
 
-        <activity
-            android:name=".thousandnames.ThousandNamesFragment"
-            android:label="@string/title_screen_slide"
-            android:parentActivityName=".home.OmActivity"
-            android:uiOptions="splitActionBarWhenNarrow" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-
-        <activity
-            android:name=".history.HistoryFragment"
-            android:label="@string/title_screen_slide"
-            android:parentActivityName=".home.OmActivity"
-            android:uiOptions="splitActionBarWhenNarrow" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
 
     </application>
 

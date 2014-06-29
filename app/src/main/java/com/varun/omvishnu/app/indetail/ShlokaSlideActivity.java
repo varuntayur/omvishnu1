@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -139,8 +140,21 @@ public class ShlokaSlideActivity extends FragmentActivity {
             case R.string.action_finish:
                 // Navigate "up" the demo structure to the launchpad activity.
                 // See http://developer.android.com/design/patterns/navigation.html for more.
-                NavUtils.navigateUpTo(this, new Intent(this, OmActivity.class));
-                return true;
+//                NavUtils.navigateUpTo(this, new Intent(this, OmActivity.class));
+//                return true;
+                Intent upIntent = new Intent(this, OmActivity.class);
+                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                    // This activity is not part of the application's task, so create a new task
+                    // with a synthesized back stack.
+                    TaskStackBuilder.from(this)
+                            .addNextIntent(upIntent)
+                            .startActivities();
+                    finish();
+                } else {
+                    // This activity is part of the application's task, so simply
+                    // navigate up to the hierarchical parent activity.
+                    NavUtils.navigateUpTo(this, upIntent);
+                }
         }
 
         return super.onOptionsItemSelected(item);
