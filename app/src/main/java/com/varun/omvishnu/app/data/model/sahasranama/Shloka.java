@@ -54,7 +54,9 @@ public class Shloka implements Serializable {
     }
 
     public String getExplanation() {
-        return explanation.replaceAll("[^\\S\\r\\n]+", " ");
+        if (explanation != null)
+            return explanation.replaceAll("[^\\S\\r\\n]+", " ");
+        return explanation;
     }
 
     public void setExplanation(String explanation) {
