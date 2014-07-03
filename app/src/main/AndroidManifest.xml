@@ -12,8 +12,9 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".home.OmActivity"
+            android:name=".home.OmActivity" android:configChanges="orientation|screenSize"
             android:label="@string/app_name" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".indetail.ShlokaSlideActivity"
+            android:name=".detail.ShlokaSlideActivity"
             android:label="@string/title_screen_slide"
             android:parentActivityName=".home.OmActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
@@ -30,6 +31,35 @@
                 android:value=".home.OmActivity" />
         </activity>
 
+        <activity
+            android:name=".detail.BirthstarsFragment"
+            android:label="@string/title_screen_slide"
+            android:parentActivityName=".home.OmActivity"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home.OmActivity" />
+        </activity>
+
+        <activity
+            android:name=".detail.AvatarasFragment"
+            android:label="@string/title_screen_slide"
+            android:parentActivityName=".home.OmActivity"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home.OmActivity" />
+        </activity>
+
+        <activity
+            android:name=".detail.ThousandNamesFragment"
+            android:label="@string/title_screen_slide"
+            android:parentActivityName=".home.OmActivity"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home.OmActivity" />
+        </activity>
 
     </application>
 

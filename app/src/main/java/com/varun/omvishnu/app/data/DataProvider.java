@@ -11,6 +11,7 @@ import com.varun.omvishnu.app.data.model.names.ThousandNames;
 import com.varun.omvishnu.app.data.model.sahasranama.Sahasranama;
 import com.varun.omvishnu.app.data.model.sahasranama.Section;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
+import com.varun.omvishnu.app.home.SahasranamaMenuGroupName;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -47,7 +48,13 @@ public class DataProvider {
             put("History", R.drawable.history);
             put("Invocation", R.drawable.invocation);
             put("Dhyanam", R.drawable.dhyanam);
-            put("Sahasranama", R.drawable.vishwaroopa);
+
+            put(SahasranamaMenuGroupName.SAHASRANAMA_MENU_NAME.toString(), R.drawable.vishwaroopa);
+            put(SahasranamaMenuGroupName.IN_BRIEF.toString(), R.drawable.vishwaroopa);
+            put(SahasranamaMenuGroupName.BY_AVATARA.toString(), R.drawable.vishwaroopa);
+            put(SahasranamaMenuGroupName.DEEP_DIVE.toString(), R.drawable.vishwaroopa);
+            put(SahasranamaMenuGroupName.BY_BIRTH_STAR.toString(), R.drawable.star);
+
             put("Phala Shruthi", R.drawable.phalashruthi);
             put("Mangala", R.drawable.mangala);
 

@@ -1,30 +1,30 @@
 package com.varun.omvishnu.app.home;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckedTextView;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
+import com.varun.omvishnu.app.data.adapters.MyExpandableListAdapter;
+import com.varun.omvishnu.app.data.adapters.StableArrayAdapter;
 import com.varun.omvishnu.app.data.model.home.Group;
-import com.varun.omvishnu.app.indetail.ShlokaSlideActivity;
+import com.varun.omvishnu.app.detail.ShlokaSlideActivity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class OmActivity extends ActionBarActivity {
@@ -59,146 +59,8 @@ public class OmActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class MyExpandableListAdapter extends BaseExpandableListAdapter {
+    public void onConfigurationChanged() {
 
-        private final SparseArray<Group> groups;
-        public LayoutInflater inflater;
-        public Activity activity;
-
-        public MyExpandableListAdapter(Activity act, SparseArray<Group> groups) {
-            activity = act;
-            this.groups = groups;
-            inflater = act.getLayoutInflater();
-        }
-
-        @Override
-        public Object getChild(int groupPosition, int childPosition) {
-            return groups.get(groupPosition).children.get(childPosition);
-        }
-
-        @Override
-        public long getChildId(int groupPosition, int childPosition) {
-            return 0;
-        }
-
-        @Override
-        public View getChildView(final int groupPosition, final int childPosition,
-                                 boolean isLastChild, View convertView, ViewGroup parent) {
-            final String children = (String) getChild(groupPosition, childPosition);
-            if (convertView == null) {
-                convertView = inflater.inflate(R.layout.activity_main_listrow_details, null);
-            }
-
-            final TextView text = (TextView) convertView.findViewById(R.id.textView1);
-            text.setText(children);
-            text.setCompoundDrawablesWithIntrinsicBounds(DataProvider.getMenuName2Resource(children), 0, 0, 0);
-
-            convertView.setOnClickListener(mainMenuClickListener(groupPosition, children, text));
-            return convertView;
-        }
-
-        @Override
-        public int getChildrenCount(int groupPosition) {
-            return groups.get(groupPosition).children.size();
-        }
-
-        @Override
-        public Object getGroup(int groupPosition) {
-            return groups.get(groupPosition);
-        }
-
-        @Override
-        public int getGroupCount() {
-            return groups.size();
-        }
-
-        @Override
-        public void onGroupCollapsed(int groupPosition) {
-            super.onGroupCollapsed(groupPosition);
-        }
-
-        @Override
-        public void onGroupExpanded(int groupPosition) {
-            super.onGroupExpanded(groupPosition);
-        }
-
-        @Override
-        public long getGroupId(int groupPosition) {
-            return 0;
-        }
-
-        @Override
-        public View getGroupView(int groupPosition, boolean isExpanded,
-                                 View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = inflater.inflate(R.layout.activity_main_listrow_group, null);
-            }
-            Group group = (Group) getGroup(groupPosition);
-            final CheckedTextView checkedView = (CheckedTextView) convertView;
-            checkedView.setText(group.string);
-            checkedView.setChecked(isExpanded);
-//            checkedView.setCompoundDrawablesWithIntrinsicBounds(isExpanded ? 0 : android.R.drawable.ic_menu_more, 0, isExpanded ? 0 : android.R.drawable.ic_menu_more, 0);
-            return convertView;
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return false;
-        }
-
-        public boolean isChildSelectable(int groupPosition, int childPosition) {
-            return false;
-        }
-
-        private View.OnClickListener mainMenuClickListener(final int groupPosition, final String children, View view) {
-            return new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Toast.makeText(activity, children,
-                            Toast.LENGTH_SHORT).show();
-
-                    if (groupPosition == MainMenuGroupName.SAHASRANAMA_EXPLAINED.ordinal()) {
-
-                        Intent intent = new Intent(OmActivity.this, ShlokaSlideActivity.class);
-                        intent.putExtra("sectionName", children);
-                        intent.putExtra("shlokaList", (Serializable) DataProvider.getSahasranama().getSection(children).getShlokaList());
-                        startActivity(intent);
-
-                    }
-
-                    if (groupPosition == MainMenuGroupName.BIRTH_STAR_SHLOKAS.ordinal()) {
-
-                        System.out.println("nakshatra -> " + children);
-                        System.out.println("shlokas -> " + DataProvider.getShlokasForBirthStar(children));
-
-                        Intent intent = new Intent(OmActivity.this, ShlokaSlideActivity.class);
-                        intent.putExtra("sectionName", children);
-                        intent.putExtra("shlokaList", (Serializable) DataProvider.getShlokasForBirthStar(children));
-                        startActivity(intent);
-
-                        return;
-                    }
-
-
-                    if (groupPosition == MainMenuGroupName.AVATARA_SHLOKAS.ordinal()) {
-
-                        System.out.println("avatara -> " + children);
-                        System.out.println("shlokas -> " + DataProvider.getShlokaForAvatara(children));
-
-                        Intent intent = new Intent(OmActivity.this, ShlokaSlideActivity.class);
-                        intent.putExtra("sectionName", children);
-                        intent.putExtra("shlokaList", (Serializable) DataProvider.getShlokaForAvatara(children));
-                        startActivity(intent);
-
-                        return;
-                    }
-
-                    if (groupPosition == MainMenuGroupName.NAMES_1000.ordinal()) {
-                    }
-                }
-            };
-        }
     }
 
     private class DataProviderTask extends AsyncTask<AssetManager, Void, Long> {
@@ -227,42 +89,91 @@ public class OmActivity extends ActionBarActivity {
 
     private void createMainMenu() {
 
-        final Collection<String> sectionNames = DataProvider.getSahasranama().getSectionNames();
-        Group group = new Group(MainMenuGroupName.SAHASRANAMA_EXPLAINED.toString());
-        for (String secName : sectionNames) {
+        final List<String> sectionNames = new ArrayList<String>(DataProvider.getSahasranama().getSectionNames());
+        int indexOfSahasranama = sectionNames.indexOf("Sahasranama");
+
+        setupMenuSection1(sectionNames, indexOfSahasranama);
+
+        setupMenuSection2(sectionNames);
+
+        setupMenuSection3(sectionNames, indexOfSahasranama);
+
+    }
+
+    private void setupMenuSection3(List<String> sectionNames, int indexOfSahasranama) {
+        ListView listViewSection3 = (ListView) findViewById(R.id.listMainMenuSection3);
+        List<String> sectionNamesPart2 = sectionNames.subList(indexOfSahasranama + 1, sectionNames.size());
+        StableArrayAdapter adapter = new StableArrayAdapter(this, sectionNamesPart2);
+        listViewSection3.setAdapter(adapter);
+
+        listViewSection3.setOnItemClickListener(getOnMenuClickListener());
+    }
+
+    private void setupMenuSection2(List<String> sectionNames) {
+        List<String> secNames = Arrays.asList(SahasranamaMenuGroupName.IN_BRIEF.toString(), SahasranamaMenuGroupName.DEEP_DIVE.toString(), SahasranamaMenuGroupName.BY_BIRTH_STAR.toString(), SahasranamaMenuGroupName.BY_AVATARA.toString());
+        Group group = new Group(SahasranamaMenuGroupName.SAHASRANAMA_MENU_NAME.toString());
+        for (String secName : secNames) {
             group.children.add(secName);
         }
-        groups.append(MainMenuGroupName.SAHASRANAMA_EXPLAINED.ordinal(), group);
+        groups.append(SahasranamaMenuGroupName.SAHASRANAMA_MENU_NAME.ordinal(), group);
 
-        final Collection<String> stars = DataProvider.getBirthStarToShloka().keySet();
-        group = new Group(MainMenuGroupName.BIRTH_STAR_SHLOKAS.toString());
-        for (String starName : stars) {
-            group.children.add(starName);
-        }
-        groups.append(MainMenuGroupName.BIRTH_STAR_SHLOKAS.ordinal(), group);
+//        final Collection<String> stars = DataProvider.getBirthStarToShloka().keySet();
+//        group = new Group(MainMenuGroupName.BIRTH_STAR_SHLOKAS.toString());
+//        for (String starName : stars) {
+//            group.children.add(starName);
+//        }
+//        groups.append(MainMenuGroupName.BIRTH_STAR_SHLOKAS.ordinal(), group);
+//
+//        final Collection<String> dashavataras = DataProvider.getAvatara2Shlokas().keySet();
+//        group = new Group(MainMenuGroupName.AVATARA_SHLOKAS.toString());
+//        for (String dashavatara : dashavataras) {
+//            group.children.add(dashavatara);
+//        }
+//        groups.append(MainMenuGroupName.AVATARA_SHLOKAS.ordinal(), group);
+//
+//        final Collection<String> sahasranamas = DataProvider.getThousandNames().getLstStringNamas();
+//        group = new Group(MainMenuGroupName.NAMES_1000.toString());
+//        for (String name : sahasranamas) {
+//            group.children.add(name);
+//        }
+//        groups.append(MainMenuGroupName.NAMES_1000.ordinal(), group);
 
-        final Collection<String> dashavataras = DataProvider.getAvatara2Shlokas().keySet();
-        group = new Group(MainMenuGroupName.AVATARA_SHLOKAS.toString());
-        for (String dashavatara : dashavataras) {
-            group.children.add(dashavatara);
-        }
-        groups.append(MainMenuGroupName.AVATARA_SHLOKAS.ordinal(), group);
-
-        final Collection<String> sahasranamas = DataProvider.getThousandNames().getLstStringNamas();
-        group = new Group(MainMenuGroupName.NAMES_1000.toString());
-        for (String name : sahasranamas) {
-            group.children.add(name);
-        }
-        groups.append(MainMenuGroupName.NAMES_1000.ordinal(), group);
-
-        ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
+        ExpandableListView listView = (ExpandableListView) findViewById(R.id.listMainMenuSection2);
         MyExpandableListAdapter adapter1 = new MyExpandableListAdapter(this,
                 groups);
         listView.setAdapter(adapter1);
         listView.expandGroup(0);
+    }
+
+    private void setupMenuSection1(List<String> sectionNames, int lastMenuIndex) {
+
+        ListView listViewSection1 = (ListView) findViewById(R.id.listMainMenuSection1);
+
+        List<String> sectionNamesPart1 = sectionNames.subList(0, lastMenuIndex);
+
+        StableArrayAdapter adapter = new StableArrayAdapter(this, sectionNamesPart1);
+        listViewSection1.setAdapter(adapter);
+
+        listViewSection1.setOnItemClickListener(getOnMenuClickListener());
 
     }
 
+    private AdapterView.OnItemClickListener getOnMenuClickListener() {
+        return new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = (String) parent.getAdapter().getItem(position);
+
+                Toast.makeText(getBaseContext(), item,
+                        Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(OmActivity.this, ShlokaSlideActivity.class);
+                intent.putExtra("sectionName", item);
+                intent.putExtra("shlokaList", (Serializable) DataProvider.getSahasranama().getSection(item).getShlokaList());
+                startActivity(intent);
+            }
+        };
+    }
 }
 
 

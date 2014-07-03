@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.varun.omvishnu.app.indetail;
+package com.varun.omvishnu.app.detail;
 
 import android.app.Fragment;
 import android.graphics.Typeface;
