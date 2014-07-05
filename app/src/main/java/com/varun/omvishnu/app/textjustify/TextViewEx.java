@@ -153,7 +153,7 @@ public class TextViewEx extends TextView
 		}
         int lines = 1;
         blocks = getText().toString().split("((?<=\n)|(?=\n))");
-        verticalOffset = horizontalFontOffset = getLineHeight() - 0.5f; // Temp fix
+        verticalOffset = horizontalFontOffset = getLineHeight() - 1.0f; // Temp fix
         spaceOffset = paint.measureText(" ");   
 
         for(int i = 0; i < blocks.length && lines <= maxLines; i++)

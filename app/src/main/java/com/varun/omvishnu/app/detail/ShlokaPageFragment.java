@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
@@ -75,7 +76,7 @@ public class ShlokaPageFragment extends Fragment {
 
         ((TextViewEx) rootView.findViewById(R.id.sectiontitle)).setText(sectionName, true);
 
-        TextViewEx viewById = (TextViewEx) rootView.findViewById(R.id.shlokatext);
+        TextView viewById = (TextView) rootView.findViewById(R.id.shlokatext);
 
         viewById.setTypeface(devanagariTf);
 
@@ -83,8 +84,8 @@ public class ShlokaPageFragment extends Fragment {
 
         viewById.setText(shlokaList.get(mPageNumber).getText());
 
-        viewById = (TextViewEx) rootView.findViewById(R.id.shlokaexplanation);
-        viewById.setText(shlokaList.get(mPageNumber).getExplanation(), true);
+        TextViewEx viewByIdEx = (TextViewEx) rootView.findViewById(R.id.shlokaexplanation);
+        viewByIdEx.setText(shlokaList.get(mPageNumber).getExplanation(), true);
 
         return rootView;
     }

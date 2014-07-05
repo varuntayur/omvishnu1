@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout
-    android:id="@+id/LinearLayout1"
+    android:id="@+id/RelativeLayout1"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -15,16 +15,16 @@
 
     <ListView
         android:id="@+id/listMainMenuSection1"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:clickable="true"/>
 
     <View
         android:id="@+id/horizontalLine1"
-        android:background="#D3D3D3"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/listMainMenuSection1" />
+        android:layout_below="@+id/listMainMenuSection1"
+        android:background="#D3D3D3"/>
 
     <ExpandableListView
         android:id="@+id/listMainMenuSection2"
@@ -37,10 +37,10 @@
 
     <View
         android:id="@+id/horizontalLine2"
-        android:background="#D3D3D3"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/listMainMenuSection2" />
+        android:layout_below="@+id/listMainMenuSection2"
+        android:background="#D3D3D3"/>
 
     <ListView
         android:id="@+id/listMainMenuSection3"

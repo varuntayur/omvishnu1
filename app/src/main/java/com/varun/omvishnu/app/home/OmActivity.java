@@ -117,27 +117,6 @@ public class OmActivity extends ActionBarActivity {
         }
         groups.append(SahasranamaMenuGroupName.SAHASRANAMA_MENU_NAME.ordinal(), group);
 
-//        final Collection<String> stars = DataProvider.getBirthStarToShloka().keySet();
-//        group = new Group(MainMenuGroupName.BIRTH_STAR_SHLOKAS.toString());
-//        for (String starName : stars) {
-//            group.children.add(starName);
-//        }
-//        groups.append(MainMenuGroupName.BIRTH_STAR_SHLOKAS.ordinal(), group);
-//
-//        final Collection<String> dashavataras = DataProvider.getAvatara2Shlokas().keySet();
-//        group = new Group(MainMenuGroupName.AVATARA_SHLOKAS.toString());
-//        for (String dashavatara : dashavataras) {
-//            group.children.add(dashavatara);
-//        }
-//        groups.append(MainMenuGroupName.AVATARA_SHLOKAS.ordinal(), group);
-//
-//        final Collection<String> sahasranamas = DataProvider.getThousandNames().getLstStringNamas();
-//        group = new Group(MainMenuGroupName.NAMES_1000.toString());
-//        for (String name : sahasranamas) {
-//            group.children.add(name);
-//        }
-//        groups.append(MainMenuGroupName.NAMES_1000.ordinal(), group);
-
         ExpandableListView listView = (ExpandableListView) findViewById(R.id.listMainMenuSection2);
         MyExpandableListAdapter adapter1 = new MyExpandableListAdapter(this,
                 groups);
