@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
+import com.varun.omvishnu.app.data.adapters.HtmlTextAdapter;
 import com.varun.omvishnu.app.data.adapters.StableArrayAdapter;
 
 /**
@@ -35,7 +36,7 @@ public class ThousandNamesActivity extends Activity {
         inputSearch = (EditText) findViewById(R.id.inputSearch);
 
         // Adding items to listview
-        adapter = new StableArrayAdapter(this, DataProvider.getThousandNames().getLstStringNamas());
+        adapter = new HtmlTextAdapter(this, DataProvider.getThousandNames().getLstStringNamas());
         lv.setAdapter(adapter);
 
 

@@ -26,7 +26,7 @@ public class ThousandNames implements Serializable {
     public List<String> getLstStringNamas() {
         List<String> lstStrNamas = new ArrayList<String>(lstNamas.size());
         for (Nama nama : lstNamas) {
-            lstStrNamas.add(nama.toString());
+            lstStrNamas.add(nama.formattedNama());
         }
         return lstStrNamas;
     }

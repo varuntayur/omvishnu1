@@ -36,8 +36,15 @@ public class Nama implements Serializable {
         this.meaning = meaning;
     }
 
+    public String formattedNama() {
+        return "<b>" + name + "</b><br/>" + meaning;
+    }
+
     @Override
     public String toString() {
-        return name + " - " + meaning;
+        return "Nama{" +
+                "name='" + name + '\'' +
+                ", meaning='" + meaning + '\'' +
+                '}';
     }
 }
