@@ -74,18 +74,17 @@ public class ShlokaPageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.fragment_shloka_slide_page, container, false);
 
-        ((TextViewEx) rootView.findViewById(R.id.sectiontitle)).setText(sectionName, true);
+        ((TextView) rootView.findViewById(R.id.sectiontitle)).setText(sectionName);
 
-        TextView viewById = (TextView) rootView.findViewById(R.id.shlokatext);
+        final Shloka shloka = shlokas.get(mPageNumber);
 
-        viewById.setTypeface(devanagariTf);
+        TextView shlokaText = (TextView) rootView.findViewById(R.id.shlokatext);
+        shlokaText.setTypeface(devanagariTf);
+        shlokaText.setText(shloka.getText());
+        shlokaText.setTypeface(shlokaText.getTypeface(), Typeface.BOLD);
 
-        final List<Shloka> shlokaList = shlokas;
-
-        viewById.setText(shlokaList.get(mPageNumber).getText());
-
-        TextViewEx viewByIdEx = (TextViewEx) rootView.findViewById(R.id.shlokaexplanation);
-        viewByIdEx.setText(shlokaList.get(mPageNumber).getExplanation(), true);
+        TextViewEx shlokaExplanation = (TextViewEx) rootView.findViewById(R.id.shlokaexplanation);
+        shlokaExplanation.setText(shloka.getExplanation(), true);
 
         return rootView;
     }
