@@ -72,7 +72,7 @@ public class ShlokaPageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout containing a title and body text.
         ViewGroup rootView = (ViewGroup) inflater
-                .inflate(R.layout.fragment_screen_slide_page, container, false);
+                .inflate(R.layout.fragment_shloka_slide_page, container, false);
 
         ((TextViewEx) rootView.findViewById(R.id.sectiontitle)).setText(sectionName, true);
 

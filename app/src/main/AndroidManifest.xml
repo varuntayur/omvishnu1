@@ -32,7 +32,7 @@
         </activity>
 
         <activity
-            android:name=".detail.BirthstarsFragment"
+            android:name=".detail.BirthstarsActivity"
             android:label="@string/title_screen_slide"
             android:parentActivityName=".home.OmActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
@@ -42,7 +42,7 @@
         </activity>
 
         <activity
-            android:name=".detail.AvatarasFragment"
+            android:name=".detail.AvatarasActivity"
             android:label="@string/title_screen_slide"
             android:parentActivityName=".home.OmActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
@@ -52,7 +52,7 @@
         </activity>
 
         <activity
-            android:name=".detail.ThousandNamesFragment"
+            android:name=".detail.ThousandNamesActivity"
             android:label="@string/title_screen_slide"
             android:parentActivityName=".home.OmActivity"
             android:uiOptions="splitActionBarWhenNarrow" >

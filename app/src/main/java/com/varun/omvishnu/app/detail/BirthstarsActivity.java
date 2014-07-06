@@ -15,18 +15,18 @@ import java.util.Collection;
 /**
  * Created by varuntayur on 7/2/2014.
  */
-public class AvatarasFragment extends ListActivity {
+public class BirthstarsActivity extends ListActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final Collection<String> avataras = DataProvider.getAvatara2Shlokas().keySet();
-        String[] stringAvataras = new String[avataras.size()];
-        avataras.toArray(stringAvataras);
+        final Collection<String> stars = DataProvider.getBirthStarToShloka().keySet();
+        String[] stringStars = new String[stars.size()];
+        stars.toArray(stringStars);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),
-                android.R.layout.simple_list_item_1, stringAvataras);
+                android.R.layout.simple_list_item_1, stringStars);
         setListAdapter(adapter);
     }
 
@@ -34,12 +34,12 @@ public class AvatarasFragment extends ListActivity {
     public void onListItemClick(ListView l, View v, int position, long id) {
         String item = (String) l.getAdapter().getItem(position);
 
-        System.out.println("avatara -> " + item);
-        System.out.println("shlokas -> " + DataProvider.getShlokaForAvatara(item));
+        System.out.println("nakshatra -> " + item);
+        System.out.println("shlokas -> " + DataProvider.getShlokasForBirthStar(item));
 
         Intent intent = new Intent(getBaseContext(), ShlokaSlideActivity.class);
         intent.putExtra("sectionName", item);
-        intent.putExtra("shlokaList", (Serializable) DataProvider.getShlokaForAvatara(item));
+        intent.putExtra("shlokaList", (Serializable) DataProvider.getShlokasForBirthStar(item));
         startActivity(intent);
     }
 }

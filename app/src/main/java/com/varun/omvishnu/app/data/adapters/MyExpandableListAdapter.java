@@ -14,10 +14,10 @@ import android.widget.Toast;
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.model.home.Group;
-import com.varun.omvishnu.app.detail.AvatarasFragment;
-import com.varun.omvishnu.app.detail.BirthstarsFragment;
+import com.varun.omvishnu.app.detail.AvatarasActivity;
+import com.varun.omvishnu.app.detail.BirthstarsActivity;
 import com.varun.omvishnu.app.detail.ShlokaSlideActivity;
-import com.varun.omvishnu.app.detail.ThousandNamesFragment;
+import com.varun.omvishnu.app.detail.ThousandNamesActivity;
 import com.varun.omvishnu.app.home.SahasranamaMenuGroupName;
 
 import java.io.Serializable;
@@ -135,7 +135,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
                 if (SahasranamaMenuGroupName.IN_BRIEF.toString().equalsIgnoreCase(children)) {
 
-                    Intent intent = new Intent(activity, ThousandNamesFragment.class);
+                    Intent intent = new Intent(activity, ThousandNamesActivity.class);
                     activity.startActivity(intent);
 
                     return;
@@ -143,7 +143,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
                 if (SahasranamaMenuGroupName.BY_BIRTH_STAR.toString().equalsIgnoreCase(children)) {
 
-                    Intent intent = new Intent(activity, BirthstarsFragment.class);
+                    Intent intent = new Intent(activity, BirthstarsActivity.class);
                     activity.startActivity(intent);
 
                     return;
@@ -152,7 +152,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
                 if (SahasranamaMenuGroupName.BY_AVATARA.toString().equalsIgnoreCase(children)) {
 
-                    Intent intent = new Intent(activity, AvatarasFragment.class);
+                    Intent intent = new Intent(activity, AvatarasActivity.class);
                     activity.startActivity(intent);
 
                     return;

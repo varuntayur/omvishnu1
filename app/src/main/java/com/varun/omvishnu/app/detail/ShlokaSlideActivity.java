@@ -69,7 +69,7 @@ public class ShlokaSlideActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_screen_slide);
+        setContentView(R.layout.activity_shloka_slide);
 
         System.out.println("-> Starting ScreenSlideActivity <-");
 
@@ -98,7 +98,7 @@ public class ShlokaSlideActivity extends FragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-//        getMenuInflater().inflate(R.menu.activity_screen_slide, menu);
+//        getMenuInflater().inflate(R.menu.activity_shloka_slide, menu);
 //
 //        menu.findItem(R.id.action_previous).setEnabled(mPager.getCurrentItem() > 0);
 //
