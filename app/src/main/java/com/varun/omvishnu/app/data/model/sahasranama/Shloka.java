@@ -55,7 +55,13 @@ public class Shloka implements Serializable {
 
     public String getExplanation() {
         if (explanation != null)
-            return explanation.replaceAll("[^\\S\\r\\n]+", " ");
+            return explanation.replaceAll("[^\\S\\r\\n]+", " ").concat("\n");
+        return explanation;
+    }
+
+    public String getFormattedExplanation() {
+        if (explanation != null)
+            return "<html><body><p align='justify'>".concat(explanation).concat("</p></body></html>");
         return explanation;
     }
 

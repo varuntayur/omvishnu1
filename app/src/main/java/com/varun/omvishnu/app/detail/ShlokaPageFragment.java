@@ -22,11 +22,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
-import com.varun.omvishnu.app.textjustify.TextViewEx;
 
 import java.util.List;
 
@@ -83,8 +83,10 @@ public class ShlokaPageFragment extends Fragment {
         shlokaText.setText(shloka.getText());
         shlokaText.setTypeface(shlokaText.getTypeface(), Typeface.BOLD);
 
-        TextViewEx shlokaExplanation = (TextViewEx) rootView.findViewById(R.id.shlokaexplanation);
-        shlokaExplanation.setText(shloka.getExplanation(), true);
+        WebView shlokaExplanation = (WebView) rootView.findViewById(R.id.shlokaexplanation);
+//        shlokaExplanation.setText(Html.fromHtml(shloka.getFormattedExplanation()));
+        shlokaExplanation.loadData(shloka.getFormattedExplanation(), "text/html", null);
+
 
         return rootView;
     }
