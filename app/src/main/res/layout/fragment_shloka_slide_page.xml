@@ -25,7 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:descendantFocusability="blocksDescendants">
 
         <TextView
             android:id="@id/sectiontitle"
@@ -48,8 +49,6 @@
             android:id="@id/shlokaexplanation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:lineSpacingMultiplier="1.2"
-            android:background="@android:color/transparent"
              />
         <!--com.varun.omvishnu.app.textjustify.   style="?android:textAppearanceSmall"-->
     </LinearLayout>

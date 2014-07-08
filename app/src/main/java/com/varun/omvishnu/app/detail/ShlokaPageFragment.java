@@ -84,7 +84,6 @@ public class ShlokaPageFragment extends Fragment {
         shlokaText.setTypeface(shlokaText.getTypeface(), Typeface.BOLD);
 
         WebView shlokaExplanation = (WebView) rootView.findViewById(R.id.shlokaexplanation);
-//        shlokaExplanation.setText(Html.fromHtml(shloka.getFormattedExplanation()));
         shlokaExplanation.loadData(shloka.getFormattedExplanation(), "text/html", null);
 
 

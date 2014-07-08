@@ -21,7 +21,7 @@ public class Shloka implements Serializable {
     private String text;
 
     @Element(required = false)
-    private String explanation;
+    private ShlokaDescription explanation;
 
     public Shloka() {
     }
@@ -53,27 +53,20 @@ public class Shloka implements Serializable {
         this.text = text;
     }
 
-    public String getExplanation() {
-        if (explanation != null)
-            return explanation.replaceAll("[^\\S\\r\\n]+", " ").concat("\n");
-        return explanation;
-    }
-
-    public String getFormattedExplanation() {
-        if (explanation != null)
-            return "<html><body><p align='justify'>".concat(explanation).concat("</p></body></html>");
-        return explanation;
-    }
-
-    public void setExplanation(String explanation) {
+    public void setExplanation(ShlokaDescription explanation) {
         this.explanation = explanation;
     }
 
-    public String getFormattedShlokaText() {
-        return String.format("%s\n", getText());
+    public ShlokaDescription getExplanation() {
+        return this.explanation;
     }
 
-    public String getFormattedShloka() {
-        return String.format("%s\n%s\n", getText(), getExplanation());
+    public String getFormattedExplanation() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Note note : explanation.getNotesList()) {
+            stringBuilder.append(note.getFormattedNote());
+        }
+        return stringBuilder.toString();
     }
 }

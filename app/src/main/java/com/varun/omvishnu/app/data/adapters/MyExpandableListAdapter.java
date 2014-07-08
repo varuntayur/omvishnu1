@@ -14,13 +14,15 @@ import android.widget.Toast;
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.model.home.Group;
+import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 import com.varun.omvishnu.app.detail.AvatarasActivity;
 import com.varun.omvishnu.app.detail.BirthstarsActivity;
-import com.varun.omvishnu.app.detail.ShlokaSlideActivity;
+import com.varun.omvishnu.app.detail.SahasranamaShlokaSlideActivity;
 import com.varun.omvishnu.app.detail.ThousandNamesActivity;
 import com.varun.omvishnu.app.home.SahasranamaMenuGroupName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by varuntayur on 7/2/2014.
@@ -126,11 +128,12 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
                 if (SahasranamaMenuGroupName.DEEP_DIVE.toString().equalsIgnoreCase(children)) {
 
-                    Intent intent = new Intent(activity, ShlokaSlideActivity.class);
-                    intent.putExtra("sectionName", children);
-                    intent.putExtra("shlokaList", (Serializable) DataProvider.getSahasranama().getSection(SahasranamaMenuGroupName.DEEP_DIVE.getMenuDisplayKey()).getShlokaList());
+                    Intent intent = new Intent(activity, SahasranamaShlokaSlideActivity.class);
+                    intent.putExtra("sectionName", SahasranamaMenuGroupName.DEEP_DIVE.getMenuDisplayKey());
+                    intent.putExtra("shlokaList", (Serializable) new ArrayList<Shloka>());
                     activity.startActivity(intent);
 
+                    return;
                 }
 
                 if (SahasranamaMenuGroupName.IN_BRIEF.toString().equalsIgnoreCase(children)) {

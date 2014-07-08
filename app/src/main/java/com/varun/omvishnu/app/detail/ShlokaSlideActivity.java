@@ -62,7 +62,7 @@ public class ShlokaSlideActivity extends FragmentActivity {
 
     private String mSectionName;
 
-    private List<Shloka> mShlokas;
+    protected List<Shloka> mShlokas;
 
 
     @Override
@@ -79,7 +79,8 @@ public class ShlokaSlideActivity extends FragmentActivity {
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mSectionName = getIntent().getStringExtra("sectionName");
-        mShlokas = (List<Shloka>) getIntent().getSerializableExtra("shlokaList");
+        if (mShlokas == null)
+            mShlokas = (List<Shloka>) getIntent().getSerializableExtra("shlokaList");
         mPagerAdapter = new ShlokaSlidePagerAdapter(mSectionName, mShlokas, getFragmentManager(), devnanagariTf);
         mPager.setAdapter(mPagerAdapter);
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
