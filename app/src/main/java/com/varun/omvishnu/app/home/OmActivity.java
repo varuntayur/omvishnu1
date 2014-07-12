@@ -29,6 +29,8 @@ import java.util.List;
 
 public class OmActivity extends ActionBarActivity {
 
+    /* https://archive.org/details/VishnuSahasranam */
+
     private static DataProvider dataProvider;
 
     private SparseArray<Group> groups = new SparseArray<Group>();
@@ -122,13 +124,7 @@ public class OmActivity extends ActionBarActivity {
                 groups);
         listView.setAdapter(adapter1);
         listView.expandGroup(0);
-        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
-                return true; // This way the expander cannot be collapsed
-            }
-        });
+        
     }
 
     private void setupMenuSection1(List<String> sectionNames, int lastMenuIndex) {
