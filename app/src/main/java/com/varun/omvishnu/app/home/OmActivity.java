@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
-import com.varun.omvishnu.app.data.adapters.MyExpandableListAdapter;
 import com.varun.omvishnu.app.data.adapters.StableArrayAdapter;
+import com.varun.omvishnu.app.data.adapters.StableExpandableListAdapter;
 import com.varun.omvishnu.app.data.model.home.Group;
 import com.varun.omvishnu.app.detail.ShlokaSlideActivity;
 
@@ -118,10 +118,17 @@ public class OmActivity extends ActionBarActivity {
         groups.append(SahasranamaMenuGroupName.SAHASRANAMA_MENU_NAME.ordinal(), group);
 
         ExpandableListView listView = (ExpandableListView) findViewById(R.id.listMainMenuSection2);
-        MyExpandableListAdapter adapter1 = new MyExpandableListAdapter(this,
+        StableExpandableListAdapter adapter1 = new StableExpandableListAdapter(this,
                 groups);
         listView.setAdapter(adapter1);
         listView.expandGroup(0);
+        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                return true; // This way the expander cannot be collapsed
+            }
+        });
     }
 
     private void setupMenuSection1(List<String> sectionNames, int lastMenuIndex) {

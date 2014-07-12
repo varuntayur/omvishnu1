@@ -4,12 +4,13 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.varun.omvishnu.app.data.DataProvider;
+import com.varun.omvishnu.app.data.adapters.StableArrayAdapter;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -25,8 +26,10 @@ public class AvatarasActivity extends ListActivity {
         String[] stringAvataras = new String[avataras.size()];
         avataras.toArray(stringAvataras);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),
-                android.R.layout.simple_list_item_1, stringAvataras);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),
+//                android.R.layout.simple_list_item_1, stringAvataras);
+        StableArrayAdapter adapter = new StableArrayAdapter(getBaseContext(),
+                Arrays.asList(stringAvataras));
         setListAdapter(adapter);
     }
 

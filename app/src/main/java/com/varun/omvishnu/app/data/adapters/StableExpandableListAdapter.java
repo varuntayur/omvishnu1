@@ -27,13 +27,13 @@ import java.util.ArrayList;
 /**
  * Created by varuntayur on 7/2/2014.
  */
-public class MyExpandableListAdapter extends BaseExpandableListAdapter {
+public class StableExpandableListAdapter extends BaseExpandableListAdapter {
 
     private final SparseArray<Group> groups;
     public LayoutInflater inflater;
     public Activity activity;
 
-    public MyExpandableListAdapter(Activity act, SparseArray<Group> groups) {
+    public StableExpandableListAdapter(Activity act, SparseArray<Group> groups) {
         activity = act;
         this.groups = groups;
         inflater = act.getLayoutInflater();
