@@ -1,13 +1,12 @@
 package com.varun.omvishnu.app.home;
 
+import android.app.ProgressDialog;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
@@ -22,15 +21,14 @@ public class MainActivity extends FragmentActivity {
 
     ViewPager mViewPager;
 
-    private ProgressBar spinner;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_paged);
 
-        spinner = (ProgressBar) findViewById(R.id.progressBar1);
-        spinner.setVisibility(View.VISIBLE);
+        progressDialog = ProgressDialog.show(this, "", "Loading. Please wait...", true);
 
         new DataProviderTask().execute(getAssets());
 
@@ -60,7 +58,7 @@ public class MainActivity extends FragmentActivity {
                     mViewPager = (ViewPager) findViewById(R.id.pager1);
                     mViewPager.setAdapter(mSectionsPagerAdapter);
 
-                    spinner.setVisibility(View.GONE);
+                    progressDialog.dismiss();
                 }
             });
             System.out.println("Finished launching main-menu");
