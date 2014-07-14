@@ -83,7 +83,7 @@ public class OmActivity extends ActionBarActivity {
         @Override
         protected Long doInBackground(AssetManager... assetManagers) {
 
-            dataProvider = new DataProvider(getAssets());
+            DataProvider.init(getAssets());
             System.out.println("Finished background task execution");
             return 1l;
         }
@@ -124,7 +124,7 @@ public class OmActivity extends ActionBarActivity {
                 groups);
         listView.setAdapter(adapter1);
         listView.expandGroup(0);
-        
+
     }
 
     private void setupMenuSection1(List<String> sectionNames, int lastMenuIndex) {

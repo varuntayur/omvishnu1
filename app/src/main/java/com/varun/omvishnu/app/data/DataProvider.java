@@ -27,9 +27,7 @@ import java.util.Map;
 /**
  * Created by varuntayur on 5/18/2014.
  */
-public class DataProvider {
-
-    private AssetManager am;
+public final class DataProvider {
 
     private static Sahasranama sahasranama;
 
@@ -105,82 +103,10 @@ public class DataProvider {
         }
     };
 
-    public DataProvider(AssetManager am) {
-        this.am = am;
-        this.init();
+    private DataProvider() {
     }
 
-    public static Integer getMenuName2Resource(String menuName) {
-        final Integer resourceName = menuName2Resource.get(menuName);
-
-        if (resourceName != null)
-            return resourceName;
-
-        return R.drawable.vishwaroopa;
-    }
-
-    public static Sahasranama getSahasranama() {
-        return sahasranama;
-    }
-
-    public static ThousandNames getThousandNames() {
-        return thousandNames;
-    }
-
-    public static Map<String, List<Shloka>> getBirthStarToShloka() {
-        return nakshatraName2Shlokas;
-    }
-
-    public static List<Shloka> getShlokasForBirthStar(String name) {
-        return new ArrayList<Shloka>(nakshatraName2Shlokas.get(name));
-    }
-
-    public static Map<String, List<Shloka>> getAvatara2Shlokas() {
-        return avatara2Shlokas;
-    }
-
-    public static List<Shloka> getShlokaForAvatara(String name) {
-        return new ArrayList<Shloka>(avatara2Shlokas.get(name));
-    }
-
-    private void buildNakshatraToShlokaMap() {
-
-        Section sahasranama = getSahasranama().getSection("Sahasranama");
-
-        for (Star star : birthstars.getLstStars()) {
-
-            final List<Shloka> starShlokas = star.getShlokas();
-            List<Shloka> shlokaList = Collections.EMPTY_LIST;
-            if (!starShlokas.isEmpty()) {
-
-                int startIndex = Integer.parseInt(starShlokas.get(0).getNum());
-                int lastIndex = Integer.parseInt(starShlokas.get(starShlokas.size() - 1).getNum());
-                shlokaList = sahasranama.getShlokaList(startIndex, lastIndex);
-            }
-
-            nakshatraName2Shlokas.put(star.getName(), shlokaList);
-        }
-    }
-
-    private void buildAvataraToShlokaMap() {
-
-        Section sahasranama = getSahasranama().getSection("Sahasranama");
-
-        for (Avatara avatara : avataras.getLstAvataras()) {
-
-            final List<Shloka> avataraShlokas = avatara.getShlokas();
-
-            final List<Shloka> shlokaList = new ArrayList<Shloka>();
-
-            for (Shloka shloka : avataraShlokas) {
-                shlokaList.add(sahasranama.getShloka(shloka.getNum()));
-            }
-
-            avatara2Shlokas.put(avatara.getName(), shlokaList);
-        }
-    }
-
-    private void init() {
+    public static void init(AssetManager am) {
 
         Serializer serializer = new Persister();
         InputStream inputStream = null;
@@ -219,4 +145,76 @@ public class DataProvider {
             System.out.println("* Exception de-serializing the file *" + e);
         }
     }
+
+    public static Integer getMenuName2Resource(String menuName) {
+        final Integer resourceName = menuName2Resource.get(menuName);
+
+        if (resourceName != null)
+            return resourceName;
+
+        return R.drawable.vishwaroopa;
+    }
+
+    public static Sahasranama getSahasranama() {
+        return sahasranama;
+    }
+
+    public static ThousandNames getThousandNames() {
+        return thousandNames;
+    }
+
+    public static Map<String, List<Shloka>> getBirthStarToShloka() {
+        return nakshatraName2Shlokas;
+    }
+
+    public static List<Shloka> getShlokasForBirthStar(String name) {
+        return new ArrayList<Shloka>(nakshatraName2Shlokas.get(name));
+    }
+
+    public static Map<String, List<Shloka>> getAvatara2Shlokas() {
+        return avatara2Shlokas;
+    }
+
+    public static List<Shloka> getShlokaForAvatara(String name) {
+        return new ArrayList<Shloka>(avatara2Shlokas.get(name));
+    }
+
+    private static void buildNakshatraToShlokaMap() {
+
+        Section sahasranama = getSahasranama().getSection("Sahasranama");
+
+        for (Star star : birthstars.getLstStars()) {
+
+            final List<Shloka> starShlokas = star.getShlokas();
+            List<Shloka> shlokaList = Collections.EMPTY_LIST;
+            if (!starShlokas.isEmpty()) {
+
+                int startIndex = Integer.parseInt(starShlokas.get(0).getNum());
+                int lastIndex = Integer.parseInt(starShlokas.get(starShlokas.size() - 1).getNum());
+                shlokaList = sahasranama.getShlokaList(startIndex, lastIndex);
+            }
+
+            nakshatraName2Shlokas.put(star.getName(), shlokaList);
+        }
+    }
+
+    private static void buildAvataraToShlokaMap() {
+
+        Section sahasranama = getSahasranama().getSection("Sahasranama");
+
+        for (Avatara avatara : avataras.getLstAvataras()) {
+
+            final List<Shloka> avataraShlokas = avatara.getShlokas();
+
+            final List<Shloka> shlokaList = new ArrayList<Shloka>();
+
+            for (Shloka shloka : avataraShlokas) {
+                shlokaList.add(sahasranama.getShloka(shloka.getNum()));
+            }
+
+            avatara2Shlokas.put(avatara.getName(), shlokaList);
+        }
+    }
+
+
 }
