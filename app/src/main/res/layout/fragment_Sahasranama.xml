@@ -8,12 +8,17 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context=".MainActivity$DummySectionFragment">
 
-    <ExpandableListView
-        android:id="@+id/listsahasranama"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+    <!--<ExpandableListView-->
+        <!--android:id="@+id/listsahasranama"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1">-->
+    <!--</ExpandableListView>-->
 
-    </ExpandableListView>
+    <ListView
+        android:id="@+id/listsahasranama"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"/>
 
 </RelativeLayout>  

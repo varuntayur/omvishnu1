@@ -1,5 +1,6 @@
 package com.varun.omvishnu.app.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,16 +12,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.adapters.StableArrayAdapter;
-import com.varun.omvishnu.app.data.adapters.StableExpandableListAdapter;
 import com.varun.omvishnu.app.data.model.home.Group;
+import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
+import com.varun.omvishnu.app.detail.AvatarasActivity;
+import com.varun.omvishnu.app.detail.BirthstarsActivity;
+import com.varun.omvishnu.app.detail.SahasranamaShlokaSlideActivity;
 import com.varun.omvishnu.app.detail.ShlokaSlideActivity;
+import com.varun.omvishnu.app.detail.ThousandNamesActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,9 +49,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // getItem is called to instantiate the fragment for the given page.
         // Return a DummySectionFragment (defined as a static inner class
         // below) with the page number as its lone argument.
-        Fragment fragment = new DummySectionFragment();
+        Fragment fragment = new SectionFragment();
         Bundle args = new Bundle();
-        args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position);
+        args.putInt(SectionFragment.ARG_SECTION_NUMBER, position);
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,14 +75,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return null;
     }
 
-    public static class DummySectionFragment extends Fragment {
+    public static class SectionFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         public static final String ARG_SECTION_NUMBER = "section_number";
 
-        public DummySectionFragment(){
+        public SectionFragment() {
 
         }
 
@@ -115,12 +119,18 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
                     rootView = inflater.inflate(R.layout.fragment_sahasranama, container, false);
 
-                    ExpandableListView listView = (ExpandableListView) rootView.findViewById(R.id.listsahasranama);
+                    ListView listViewSection2 = (ListView) rootView.findViewById(R.id.listsahasranama);
+                    adapter = new StableArrayAdapter(getActivity(), secNames);
+                    listViewSection2.setAdapter(adapter);
 
-                    StableExpandableListAdapter adapter1 = new StableExpandableListAdapter(getActivity(),
-                            groups);
-                    listView.setAdapter(adapter1);
-                    listView.expandGroup(0);
+                    listViewSection2.setOnItemClickListener(getMainMenuClickListener(getActivity().getBaseContext()));
+
+//                    ExpandableListView listView = (ExpandableListView) rootView.findViewById(R.id.listsahasranama);
+//
+//                    StableExpandableListAdapter adapter1 = new StableExpandableListAdapter(getActivity(),
+//                            groups);
+//                    listView.setAdapter(adapter1);
+//                    listView.expandGroup(0);
                     return rootView;
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_phala_shruthi, container, false);
@@ -151,6 +161,62 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                     startActivity(intent);
                 }
             };
+        }
+
+        private AdapterView.OnItemClickListener getMainMenuClickListener(final Context ctx) {
+
+            return new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String children = (String) parent.getAdapter().getItem(position);
+
+                    Toast.makeText(ctx, children,
+                            Toast.LENGTH_SHORT).show();
+
+                    Activity activity = getActivity();
+
+
+                    Toast.makeText(activity, children,
+                            Toast.LENGTH_SHORT).show();
+
+                    if (SahasranamaMenuGroupName.DEEP_DIVE.toString().equalsIgnoreCase(children)) {
+
+                        Intent intent = new Intent(activity, SahasranamaShlokaSlideActivity.class);
+                        intent.putExtra("sectionName", SahasranamaMenuGroupName.DEEP_DIVE.getMenuDisplayKey());
+                        intent.putExtra("shlokaList", (Serializable) new ArrayList<Shloka>());
+                        activity.startActivity(intent);
+
+                        return;
+                    }
+
+                    if (SahasranamaMenuGroupName.IN_BRIEF.toString().equalsIgnoreCase(children)) {
+
+                        Intent intent = new Intent(activity, ThousandNamesActivity.class);
+                        activity.startActivity(intent);
+
+                        return;
+                    }
+
+                    if (SahasranamaMenuGroupName.BY_BIRTH_STAR.toString().equalsIgnoreCase(children)) {
+
+                        Intent intent = new Intent(activity, BirthstarsActivity.class);
+                        activity.startActivity(intent);
+
+                        return;
+                    }
+
+
+                    if (SahasranamaMenuGroupName.BY_AVATARA.toString().equalsIgnoreCase(children)) {
+
+                        Intent intent = new Intent(activity, AvatarasActivity.class);
+                        activity.startActivity(intent);
+
+                        return;
+                    }
+
+                }
+            };
+
         }
 
     }
