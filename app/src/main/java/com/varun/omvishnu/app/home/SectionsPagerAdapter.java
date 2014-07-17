@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.adapters.StableArrayAdapter;
-import com.varun.omvishnu.app.data.model.home.Group;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 import com.varun.omvishnu.app.detail.AvatarasActivity;
 import com.varun.omvishnu.app.detail.BirthstarsActivity;
@@ -109,13 +107,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                     return rootView;
 
                 case 1:
-                    SparseArray<Group> groups = new SparseArray<Group>();
                     List<String> secNames = Arrays.asList(SahasranamaMenuGroupName.IN_BRIEF.toString(), SahasranamaMenuGroupName.DEEP_DIVE.toString(), SahasranamaMenuGroupName.BY_BIRTH_STAR.toString(), SahasranamaMenuGroupName.BY_AVATARA.toString());
-                    Group group = new Group(SahasranamaMenuGroupName.SAHASRANAMA_MENU_NAME.toString());
-                    for (String secName : secNames) {
-                        group.children.add(secName);
-                    }
-                    groups.append(SahasranamaMenuGroupName.SAHASRANAMA_MENU_NAME.ordinal(), group);
 
                     rootView = inflater.inflate(R.layout.fragment_sahasranama, container, false);
 
@@ -125,12 +117,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
                     listViewSection2.setOnItemClickListener(getMainMenuClickListener(getActivity().getBaseContext()));
 
-//                    ExpandableListView listView = (ExpandableListView) rootView.findViewById(R.id.listsahasranama);
-//
-//                    StableExpandableListAdapter adapter1 = new StableExpandableListAdapter(getActivity(),
-//                            groups);
-//                    listView.setAdapter(adapter1);
-//                    listView.expandGroup(0);
                     return rootView;
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_phala_shruthi, container, false);

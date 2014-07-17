@@ -16,14 +16,18 @@
 
 package com.varun.omvishnu.app.detail;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
@@ -48,6 +52,8 @@ public class ShlokaPageFragment extends Fragment {
     private List<Shloka> shlokas;
 
     private int mPageNumber;
+
+    private MediaPlayer mediaPlayer;
 
     public ShlokaPageFragment() {
 
@@ -74,6 +80,8 @@ public class ShlokaPageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.fragment_shloka_slide_page, container, false);
 
+        final Activity curActivity = this.getActivity();
+
         ((TextView) rootView.findViewById(R.id.sectiontitle)).setText(sectionName);
 
         final Shloka shloka = shlokas.get(mPageNumber);
@@ -86,8 +94,50 @@ public class ShlokaPageFragment extends Fragment {
         WebView shlokaExplanation = (WebView) rootView.findViewById(R.id.shlokaexplanation);
         shlokaExplanation.loadData(shloka.getFormattedExplanation(), "text/html", null);
 
+        ImageButton pauseButton = (ImageButton) rootView.findViewById(R.id.imageButtonPause);
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(curActivity, "Pausing sound",
+                        Toast.LENGTH_SHORT).show();
+
+                mediaPlayer.pause();
+            }
+        });
+
+        ImageButton playButton = (ImageButton) rootView.findViewById(R.id.imageButtonPlay);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final String resourceName = sectionName.toLowerCase().concat(String.valueOf(mPageNumber + 1));
+
+                final int resName = curActivity.getResources().getIdentifier(resourceName, "raw", curActivity.getPackageName());
+
+                System.out.println("ID fetched for " + resourceName + " -> " + resName);
+
+                Toast.makeText(curActivity, "Playing sound",
+                        Toast.LENGTH_SHORT).show();
+                mediaPlayer = MediaPlayer.create(getActivity(), resName);
+                mediaPlayer.start();
+
+            }
+        });
+
 
         return rootView;
+    }
+
+    @Override
+    public void onStop() {
+
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            System.out.println("************ Attempting to stop media if it is playing *********");
+            mediaPlayer.stop();
+            System.out.println("************ Stop media play was successful *********");
+        }
+
+        super.onStop();
     }
 
     /**

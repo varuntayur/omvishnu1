@@ -185,4 +185,9 @@ public class ShlokaSlideActivity extends FragmentActivity {
             return shlokas.size();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

@@ -24,9 +24,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:descendantFocusability="blocksDescendants">
+        android:padding="16dp">
 
         <TextView
             android:id="@id/sectiontitle"
@@ -45,11 +45,32 @@
             android:lineSpacingMultiplier="1.0"
             android:textStyle="bold"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <ImageButton
+                android:id="@+id/imageButtonPause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:src="@android:drawable/ic_media_pause"/>
+
+            <ImageButton
+                android:id="@+id/imageButtonPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:src="@android:drawable/ic_media_play"/>
+
+        </LinearLayout>
+
         <WebView
             android:id="@id/shlokaexplanation"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-             />
+            android:layout_height="match_parent"/>
         <!--com.varun.omvishnu.app.textjustify.   style="?android:textAppearanceSmall"-->
     </LinearLayout>
 
