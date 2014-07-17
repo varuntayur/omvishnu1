@@ -133,8 +133,8 @@ public class ShlokaPageFragment extends Fragment {
 
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             System.out.println("************ Attempting to stop media if it is playing *********");
-            mediaPlayer.stop();
-            System.out.println("************ Stop media play was successful *********");
+            mediaPlayer.pause();
+            System.out.println("************ Pause media was successful *********");
         }
 
         super.onStop();
