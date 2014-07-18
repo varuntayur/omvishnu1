@@ -94,7 +94,17 @@ public class ShlokaPageFragment extends Fragment {
         WebView shlokaExplanation = (WebView) rootView.findViewById(R.id.shlokaexplanation);
         shlokaExplanation.loadData(shloka.getFormattedExplanation(), "text/html", null);
 
+        final String resourceName = sectionName.toLowerCase().concat(String.valueOf(mPageNumber + 1)).replaceAll(" ", "");
+
+        final int resNameId = curActivity.getResources().getIdentifier(resourceName, "raw", curActivity.getPackageName());
+
+        System.out.println("ID fetched for " + resourceName + " -> " + resNameId);
+
+
         ImageButton pauseButton = (ImageButton) rootView.findViewById(R.id.imageButtonPause);
+        if (resNameId == 0)
+            pauseButton.setClickable(false);
+
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,19 +116,15 @@ public class ShlokaPageFragment extends Fragment {
         });
 
         ImageButton playButton = (ImageButton) rootView.findViewById(R.id.imageButtonPlay);
+        if (resNameId == 0)
+            playButton.setClickable(false);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                final String resourceName = sectionName.toLowerCase().concat(String.valueOf(mPageNumber + 1));
-
-                final int resName = curActivity.getResources().getIdentifier(resourceName, "raw", curActivity.getPackageName());
-
-                System.out.println("ID fetched for " + resourceName + " -> " + resName);
-
                 Toast.makeText(curActivity, "Playing sound",
                         Toast.LENGTH_SHORT).show();
-                mediaPlayer = MediaPlayer.create(getActivity(), resName);
+                mediaPlayer = MediaPlayer.create(getActivity(), resNameId);
                 mediaPlayer.start();
 
             }

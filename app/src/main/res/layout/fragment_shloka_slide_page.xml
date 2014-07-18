@@ -49,7 +49,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="2dp"
+            android:gravity="center_horizontal">
 
             <ImageButton
                 android:id="@+id/imageButtonPause"
@@ -70,7 +71,8 @@
         <WebView
             android:id="@id/shlokaexplanation"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="@android:color/background_light"/>
         <!--com.varun.omvishnu.app.textjustify.   style="?android:textAppearanceSmall"-->
     </LinearLayout>
 

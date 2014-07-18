@@ -21,6 +21,9 @@ public class Shloka implements Serializable {
     private String text;
 
     @Element(required = false)
+    private String enText;
+
+    @Element(required = false)
     private ShlokaDescription explanation;
 
     public Shloka() {
