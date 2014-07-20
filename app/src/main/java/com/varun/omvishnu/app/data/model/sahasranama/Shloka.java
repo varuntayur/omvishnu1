@@ -72,4 +72,15 @@ public class Shloka implements Serializable {
         }
         return stringBuilder.toString();
     }
+
+    public String getEnText() {
+        if (enText != null) {
+            return enText.replaceAll("[ ]+"," ").trim();
+        }
+        return EMPTY_STRING;
+    }
+
+    public void setEnText(String enText) {
+        this.enText = enText;
+    }
 }

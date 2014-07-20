@@ -91,6 +91,10 @@ public class ShlokaPageFragment extends Fragment {
         shlokaText.setText(shloka.getText());
         shlokaText.setTypeface(shlokaText.getTypeface(), Typeface.BOLD);
 
+        TextView shlokaenText = (TextView) rootView.findViewById(R.id.shlokaentext);
+        shlokaenText.setText(shloka.getEnText());
+        shlokaenText.setTypeface(shlokaText.getTypeface(), Typeface.BOLD);
+
         WebView shlokaExplanation = (WebView) rootView.findViewById(R.id.shlokaexplanation);
         shlokaExplanation.loadData(shloka.getFormattedExplanation(), "text/html", null);
 
@@ -122,6 +126,8 @@ public class ShlokaPageFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                if (resNameId == 0) return;
+
                 Toast.makeText(curActivity, "Playing sound",
                         Toast.LENGTH_SHORT).show();
                 mediaPlayer = MediaPlayer.create(getActivity(), resNameId);
@@ -138,6 +144,9 @@ public class ShlokaPageFragment extends Fragment {
     public void onStop() {
 
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+
+            if (mediaPlayer == null) return;
+
             System.out.println("************ Attempting to stop media if it is playing *********");
             mediaPlayer.pause();
             System.out.println("************ Pause media was successful *********");
