@@ -8,6 +8,7 @@ import com.varun.omvishnu.app.data.model.avataras.Avataras;
 import com.varun.omvishnu.app.data.model.birthstars.BirthStars;
 import com.varun.omvishnu.app.data.model.birthstars.Star;
 import com.varun.omvishnu.app.data.model.names.ThousandNames;
+import com.varun.omvishnu.app.data.model.sahasranama.Note;
 import com.varun.omvishnu.app.data.model.sahasranama.Sahasranama;
 import com.varun.omvishnu.app.data.model.sahasranama.Section;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
@@ -137,12 +138,27 @@ public final class DataProvider {
             if (avatara2Shlokas.isEmpty())
                 buildAvataraToShlokaMap();
 
+            printDetailedSahasranamaNames();
+
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("* IOException de-serializing the file *" + e);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("* Exception de-serializing the file *" + e);
+        }
+    }
+
+    private static void printDetailedSahasranamaNames() {
+
+        List<Shloka> lstShlokas = getSahasranama().getSection("Sahasranama").getShlokaList();
+        int i = 1;
+        for (Shloka shloka : lstShlokas) {
+            List<Note> lstNotes = shloka.getExplanation().getNotesList();
+            for (Note note : lstNotes) {
+                System.out.println(i + " " + note.getTitle());
+                i ++;
+            }
         }
     }
 
