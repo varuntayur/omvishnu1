@@ -39,7 +39,7 @@ public class HtmlTextAdapter extends StableArrayAdapter {
         TextView textView = (TextView) rowView.findViewById(R.id.label);
         final String text = values.get(position);
         textView.setText(Html.fromHtml(text));
-        textView.setCompoundDrawablesWithIntrinsicBounds(DataProvider.getMenuName2Resource(text), 0, 0, 0);
+        textView.setCompoundDrawablesWithIntrinsicBounds(DataProvider.getDrawableResourceForMenu(text), 0, 0, 0);
 
         return rowView;
     }

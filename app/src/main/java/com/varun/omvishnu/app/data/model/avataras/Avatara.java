@@ -1,8 +1,7 @@
 package com.varun.omvishnu.app.data.model.avataras;
 
-import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
-
 import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 
 import java.io.Serializable;
@@ -20,8 +19,11 @@ public class Avatara implements Serializable {
     @Attribute(name = "num")
     private String num;
 
-    @ElementList(inline = true, name = "shloka", required = false)
-    private List<Shloka> shlokas;
+    @Element(name = "note", required = false)
+    private String note;
+
+    @ElementList(inline = true, entry = "avshloka", name = "avshloka", required = false)
+    private List<AvShloka> avShlokas;
 
     public String getNum() {
         return num;
@@ -39,14 +41,14 @@ public class Avatara implements Serializable {
         this.name = name;
     }
 
-    public List<Shloka> getShlokas() {
+    public List<AvShloka> getAvShlokas() {
 
-        if (shlokas == null) return Collections.EMPTY_LIST;
+        if (avShlokas == null) return Collections.EMPTY_LIST;
 
-        return shlokas;
+        return avShlokas;
     }
 
-    public void setShlokas(List<Shloka> shlokas) {
-        this.shlokas = shlokas;
+    public void setAvShlokas(List<AvShloka> shlokas) {
+        this.avShlokas = shlokas;
     }
 }

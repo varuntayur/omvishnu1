@@ -3,6 +3,7 @@ package com.varun.omvishnu.app.data;
 import android.content.res.AssetManager;
 
 import com.varun.omvishnu.app.R;
+import com.varun.omvishnu.app.data.model.avataras.AvShloka;
 import com.varun.omvishnu.app.data.model.avataras.Avatara;
 import com.varun.omvishnu.app.data.model.avataras.Avataras;
 import com.varun.omvishnu.app.data.model.birthstars.BirthStars;
@@ -157,12 +158,12 @@ public final class DataProvider {
             List<Note> lstNotes = shloka.getExplanation().getNotesList();
             for (Note note : lstNotes) {
                 System.out.println(i + " " + note.getTitle());
-                i ++;
+                i++;
             }
         }
     }
 
-    public static Integer getMenuName2Resource(String menuName) {
+    public static Integer getDrawableResourceForMenu(String menuName) {
         final Integer resourceName = menuName2Resource.get(menuName);
 
         if (resourceName != null)
@@ -220,11 +221,11 @@ public final class DataProvider {
 
         for (Avatara avatara : avataras.getLstAvataras()) {
 
-            final List<Shloka> avataraShlokas = avatara.getShlokas();
+            final List<AvShloka> avataraShlokas = avatara.getAvShlokas();
 
             final List<Shloka> shlokaList = new ArrayList<Shloka>();
 
-            for (Shloka shloka : avataraShlokas) {
+            for (AvShloka shloka : avataraShlokas) {
                 shlokaList.add(sahasranama.getShloka(shloka.getNum()));
             }
 

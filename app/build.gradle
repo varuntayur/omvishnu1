@@ -47,4 +47,5 @@ dependencies {
     compile 'com.android.support:support-v13:19.0.+'
     compile 'com.android.support:appcompat-v7:+'
     compile 'com.android.support:support-v4:19.+'
+    compile 'com.etsy.android.grid:library:1.0.5' // see changelog
 }

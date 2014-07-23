@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.etsy.android.grid.StaggeredGridView;
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.adapters.StableArrayAdapter;
@@ -21,12 +23,14 @@ import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 import com.varun.omvishnu.app.detail.AvatarasActivity;
 import com.varun.omvishnu.app.detail.BirthstarsActivity;
 import com.varun.omvishnu.app.detail.SahasranamaShlokaSlideActivity;
+import com.varun.omvishnu.app.detail.SampleAdapterImage;
 import com.varun.omvishnu.app.detail.ShlokaSlideActivity;
 import com.varun.omvishnu.app.detail.ThousandNamesActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,7 +60,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -69,6 +73,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return context.getString(R.string.title_section2);
             case 2:
                 return context.getString(R.string.title_section3);
+            case 3:
+                return context.getString(R.string.title_section4);
         }
         return null;
     }
@@ -104,6 +110,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                     listViewSection1.setAdapter(adapter);
 
                     listViewSection1.setOnItemClickListener(getOnMenuClickListener(getActivity().getBaseContext()));
+
+
                     return rootView;
 
                 case 1:
@@ -127,6 +135,36 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
                     listViewSection3.setOnItemClickListener(getOnMenuClickListener(getActivity().getBaseContext()));
                     return rootView;
+
+                case 3:
+                    rootView = inflater.inflate(R.layout.activity_sgv, container, false);
+
+                    final StaggeredGridView listView = (StaggeredGridView) rootView.findViewById(R.id.grid_view);
+
+                    View header = inflater.inflate(R.layout.list_item_header_footer, null);
+                    View footer = inflater.inflate(R.layout.list_item_header_footer, null);
+                    TextView txtHeaderTitle = (TextView) header.findViewById(R.id.txt_title);
+                    TextView txtFooterTitle = (TextView) footer.findViewById(R.id.txt_title);
+                    txtHeaderTitle.setText("THE HEADER!");
+                    txtFooterTitle.setText("THE FOOTER!");
+
+                    listView.addHeaderView(header);
+                    listView.addFooterView(footer);
+
+                    sectionNames.addAll(Arrays.asList(SahasranamaMenuGroupName.IN_BRIEF.toString(), SahasranamaMenuGroupName.DEEP_DIVE.toString(), SahasranamaMenuGroupName.BY_BIRTH_STAR.toString(), SahasranamaMenuGroupName.BY_AVATARA.toString()));
+                    List<String> sampleData = sectionNames;
+                    sampleData.remove("Sahasranama"); // this is mapped to DEEP_DIVE
+
+                    final SampleAdapterImage adapter1 = new SampleAdapterImage(this.getActivity(), android.R.layout.simple_list_item_1, sampleData);
+                    listView.setAdapter(adapter1);
+                    listView.setOnItemClickListener(getOnMenuClickListener(getActivity().getBaseContext()));
+
+//                    sampleData = sectionNames.subList(0, indexOfSahasranama);
+//                    for (String data : sampleData) {
+//                        adapter1.add(data);
+//                    }
+
+                    return rootView;
             }
 
             return null;
@@ -141,10 +179,37 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                     Toast.makeText(ctx, item,
                             Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(getActivity(), ShlokaSlideActivity.class);
-                    intent.putExtra("sectionName", item);
-                    intent.putExtra("shlokaList", (Serializable) DataProvider.getSahasranama().getSection(item).getShlokaList());
-                    startActivity(intent);
+                    Activity activity = getActivity();
+
+
+                    if (SahasranamaMenuGroupName.DEEP_DIVE.toString().equalsIgnoreCase(item)) {
+
+                        Intent intent = new Intent(activity, SahasranamaShlokaSlideActivity.class);
+                        intent.putExtra("sectionName", SahasranamaMenuGroupName.DEEP_DIVE.getMenuDisplayKey());
+                        intent.putExtra("shlokaList", (Serializable) new ArrayList<Shloka>());
+                        startActivity(intent);
+
+                    } else if (SahasranamaMenuGroupName.IN_BRIEF.toString().equalsIgnoreCase(item)) {
+
+                        Intent intent = new Intent(activity, ThousandNamesActivity.class);
+                        startActivity(intent);
+
+                    } else if (SahasranamaMenuGroupName.BY_BIRTH_STAR.toString().equalsIgnoreCase(item)) {
+
+                        Intent intent = new Intent(activity, BirthstarsActivity.class);
+                        startActivity(intent);
+
+                    } else if (SahasranamaMenuGroupName.BY_AVATARA.toString().equalsIgnoreCase(item)) {
+
+                        Intent intent = new Intent(activity, AvatarasActivity.class);
+                        startActivity(intent);
+
+                    } else {
+                        Intent intent = new Intent(getActivity(), ShlokaSlideActivity.class);
+                        intent.putExtra("sectionName", item);
+                        intent.putExtra("shlokaList", (Serializable) DataProvider.getSahasranama().getSection(item).getShlokaList());
+                        startActivity(intent);
+                    }
                 }
             };
         }
