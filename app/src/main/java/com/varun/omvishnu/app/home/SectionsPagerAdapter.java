@@ -23,6 +23,7 @@ import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 import com.varun.omvishnu.app.detail.AvatarasActivity;
 import com.varun.omvishnu.app.detail.BirthstarsActivity;
 import com.varun.omvishnu.app.detail.SahasranamaShlokaSlideActivity;
+import com.varun.omvishnu.app.detail.SampleAdapter;
 import com.varun.omvishnu.app.detail.SampleAdapterImage;
 import com.varun.omvishnu.app.detail.ShlokaSlideActivity;
 import com.varun.omvishnu.app.detail.ThousandNamesActivity;
@@ -30,7 +31,6 @@ import com.varun.omvishnu.app.detail.ThousandNamesActivity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,7 +60,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -75,6 +75,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return context.getString(R.string.title_section3);
             case 3:
                 return context.getString(R.string.title_section4);
+            case 4:
+                return context.getString(R.string.title_section5);
         }
         return null;
     }
@@ -139,7 +141,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 case 3:
                     rootView = inflater.inflate(R.layout.activity_sgv, container, false);
 
-                    final StaggeredGridView listView = (StaggeredGridView) rootView.findViewById(R.id.grid_view);
+                    StaggeredGridView listView = (StaggeredGridView) rootView.findViewById(R.id.grid_view);
 
                     View header = inflater.inflate(R.layout.list_item_header_footer, null);
                     View footer = inflater.inflate(R.layout.list_item_header_footer, null);
@@ -163,6 +165,40 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 //                    for (String data : sampleData) {
 //                        adapter1.add(data);
 //                    }
+
+                    return rootView;
+
+                case 4:
+                    rootView = inflater.inflate(R.layout.activity_sgv, container, false);
+
+                    listView = (StaggeredGridView) rootView.findViewById(R.id.grid_view);
+
+                    header = inflater.inflate(R.layout.list_item_header_footer, null);
+                    footer = inflater.inflate(R.layout.list_item_header_footer, null);
+                    txtHeaderTitle = (TextView) header.findViewById(R.id.txt_title);
+                    txtFooterTitle = (TextView) footer.findViewById(R.id.txt_title);
+                    txtHeaderTitle.setText("Sri Vishnu Sahasranama Complete Reference");
+                    txtFooterTitle.setText("");
+
+                    listView.addHeaderView(header);
+                    listView.addFooterView(footer);
+
+                    SampleAdapter mAdapter = new SampleAdapter(this.getActivity(), R.id.txt_line1);
+
+                    List<String> builtSectionNames = new ArrayList<String>(sectionNames.subList(0, indexOfSahasranama));
+
+                    builtSectionNames.addAll(Arrays.asList(SahasranamaMenuGroupName.IN_BRIEF.toString(), SahasranamaMenuGroupName.DEEP_DIVE.toString(), SahasranamaMenuGroupName.BY_BIRTH_STAR.toString(), SahasranamaMenuGroupName.BY_AVATARA.toString()));
+
+                    builtSectionNames.addAll(sectionNames.subList(indexOfSahasranama + 1, sectionNames.size()));
+
+
+                    for (String data : builtSectionNames) {
+                        mAdapter.add(data);
+                    }
+
+//                    final SampleAdapterImage adapter1 = new SampleAdapterImage(this.getActivity(), android.R.layout.simple_list_item_1, sampleData);
+                    listView.setAdapter(mAdapter);
+                    listView.setOnItemClickListener(getOnMenuClickListener(getActivity().getBaseContext()));
 
                     return rootView;
             }

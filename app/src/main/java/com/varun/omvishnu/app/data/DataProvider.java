@@ -139,7 +139,7 @@ public final class DataProvider {
             if (avatara2Shlokas.isEmpty())
                 buildAvataraToShlokaMap();
 
-            printDetailedSahasranamaNames();
+//            printDetailedSahasranamaNames();
 
         } catch (IOException e) {
             e.printStackTrace();

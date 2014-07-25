@@ -18,6 +18,7 @@ package com.varun.omvishnu.app.detail;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -96,6 +97,7 @@ public class ShlokaPageFragment extends Fragment {
         shlokaenText.setTypeface(shlokaText.getTypeface(), Typeface.BOLD);
 
         WebView shlokaExplanation = (WebView) rootView.findViewById(R.id.shlokaexplanation);
+        shlokaExplanation.setBackgroundColor(Color.TRANSPARENT);
         shlokaExplanation.loadData(shloka.getFormattedExplanation(), "text/html", null);
 
         final String resourceName = sectionName.toLowerCase().concat(String.valueOf(mPageNumber + 1)).replaceAll(" ", "");
@@ -106,8 +108,7 @@ public class ShlokaPageFragment extends Fragment {
 
 
         ImageButton pauseButton = (ImageButton) rootView.findViewById(R.id.imageButtonPause);
-        if (resNameId == 0)
-            pauseButton.setClickable(false);
+        setVisibility(resNameId, pauseButton);
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,8 +121,8 @@ public class ShlokaPageFragment extends Fragment {
         });
 
         ImageButton playButton = (ImageButton) rootView.findViewById(R.id.imageButtonPlay);
-        if (resNameId == 0)
-            playButton.setClickable(false);
+        setVisibility(resNameId, playButton);
+
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +139,13 @@ public class ShlokaPageFragment extends Fragment {
 
 
         return rootView;
+    }
+
+    private void setVisibility(int resNameId, ImageButton pauseButton) {
+        if (resNameId == 0)
+            pauseButton.setVisibility(View.INVISIBLE);
+        else
+            pauseButton.setVisibility(View.VISIBLE);
     }
 
     @Override
