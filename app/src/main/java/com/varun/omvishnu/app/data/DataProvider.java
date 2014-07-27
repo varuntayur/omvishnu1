@@ -13,7 +13,6 @@ import com.varun.omvishnu.app.data.model.sahasranama.Note;
 import com.varun.omvishnu.app.data.model.sahasranama.Sahasranama;
 import com.varun.omvishnu.app.data.model.sahasranama.Section;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
-import com.varun.omvishnu.app.home.SahasranamaMenuGroupName;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -45,18 +44,18 @@ public final class DataProvider {
 
     private static Map<String, Integer> menuName2Resource = new HashMap<String, Integer>() {
         {
-            put("History", R.drawable.history);
-            put("Invocation", R.drawable.invocation);
-            put("Dhyanam", R.drawable.dhyanam);
+//            put("History", R.drawable.history);
+//            put("Invocation", R.drawable.invocation);
+//            put("Dhyanam", R.drawable.dhyanam);
 
-            put(SahasranamaMenuGroupName.SAHASRANAMA_MENU_NAME.toString(), R.drawable.vishwaroopa);
-            put(SahasranamaMenuGroupName.IN_BRIEF.toString(), R.drawable.inbrief);
-            put(SahasranamaMenuGroupName.BY_AVATARA.toString(), R.drawable.krishna);
-            put(SahasranamaMenuGroupName.DEEP_DIVE.toString(), R.drawable.vishwaroopa);
-            put(SahasranamaMenuGroupName.BY_BIRTH_STAR.toString(), R.drawable.star);
+//            put(SahasranamaMenuGroupName.SAHASRANAMA_MENU_NAME.toString(), R.drawable.vishwaroopa);
+//            put(SahasranamaMenuGroupName.IN_BRIEF.toString(), R.drawable.inbrief);
+//            put(SahasranamaMenuGroupName.BY_AVATARA.toString(), R.drawable.krishna);
+//            put(SahasranamaMenuGroupName.DEEP_DIVE.toString(), R.drawable.vishwaroopa);
+//            put(SahasranamaMenuGroupName.BY_BIRTH_STAR.toString(), R.drawable.star);
 
-            put("Phala Shruthi", R.drawable.phalashruthi);
-            put("Mangala", R.drawable.mangala);
+//            put("Phala Shruthi", R.drawable.phalashruthi);
+//            put("Mangala", R.drawable.mangala);
 
             put("Hasta", R.drawable.kanya);
             put("Anuradha", R.drawable.vrischika);
