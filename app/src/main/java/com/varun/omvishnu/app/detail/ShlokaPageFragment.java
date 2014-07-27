@@ -116,6 +116,8 @@ public class ShlokaPageFragment extends Fragment {
                 Toast.makeText(curActivity, "Pausing sound",
                         Toast.LENGTH_SHORT).show();
 
+                if (mediaPlayer == null) return;
+
                 mediaPlayer.pause();
             }
         });
@@ -129,8 +131,12 @@ public class ShlokaPageFragment extends Fragment {
 
                 if (resNameId == 0) return;
 
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) return;
+
                 Toast.makeText(curActivity, "Playing sound",
                         Toast.LENGTH_SHORT).show();
+
+
                 mediaPlayer = MediaPlayer.create(getActivity(), resNameId);
                 mediaPlayer.start();
 

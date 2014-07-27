@@ -78,14 +78,14 @@ public class TiledHomeScreen extends FragmentActivity {
                     StaggeredGridView listView = (StaggeredGridView) findViewById(R.id.grid_view);
 
                     View header = inflater.inflate(R.layout.list_item_header_footer, null);
-                    View footer = inflater.inflate(R.layout.list_item_header_footer, null);
+//                    View footer = inflater.inflate(R.layout.list_item_header_footer, null);
                     TextView txtHeaderTitle = (TextView) header.findViewById(R.id.txt_title);
-                    TextView txtFooterTitle = (TextView) footer.findViewById(R.id.txt_title);
+//                    TextView txtFooterTitle = (TextView) footer.findViewById(R.id.txt_title);
                     txtHeaderTitle.setText("Sri Vishnu Sahasranama Complete Reference");
-                    txtFooterTitle.setText("");
+//                    txtFooterTitle.setText("");
 
                     listView.addHeaderView(header);
-                    listView.addFooterView(footer);
+//                    listView.addFooterView(footer);
 
                     SampleAdapter mAdapter = new SampleAdapter(activity, R.id.txt_line1);
 

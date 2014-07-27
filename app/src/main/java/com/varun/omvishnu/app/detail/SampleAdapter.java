@@ -45,6 +45,10 @@ public class SampleAdapter extends ArrayAdapter<String> {
         mBackgroundColors.add(R.color.blue);
         mBackgroundColors.add(R.color.yellow);
         mBackgroundColors.add(R.color.grey);
+        mBackgroundColors.add(R.color.lblue);
+        mBackgroundColors.add(R.color.slateblue);
+        mBackgroundColors.add(R.color.cyan);
+        mBackgroundColors.add(R.color.silver);
     }
 
     @Override
