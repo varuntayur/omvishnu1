@@ -48,22 +48,17 @@ public class ShlokaSlideActivity extends FragmentActivity {
      * The number of pages (wizard steps) to show in this demo.
      */
     private static final int NUM_PAGES = 5;
-
+    protected List<Shloka> mShlokas;
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
     private ViewPager mPager;
-
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter mPagerAdapter;
-
     private String mSectionName;
-
-    protected List<Shloka> mShlokas;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +73,9 @@ public class ShlokaSlideActivity extends FragmentActivity {
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
+
+        mPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
         mSectionName = getIntent().getStringExtra("sectionName");
         if (mShlokas == null)
             mShlokas = (List<Shloka>) getIntent().getSerializableExtra("shlokaList");
@@ -158,6 +156,11 @@ public class ShlokaSlideActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     /**
      * A simple pager adapter that represents 5 {@link ShlokaPageFragment} objects, in
      * sequence.
@@ -184,10 +187,5 @@ public class ShlokaSlideActivity extends FragmentActivity {
         public int getCount() {
             return shlokas.size();
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 }
