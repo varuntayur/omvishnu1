@@ -83,7 +83,10 @@ public class ShlokaPageFragment extends Fragment {
 
         final Activity curActivity = this.getActivity();
 
-        ((TextView) rootView.findViewById(R.id.sectiontitle)).setText(sectionName);
+        String displayPageNumber = String.valueOf(mPageNumber + 1);
+
+        TextView secTitleViewById = (TextView) rootView.findViewById(R.id.sectiontitle);
+        secTitleViewById.setText(sectionName + " ( " + displayPageNumber + " / " + shlokas.size() + " )");
 
         final Shloka shloka = shlokas.get(mPageNumber);
 
@@ -100,7 +103,7 @@ public class ShlokaPageFragment extends Fragment {
         shlokaExplanation.setBackgroundColor(Color.TRANSPARENT);
         shlokaExplanation.loadData(shloka.getFormattedExplanation(), "text/html", null);
 
-        final String resourceName = sectionName.toLowerCase().concat(String.valueOf(mPageNumber + 1)).replaceAll(" ", "");
+        final String resourceName = sectionName.toLowerCase().concat(displayPageNumber).replaceAll(" ", "");
 
         final int resNameId = curActivity.getResources().getIdentifier(resourceName, "raw", curActivity.getPackageName());
 
