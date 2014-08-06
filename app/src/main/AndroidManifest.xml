@@ -3,7 +3,7 @@
     package="com.varun.omvishnu.app" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="13"
         android:targetSdkVersion="17" />
 
     <application
