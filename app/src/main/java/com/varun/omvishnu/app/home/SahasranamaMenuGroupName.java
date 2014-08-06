@@ -5,7 +5,7 @@ package com.varun.omvishnu.app.home;
  */
 public enum SahasranamaMenuGroupName {
 
-    SAHASRANAMA_MENU_NAME("Sahasranama", ""), IN_BRIEF("In Brief", ""), DEEP_DIVE("Deep Dive", "Sahasranama"), BY_BIRTH_STAR("By Birth Star", ""), BY_AVATARA("Avathara", "");
+    SAHASRANAMA_MENU_NAME("Sahasranama", ""), IN_BRIEF("Quick glance", ""), DEEP_DIVE("Complete Sahasranama explanation", "Sahasranama"), BY_BIRTH_STAR("For your Birth Star", ""), BY_AVATARA("By Avathara", "");
 
     private String menuDisplayName;
     private String menuDisplayKey;

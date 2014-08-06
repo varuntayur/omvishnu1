@@ -114,6 +114,8 @@ public final class DataProvider {
             put("Varaha", R.drawable.varaha);
             put("Vamana", R.drawable.vamana);
             put("Krishna", R.drawable.krishna);
+            put("Vyasa", R.drawable.vyasa);
+            put("Vatapatra", R.drawable.vatapatra);
 
         }
     };
