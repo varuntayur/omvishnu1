@@ -12,43 +12,28 @@ import android.widget.Button;
 
 import com.etsy.android.grid.util.DynamicHeightTextView;
 import com.varun.omvishnu.app.R;
+import com.varun.omvishnu.app.data.DataProvider;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-/***
+/**
  * ADAPTER
  */
 
 public class SampleAdapter extends ArrayAdapter<String> {
 
     private static final String TAG = "SampleAdapter";
-
-    static class ViewHolder {
-        DynamicHeightTextView txtLineOne;
-        Button btnGo;
-    }
-
+    private static final SparseArray<Double> sPositionHeightRatios = new SparseArray<Double>();
     private final LayoutInflater mLayoutInflater;
     private final Random mRandom;
-    private final ArrayList<Integer> mBackgroundColors;
-
-    private static final SparseArray<Double> sPositionHeightRatios = new SparseArray<Double>();
+    private final List<Integer> mBackgroundColors;
 
     public SampleAdapter(final Context context, final int textViewResourceId) {
         super(context, textViewResourceId);
         mLayoutInflater = LayoutInflater.from(context);
         mRandom = new Random();
-        mBackgroundColors = new ArrayList<Integer>();
-        mBackgroundColors.add(R.color.orange);
-        mBackgroundColors.add(R.color.green);
-        mBackgroundColors.add(R.color.blue);
-        mBackgroundColors.add(R.color.yellow);
-        mBackgroundColors.add(R.color.grey);
-        mBackgroundColors.add(R.color.lblue);
-        mBackgroundColors.add(R.color.slateblue);
-        mBackgroundColors.add(R.color.cyan);
-        mBackgroundColors.add(R.color.silver);
+        mBackgroundColors = DataProvider.getBackgroundColorList();
     }
 
     @Override
@@ -62,8 +47,7 @@ public class SampleAdapter extends ArrayAdapter<String> {
 //            vh.btnGo = (Button) convertView.findViewById(R.id.btn_go);
 
             convertView.setTag(vh);
-        }
-        else {
+        } else {
             vh = (ViewHolder) convertView.getTag();
         }
 
@@ -106,5 +90,10 @@ public class SampleAdapter extends ArrayAdapter<String> {
 
     private double getRandomHeightRatio() {
         return (mRandom.nextDouble() / 2.0) + 1.0; // height will be 1.0 - 1.5 the width
+    }
+
+    static class ViewHolder {
+        DynamicHeightTextView txtLineOne;
+        Button btnGo;
     }
 }

@@ -129,27 +129,32 @@ public class TiledHomeScreen extends FragmentActivity {
 
                         Intent intent = new Intent(activity, SahasranamaShlokaSlideActivity.class);
                         intent.putExtra("sectionName", SahasranamaMenuGroupName.DEEP_DIVE.getMenuDisplayKey());
+                        intent.putExtra("menuPosition", position);
                         intent.putExtra("shlokaList", (Serializable) new ArrayList<Shloka>());
                         startActivity(intent);
 
                     } else if (SahasranamaMenuGroupName.IN_BRIEF.toString().equalsIgnoreCase(item)) {
 
                         Intent intent = new Intent(activity, ThousandNamesActivity.class);
+                        intent.putExtra("menuPosition", position);
                         startActivity(intent);
 
                     } else if (SahasranamaMenuGroupName.BY_BIRTH_STAR.toString().equalsIgnoreCase(item)) {
 
                         Intent intent = new Intent(activity, BirthstarsActivity.class);
+                        intent.putExtra("menuPosition", position);
                         startActivity(intent);
 
                     } else if (SahasranamaMenuGroupName.BY_AVATARA.toString().equalsIgnoreCase(item)) {
 
                         Intent intent = new Intent(activity, AvatarasActivity.class);
+                        intent.putExtra("menuPosition", position);
                         startActivity(intent);
 
                     } else {
                         Intent intent = new Intent(activity, ShlokaSlideActivity.class);
                         intent.putExtra("sectionName", item);
+                        intent.putExtra("menuPosition", position);
                         intent.putExtra("shlokaList", (Serializable) DataProvider.getSahasranama().getSection(item).getShlokaList());
                         startActivity(intent);
                     }

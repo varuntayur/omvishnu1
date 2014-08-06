@@ -42,6 +42,7 @@ public class AvatarasActivity extends ListActivity {
 
         Intent intent = new Intent(getBaseContext(), ShlokaSlideActivity.class);
         intent.putExtra("sectionName", item);
+        intent.putExtra("menuPosition", getIntent().getIntExtra("menuPosition", 0));
         intent.putExtra("shlokaList", (Serializable) DataProvider.getShlokaForAvatara(item));
         startActivity(intent);
     }

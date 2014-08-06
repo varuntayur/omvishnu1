@@ -41,6 +41,7 @@ public class BirthstarsActivity extends ListActivity {
         System.out.println("shlokas -> " + DataProvider.getShlokasForBirthStar(item));
 
         Intent intent = new Intent(getBaseContext(), ShlokaSlideActivity.class);
+        intent.putExtra("menuPosition", getIntent().getIntExtra("menuPosition", 0));
         intent.putExtra("sectionName", item);
         intent.putExtra("shlokaList", (Serializable) DataProvider.getShlokasForBirthStar(item));
         startActivity(intent);

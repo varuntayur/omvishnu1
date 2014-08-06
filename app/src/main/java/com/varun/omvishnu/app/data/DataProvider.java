@@ -42,6 +42,20 @@ public final class DataProvider {
 
     private static Map<String, List<Shloka>> avatara2Shlokas = new HashMap<String, List<Shloka>>();
 
+    private static List<Integer> mBackgroundColors = new ArrayList<Integer>() {
+        {
+            add(R.color.orange);
+            add(R.color.green);
+            add(R.color.blue);
+            add(R.color.yellow);
+            add(R.color.grey);
+            add(R.color.lblue);
+            add(R.color.slateblue);
+            add(R.color.cyan);
+            add(R.color.silver);
+        }
+    };
+
     private static Map<String, Integer> menuName2Resource = new HashMap<String, Integer>() {
         {
 //            put("History", R.drawable.history);
@@ -149,6 +163,10 @@ public final class DataProvider {
         }
     }
 
+    public static List<Integer> getBackgroundColorList() {
+        return Collections.unmodifiableList(mBackgroundColors);
+    }
+
     private static void printDetailedSahasranamaNames() {
 
         List<Shloka> lstShlokas = getSahasranama().getSection("Sahasranama").getShlokaList();
@@ -193,6 +211,10 @@ public final class DataProvider {
 
     public static List<Shloka> getShlokaForAvatara(String name) {
         return new ArrayList<Shloka>(avatara2Shlokas.get(name));
+    }
+
+    public static int getBackgroundColor(int location) {
+        return mBackgroundColors.get(location);
     }
 
     private static void buildNakshatraToShlokaMap() {

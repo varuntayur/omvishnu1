@@ -28,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.varun.omvishnu.app.R;
+import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 
 import java.util.List;
@@ -75,6 +76,10 @@ public class ShlokaSlideActivity extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
 
         mPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
+        Integer menuPosition = getIntent().getIntExtra("menuPosition", 0);
+        System.out.println("setting view background to color at index " + menuPosition);
+        mPager.setBackgroundResource(DataProvider.getBackgroundColor(menuPosition - 1));
 
         mSectionName = getIntent().getStringExtra("sectionName");
         if (mShlokas == null)
