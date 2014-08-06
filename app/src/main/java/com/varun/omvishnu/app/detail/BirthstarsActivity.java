@@ -3,6 +3,7 @@ package com.varun.omvishnu.app.detail;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -17,6 +18,8 @@ import java.util.Collection;
  * Created by varuntayur on 7/2/2014.
  */
 public class BirthstarsActivity extends ListActivity {
+
+    private static String TAG = "BirthstarsActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,8 +40,8 @@ public class BirthstarsActivity extends ListActivity {
     public void onListItemClick(ListView l, View v, int position, long id) {
         String item = (String) l.getAdapter().getItem(position);
 
-        System.out.println("nakshatra -> " + item);
-        System.out.println("shlokas -> " + DataProvider.getShlokasForBirthStar(item));
+        Log.d(TAG, "nakshatra -> " + item);
+        Log.d(TAG, "shlokas -> " + DataProvider.getShlokasForBirthStar(item));
 
         Intent intent = new Intent(getBaseContext(), ShlokaSlideActivity.class);
         intent.putExtra("menuPosition", getIntent().getIntExtra("menuPosition", 0));

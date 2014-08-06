@@ -17,6 +17,7 @@
 package com.varun.omvishnu.app.detail;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.home.SahasranamaMenuGroupName;
@@ -34,12 +35,13 @@ import com.varun.omvishnu.app.home.SahasranamaMenuGroupName;
  */
 public class SahasranamaShlokaSlideActivity extends ShlokaSlideActivity {
 
+    private static String TAG = "SahasranamaShlokaSlideActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         mShlokas = DataProvider.getSahasranama().getSection(SahasranamaMenuGroupName.DEEP_DIVE.getMenuDisplayKey()).getShlokaList();
-        System.out.println("-> Starting SahasranamaScreenSlideActivity <-");
+        Log.d(TAG, "-> Starting SahasranamaScreenSlideActivity <-");
 
         super.onCreate(savedInstanceState);
 

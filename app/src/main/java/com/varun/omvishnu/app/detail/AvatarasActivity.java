@@ -3,6 +3,7 @@ package com.varun.omvishnu.app.detail;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -17,6 +18,8 @@ import java.util.Collection;
  * Created by varuntayur on 7/2/2014.
  */
 public class AvatarasActivity extends ListActivity {
+
+    private static String TAG = "AvatarasActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,8 +40,8 @@ public class AvatarasActivity extends ListActivity {
     public void onListItemClick(ListView l, View v, int position, long id) {
         String item = (String) l.getAdapter().getItem(position);
 
-        System.out.println("avatara -> " + item);
-        System.out.println("shlokas -> " + DataProvider.getShlokaForAvatara(item));
+        Log.d(TAG, "avatara -> " + item);
+        Log.d(TAG, "shlokas -> " + DataProvider.getShlokaForAvatara(item));
 
         Intent intent = new Intent(getBaseContext(), ShlokaSlideActivity.class);
         intent.putExtra("sectionName", item);

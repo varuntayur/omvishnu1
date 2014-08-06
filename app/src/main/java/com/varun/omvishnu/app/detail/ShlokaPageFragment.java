@@ -22,6 +22,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class ShlokaPageFragment extends Fragment {
     /**
      * The argument key for the page number this fragment represents.
      */
+    private static String TAG = "ShlokaPageFragment";
     private static Typeface devanagariTf;
 
     private String sectionName;
@@ -107,7 +109,7 @@ public class ShlokaPageFragment extends Fragment {
 
         final int resNameId = curActivity.getResources().getIdentifier(resourceName, "raw", curActivity.getPackageName());
 
-        System.out.println("ID fetched for " + resourceName + " -> " + resNameId);
+        Log.d(TAG, "ID fetched for " + resourceName + " -> " + resNameId);
 
 
         ImageButton pauseButton = (ImageButton) rootView.findViewById(R.id.imageButtonPause);
@@ -164,9 +166,9 @@ public class ShlokaPageFragment extends Fragment {
 
             if (mediaPlayer == null) return;
 
-            System.out.println("************ Attempting to stop media if it is playing *********");
+            Log.d(TAG,"************ Attempting to stop media if it is playing *********");
             mediaPlayer.pause();
-            System.out.println("************ Pause media was successful *********");
+            Log.d(TAG,"************ Pause media was successful *********");
         }
 
         super.onStop();

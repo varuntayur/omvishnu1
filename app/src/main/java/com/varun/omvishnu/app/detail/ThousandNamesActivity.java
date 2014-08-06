@@ -17,6 +17,8 @@ import com.varun.omvishnu.app.data.adapters.StableArrayAdapter;
  */
 public class ThousandNamesActivity extends Activity {
 
+    private static String TAG = "ThousandNamesActivity";
+
     // List view
     private ListView lv;
 
