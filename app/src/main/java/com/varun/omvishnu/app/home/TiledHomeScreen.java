@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.etsy.android.grid.StaggeredGridView;
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
+import com.varun.omvishnu.app.data.model.sahasranama.Section;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 import com.varun.omvishnu.app.detail.AvatarasActivity;
 import com.varun.omvishnu.app.detail.BirthstarsActivity;
@@ -85,6 +86,7 @@ public class TiledHomeScreen extends FragmentActivity {
 //                    txtFooterTitle.setText("");
 
                     listView.addHeaderView(header);
+                    header.setClickable(false);
 //                    listView.addFooterView(footer);
 
                     SampleAdapter mAdapter = new SampleAdapter(activity, R.id.txt_line1);
@@ -121,8 +123,8 @@ public class TiledHomeScreen extends FragmentActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String item = (String) parent.getAdapter().getItem(position);
 
-                    Toast.makeText(ctx, item,
-                            Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ctx, item,
+//                            Toast.LENGTH_SHORT).show();
 
 
                     if (SahasranamaMenuGroupName.DEEP_DIVE.toString().equalsIgnoreCase(item)) {
@@ -155,7 +157,10 @@ public class TiledHomeScreen extends FragmentActivity {
                         Intent intent = new Intent(activity, ShlokaSlideActivity.class);
                         intent.putExtra("sectionName", item);
                         intent.putExtra("menuPosition", position);
-                        intent.putExtra("shlokaList", (Serializable) DataProvider.getSahasranama().getSection(item).getShlokaList());
+                        Section section = DataProvider.getSahasranama().getSection(item);
+                        if (section == null) return;
+
+                        intent.putExtra("shlokaList", (Serializable) section.getShlokaList());
                         startActivity(intent);
                     }
                 }
