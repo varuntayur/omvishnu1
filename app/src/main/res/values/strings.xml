@@ -2,22 +2,10 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="app_name">Sri Vishnu Sahasranama: Complete Reference</string>
-    <string name="action_settings">Settings</string>
-    <string name="app_sections">Sri Vishnu Sahasranama: Sections</string>
 
-    <!-- Titles -->
-    <string name="title_screen_slide">Sri Vishnu Sahasranama Explained</string>
+    <string name="loading_please_wait">Loading. Please wait...</string>
 
-    <!-- Actions -->
-    <string name="action_previous">Previous</string>
-    <string name="action_next">Next</string>
-    <string name="action_finish">Finish</string>
-
-
-    <string name="title_section1">Dhyanam</string>
-    <string name="title_section2">Sahasranama</string>
-    <string name="title_section3">Phala Shruthi</string>
-    <string name="title_section4">Test</string>
-    <string name="title_section5">Test1</string>
+    <string name="section_history">History</string>
+    <string name="section_sahasranama">Sahasranama</string>
 
 </resources>

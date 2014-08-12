@@ -20,7 +20,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.varun.omvishnu.app.data.DataProvider;
-import com.varun.omvishnu.app.home.SahasranamaMenuGroupName;
+import com.varun.omvishnu.app.home.SahasranamaMenu;
 
 /**
  * Demonstrates a "screen-slide" animation using a {@link android.support.v4.view.ViewPager}. Because {@link android.support.v4.view.ViewPager}
@@ -40,7 +40,7 @@ public class SahasranamaShlokaSlideActivity extends ShlokaSlideActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        mShlokas = DataProvider.getSahasranama().getSection(SahasranamaMenuGroupName.DEEP_DIVE.getMenuDisplayKey()).getShlokaList();
+        mShlokas = DataProvider.getSahasranama().getSection(SahasranamaMenu.DEEP_DIVE.getMenuDisplayKey()).getShlokaList();
         Log.d(TAG, "-> Starting SahasranamaScreenSlideActivity <-");
 
         super.onCreate(savedInstanceState);

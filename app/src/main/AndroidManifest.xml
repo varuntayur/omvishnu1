@@ -1,76 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.varun.omvishnu.app" >
+<manifest
+    package="com.varun.omvishnu.app"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk
         android:minSdkVersion="13"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="17"/>
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/dashavatharam"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
         <activity
-            android:name=".home.TiledHomeScreen" android:configChanges="orientation|screenSize"
-            android:label="@string/app_name" >
+            android:name=".home.TiledHomeScreen"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name">
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <activity
             android:name=".detail.ShlokaSlideActivity"
-            android:label="@string/title_screen_slide"
-            android:parentActivityName=".home.MainActivity"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:label="@string/app_name"
+            android:parentActivityName=".home.TiledHomeScreen"
+            android:uiOptions="splitActionBarWhenNarrow">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.MainActivity" />
+                android:value=".home.MainActivity"/>
         </activity>
 
         <activity
             android:name=".detail.SahasranamaShlokaSlideActivity"
-            android:label="@string/title_screen_slide"
-            android:parentActivityName=".home.MainActivity"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:label="@string/app_name"
+            android:parentActivityName=".home.TiledHomeScreen"
+            android:uiOptions="splitActionBarWhenNarrow">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.MainActivity" />
+                android:value=".home.MainActivity"/>
         </activity>
 
         <activity
             android:name=".detail.BirthstarsActivity"
-            android:label="@string/title_screen_slide"
-            android:parentActivityName=".home.MainActivity"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:label="@string/app_name"
+            android:parentActivityName=".home.TiledHomeScreen"
+            android:uiOptions="splitActionBarWhenNarrow">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.MainActivity" />
+                android:value=".home.MainActivity"/>
         </activity>
 
         <activity
             android:name=".detail.AvatarasActivity"
-            android:label="@string/title_screen_slide"
-            android:parentActivityName=".home.MainActivity"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:label="@string/app_name"
+            android:parentActivityName=".home.TiledHomeScreen"
+            android:uiOptions="splitActionBarWhenNarrow">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.MainActivity" />
+                android:value=".home.MainActivity"/>
         </activity>
 
         <activity
             android:name=".detail.ThousandNamesActivity"
-            android:label="@string/title_screen_slide"
-            android:parentActivityName=".home.MainActivity"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:label="@string/app_name"
+            android:parentActivityName=".home.TiledHomeScreen"
+            android:uiOptions="splitActionBarWhenNarrow">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.MainActivity" />
+                android:value=".home.MainActivity"/>
         </activity>
 
     </application>

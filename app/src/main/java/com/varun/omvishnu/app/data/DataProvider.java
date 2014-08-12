@@ -14,6 +14,7 @@ import com.varun.omvishnu.app.data.model.sahasranama.Note;
 import com.varun.omvishnu.app.data.model.sahasranama.Sahasranama;
 import com.varun.omvishnu.app.data.model.sahasranama.Section;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
+import com.varun.omvishnu.app.home.SahasranamaMenu;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -21,6 +22,7 @@ import org.simpleframework.xml.core.Persister;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -59,19 +61,6 @@ public final class DataProvider {
 
     private static Map<String, Integer> menuName2Resource = new HashMap<String, Integer>() {
         {
-//            put("History", R.drawable.history);
-//            put("Invocation", R.drawable.invocation);
-//            put("Dhyanam", R.drawable.dhyanam);
-
-//            put(SahasranamaMenuGroupName.SAHASRANAMA_MENU_NAME.toString(), R.drawable.vishwaroopa);
-//            put(SahasranamaMenuGroupName.IN_BRIEF.toString(), R.drawable.inbrief);
-//            put(SahasranamaMenuGroupName.BY_AVATARA.toString(), R.drawable.krishna);
-//            put(SahasranamaMenuGroupName.DEEP_DIVE.toString(), R.drawable.vishwaroopa);
-//            put(SahasranamaMenuGroupName.BY_BIRTH_STAR.toString(), R.drawable.star);
-
-//            put("Phala Shruthi", R.drawable.phalashruthi);
-//            put("Mangala", R.drawable.mangala);
-
             put("Hasta", R.drawable.kanya);
             put("Anuradha", R.drawable.vrischika);
             put("Pushya", R.drawable.kataka);
@@ -171,19 +160,6 @@ public final class DataProvider {
         return Collections.unmodifiableList(mBackgroundColors);
     }
 
-    private static void printDetailedSahasranamaNames() {
-
-        List<Shloka> lstShlokas = getSahasranama().getSection("Sahasranama").getShlokaList();
-        int i = 1;
-        for (Shloka shloka : lstShlokas) {
-            List<Note> lstNotes = shloka.getExplanation().getNotesList();
-            for (Note note : lstNotes) {
-                Log.d(TAG, i + " " + note.getTitle());
-                i++;
-            }
-        }
-    }
-
     public static Integer getDrawableResourceForMenu(String menuName) {
         final Integer resourceName = menuName2Resource.get(menuName);
 
@@ -219,6 +195,21 @@ public final class DataProvider {
 
     public static int getBackgroundColor(int location) {
         return mBackgroundColors.get(location);
+    }
+
+    public static List<String> getMenuNames() {
+
+        final List<String> sectionNames = new ArrayList<String>(DataProvider.getSahasranama().getSectionNames());
+
+        int indexOfSahasranama = sectionNames.indexOf("Sahasranama");
+
+        List<String> builtSectionNames = new ArrayList<String>(sectionNames.subList(0, indexOfSahasranama));
+
+        builtSectionNames.addAll(Arrays.asList(SahasranamaMenu.IN_BRIEF.toString(), SahasranamaMenu.DEEP_DIVE.toString(), SahasranamaMenu.BY_BIRTH_STAR.toString(), SahasranamaMenu.BY_AVATARA.toString()));
+
+        builtSectionNames.addAll(sectionNames.subList(indexOfSahasranama + 1, sectionNames.size()));
+
+        return builtSectionNames;
     }
 
     private static void buildNakshatraToShlokaMap() {
@@ -258,5 +249,16 @@ public final class DataProvider {
         }
     }
 
+    private static void printDetailedSahasranamaNames() {
 
+        List<Shloka> lstShlokas = getSahasranama().getSection("Sahasranama").getShlokaList();
+        int i = 1;
+        for (Shloka shloka : lstShlokas) {
+            List<Note> lstNotes = shloka.getExplanation().getNotesList();
+            for (Note note : lstNotes) {
+                Log.d(TAG, i + " " + note.getTitle());
+                i++;
+            }
+        }
+    }
 }

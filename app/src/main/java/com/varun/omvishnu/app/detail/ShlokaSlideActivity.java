@@ -67,10 +67,9 @@ public class ShlokaSlideActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_shloka_slide);
 
-        System.out.println("-> Starting ScreenSlideActivity <-");
+        Log.d(TAG, "-> Starting ScreenSlideActivity <-");
 
         Typeface devnanagariTf = Typeface.createFromAsset(getAssets(), "fonts/droidsansdevanagari.ttf");
-        System.out.println("-> ScreenSlideActivity created font typeface <-" + devnanagariTf);
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -78,7 +77,6 @@ public class ShlokaSlideActivity extends FragmentActivity {
         mPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
         Integer menuPosition = getIntent().getIntExtra("menuPosition", 0);
-        Log.d(TAG, "setting view background to color at index " + menuPosition);
         mPager.setBackgroundResource(DataProvider.getBackgroundColor(menuPosition - 1));
 
         mSectionName = getIntent().getStringExtra("sectionName");
@@ -92,7 +90,24 @@ public class ShlokaSlideActivity extends FragmentActivity {
                 invalidateOptionsMenu();
             }
         });
-        System.out.println("* ScreenSlideActivity created *");
+        Log.d(TAG, "* ScreenSlideActivity created *");
+
+        mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                Log.d(TAG, String.format(" Page selected %s ", position));
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.d(TAG, String.format(" Page scrolled position %s / count %s", position, mPager.getAdapter().getCount()));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                Log.d(TAG, "* PageScrollStateChanged *" + state);
+            }
+        });
     }
 
     @Override
