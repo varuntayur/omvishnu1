@@ -91,23 +91,6 @@ public class ShlokaSlideActivity extends FragmentActivity {
             }
         });
         Log.d(TAG, "* ScreenSlideActivity created *");
-
-        mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                Log.d(TAG, String.format(" Page selected %s ", position));
-            }
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.d(TAG, String.format(" Page scrolled position %s / count %s", position, mPager.getAdapter().getCount()));
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                Log.d(TAG, "* PageScrollStateChanged *" + state);
-            }
-        });
     }
 
     @Override
