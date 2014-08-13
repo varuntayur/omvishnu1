@@ -223,7 +223,7 @@ public final class DataProvider {
             if (!starShlokas.isEmpty()) {
 
                 int startIndex = Integer.parseInt(starShlokas.get(0).getNum());
-                int lastIndex = Integer.parseInt(starShlokas.get(starShlokas.size() - 1).getNum());
+                int lastIndex = Integer.parseInt(starShlokas.get(starShlokas.size() - 1).getNum()) + 1;
                 shlokaList = sahasranama.getShlokaList(startIndex, lastIndex);
             }
 

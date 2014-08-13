@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources>
 
     <string name="app_name">Sri Vishnu Sahasranama: Complete Reference</string>
 
@@ -7,5 +7,14 @@
 
     <string name="section_history">History</string>
     <string name="section_sahasranama">Sahasranama</string>
+
+    <string name="app_descrip">Serves as a complete reference to all shlokas and names with their meanings.
+        Learn and Listen to the complete Sahasranama right from its history, dhyana shlokas, detailed explanation of the names including the Mangala shlokas.
+    </string>
+    <string name="app_help">Swipe to the left/right to browse through all the shlokas.
+    </string>
+    <string name="app_credits">All images/media are copyrights of the respective owners wherever applicable. Thanks to https://archive.org/download/VishnuSahasranam/VishnuSahasranam.mp3 for the audio.</string>
+    <string name="app_author">&#169; Varun M Tayur, 2014</string>
+    <string name="app_credits_title">Credits</string>
 
 </resources>
