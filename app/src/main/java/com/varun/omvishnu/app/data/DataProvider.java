@@ -222,8 +222,8 @@ public final class DataProvider {
             List<Shloka> shlokaList = Collections.EMPTY_LIST;
             if (!starShlokas.isEmpty()) {
 
-                int startIndex = Integer.parseInt(starShlokas.get(0).getNum());
-                int lastIndex = Integer.parseInt(starShlokas.get(starShlokas.size() - 1).getNum()) + 1;
+                int startIndex = Integer.parseInt(starShlokas.get(0).getNum()) - 1;
+                int lastIndex = Integer.parseInt(starShlokas.get(starShlokas.size() - 1).getNum());
                 shlokaList = sahasranama.getShlokaList(startIndex, lastIndex);
             }
 
