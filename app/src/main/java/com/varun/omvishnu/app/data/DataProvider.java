@@ -14,6 +14,7 @@ import com.varun.omvishnu.app.data.model.sahasranama.Note;
 import com.varun.omvishnu.app.data.model.sahasranama.Sahasranama;
 import com.varun.omvishnu.app.data.model.sahasranama.Section;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
+import com.varun.omvishnu.app.home.Language;
 import com.varun.omvishnu.app.home.SahasranamaMenu;
 
 import org.simpleframework.xml.Serializer;
@@ -33,7 +34,14 @@ import java.util.Map;
  */
 public final class DataProvider {
 
-    private static Sahasranama sahasranama;
+    public static final String PREFS_NAME = "SriVishnuSahasranamaReference";
+    public static final String SHLOKA_DISP_LANGUAGE = "localLanguage";
+    public static final String LEARNING_MODE = "learningMode";
+    public static final String REPEAT_SHLOKA = "repeatShlokaCount" ;
+    public static final String REPEAT_SHLOKA_DEFAULT = "3";
+
+    private static Sahasranama sahasranamaEng;
+    private static Sahasranama sahasranamaKan;
 
     private static ThousandNames thousandNames;
 
@@ -114,15 +122,20 @@ public final class DataProvider {
     private DataProvider() {
     }
 
-    public static void init(AssetManager am) {
+    public static void init(AssetManager am, Language languageEnum) {
 
         Serializer serializer = new Persister();
         InputStream inputStream = null;
         try {
             inputStream = am.open("db/sahasranama.xml");
             serializer = new Persister();
-            sahasranama = serializer.read(Sahasranama.class, inputStream);
+            sahasranamaEng = serializer.read(Sahasranama.class, inputStream);
             Log.d(TAG, "* Finished de-serializing the file - sahasranama.xml *");
+
+            inputStream = am.open("db/sahasranama-kan.xml");
+            serializer = new Persister();
+            sahasranamaKan = serializer.read(Sahasranama.class, inputStream);
+            Log.d(TAG, "* Finished de-serializing the file - sahasranamaKan.xml *");
 
             inputStream = am.open("db/names.xml");
             serializer = new Persister();
@@ -140,10 +153,10 @@ public final class DataProvider {
             Log.d(TAG, "* Finished de-serializing the file - avataras.xml *");
 
             if (nakshatraName2Shlokas.isEmpty())
-                buildNakshatraToShlokaMap();
+                buildNakshatraToShlokaMap(languageEnum);
 
             if (avatara2Shlokas.isEmpty())
-                buildAvataraToShlokaMap();
+                buildAvataraToShlokaMap(languageEnum);
 
 //            printDetailedSahasranamaNames();
 
@@ -169,8 +182,14 @@ public final class DataProvider {
         return R.drawable.vishwaroopa;
     }
 
-    public static Sahasranama getSahasranama() {
-        return sahasranama;
+    public static Sahasranama getSahasranama(Language lang) {
+        if(Language.san.equals(lang)){
+            return sahasranamaEng;
+        }
+        else if(Language.kan.equals(lang)){
+            return sahasranamaKan;
+        }
+        return null;
     }
 
     public static ThousandNames getThousandNames() {
@@ -197,9 +216,9 @@ public final class DataProvider {
         return mBackgroundColors.get(location);
     }
 
-    public static List<String> getMenuNames() {
+    public static List<String> getMenuNames(Language lang) {
 
-        final List<String> sectionNames = new ArrayList<String>(DataProvider.getSahasranama().getSectionNames());
+        final List<String> sectionNames = new ArrayList<String>(DataProvider.getSahasranama(lang).getSectionNames());
 
         int indexOfSahasranama = sectionNames.indexOf("Sahasranama");
 
@@ -212,9 +231,9 @@ public final class DataProvider {
         return builtSectionNames;
     }
 
-    private static void buildNakshatraToShlokaMap() {
+    private static void buildNakshatraToShlokaMap(Language language) {
 
-        Section sahasranama = getSahasranama().getSection("Sahasranama");
+        Section sahasranama = getSahasranama(language).getSection("Sahasranama");
 
         for (Star star : birthstars.getLstStars()) {
 
@@ -231,9 +250,9 @@ public final class DataProvider {
         }
     }
 
-    private static void buildAvataraToShlokaMap() {
+    private static void buildAvataraToShlokaMap(Language language) {
 
-        Section sahasranama = getSahasranama().getSection("Sahasranama");
+        Section sahasranama = getSahasranama(language).getSection("Sahasranama");
 
         for (Avatara avatara : avataras.getLstAvataras()) {
 
@@ -249,9 +268,9 @@ public final class DataProvider {
         }
     }
 
-    private static void printDetailedSahasranamaNames() {
+    private static void printDetailedSahasranamaNames(Language lang) {
 
-        List<Shloka> lstShlokas = getSahasranama().getSection("Sahasranama").getShlokaList();
+        List<Shloka> lstShlokas = getSahasranama(lang).getSection("Sahasranama").getShlokaList();
         int i = 1;
         for (Shloka shloka : lstShlokas) {
             List<Note> lstNotes = shloka.getExplanation().getNotesList();

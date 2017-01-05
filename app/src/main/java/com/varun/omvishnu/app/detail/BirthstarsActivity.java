@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.adapters.StableArrayAdapter;
+import com.varun.omvishnu.app.home.Language;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -42,10 +43,11 @@ public class BirthstarsActivity extends ListActivity {
 
         Log.d(TAG, "nakshatra -> " + item);
         Log.d(TAG, "shlokas -> " + DataProvider.getShlokasForBirthStar(item));
-
+        Language lang = (Language) getIntent().getSerializableExtra("lang");
         Intent intent = new Intent(getBaseContext(), ShlokaSlideActivity.class);
         intent.putExtra("menuPosition", getIntent().getIntExtra("menuPosition", 0));
         intent.putExtra("sectionName", item);
+        intent.putExtra("lang", lang);
         intent.putExtra("shlokaList", (Serializable) DataProvider.getShlokasForBirthStar(item));
         startActivity(intent);
     }

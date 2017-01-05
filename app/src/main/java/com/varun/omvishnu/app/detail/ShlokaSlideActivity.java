@@ -31,6 +31,7 @@ import android.view.MenuItem;
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
+import com.varun.omvishnu.app.home.Language;
 
 import java.util.List;
 
@@ -70,6 +71,7 @@ public class ShlokaSlideActivity extends FragmentActivity {
         Log.d(TAG, "-> Starting ScreenSlideActivity <-");
 
         Typeface devnanagariTf = Typeface.createFromAsset(getAssets(), "fonts/droidsansdevanagari.ttf");
+        Typeface kannadaTf = Typeface.createFromAsset(getAssets(), "fonts/notosanskannadaregular.ttf");
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -80,9 +82,16 @@ public class ShlokaSlideActivity extends FragmentActivity {
         mPager.setBackgroundResource(DataProvider.getBackgroundColor(menuPosition - 1));
 
         mSectionName = getIntent().getStringExtra("sectionName");
-        if (mShlokas == null)
+        if (mShlokas == null){
             mShlokas = (List<Shloka>) getIntent().getSerializableExtra("shlokaList");
-        mPagerAdapter = new ShlokaSlidePagerAdapter(mSectionName, mShlokas, getFragmentManager(), devnanagariTf);
+        }
+        Language lang = (Language) getIntent().getSerializableExtra("lang");
+        if(Language.san.equals(lang)){
+            mPagerAdapter = new ShlokaSlidePagerAdapter(mSectionName, mShlokas, getFragmentManager(), devnanagariTf);
+        }
+        else if(Language.kan.equals(lang)){
+            mPagerAdapter = new ShlokaSlidePagerAdapter(mSectionName, mShlokas, getFragmentManager(), kannadaTf);
+        }
         mPager.setAdapter(mPagerAdapter);
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override

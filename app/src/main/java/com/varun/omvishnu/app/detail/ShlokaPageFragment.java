@@ -18,6 +18,7 @@ package com.varun.omvishnu.app.detail;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
@@ -32,6 +33,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.varun.omvishnu.app.R;
+import com.varun.omvishnu.app.common.ShlokaMediaPlayer;
+import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 
 import java.util.List;
@@ -56,10 +59,7 @@ public class ShlokaPageFragment extends Fragment {
 
     private int mPageNumber;
 
-    private MediaPlayer mediaPlayer;
-
     public ShlokaPageFragment() {
-
     }
 
     public ShlokaPageFragment(String sectionName, List<Shloka> shlokas, int position, Typeface tf) {
@@ -79,6 +79,27 @@ public class ShlokaPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        return initalizeView(inflater, container);
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        Log.d(TAG, "************ Attempting to stop media that was initiated with this fragment *********");
+        ShlokaMediaPlayer.release();
+        Log.d(TAG, "************ Pause media was successful *********");
+    }
+
+    /**
+     * Returns the page number represented by this fragment object.
+     */
+    public int getPageNumber() {
+        return shlokas.size();
+    }
+
+    private View initalizeView(LayoutInflater inflater, ViewGroup container) {
         // Inflate the layout containing a title and body text.
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.fragment_shloka_slide_page, container, false);
@@ -118,12 +139,10 @@ public class ShlokaPageFragment extends Fragment {
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(curActivity, "Pausing sound",
+                Toast.makeText(curActivity, "Pausing media playback",
                         Toast.LENGTH_SHORT).show();
 
-                if (mediaPlayer == null) return;
-
-                mediaPlayer.pause();
+                ShlokaMediaPlayer.pause();
             }
         });
 
@@ -136,20 +155,32 @@ public class ShlokaPageFragment extends Fragment {
 
                 if (resNameId == 0) return;
 
-                if (mediaPlayer != null && mediaPlayer.isPlaying()) return;
+                ShlokaMediaPlayer.setLoopCounter(getShlokaRepeatCount());
 
-                Toast.makeText(curActivity, "Playing sound",
+                String playStatus = ShlokaMediaPlayer.play(getActivity(), resNameId);
+
+                if (!playStatus.isEmpty()) {
+
+                    Toast.makeText(curActivity, playStatus,
+                            Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
+
+                Toast.makeText(curActivity, "Playing media",
                         Toast.LENGTH_SHORT).show();
-
-
-                mediaPlayer = MediaPlayer.create(getActivity(), resNameId);
-                mediaPlayer.start();
 
             }
         });
 
 
         return rootView;
+    }
+
+    private int getShlokaRepeatCount() {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(DataProvider.PREFS_NAME, 0);
+        String repeatShloka = sharedPreferences.getString(DataProvider.REPEAT_SHLOKA, DataProvider.REPEAT_SHLOKA_DEFAULT);
+        return Integer.valueOf(repeatShloka);
     }
 
     private void setVisibility(int resNameId, ImageButton pauseButton) {
@@ -159,25 +190,4 @@ public class ShlokaPageFragment extends Fragment {
             pauseButton.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void onStop() {
-
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-
-            if (mediaPlayer == null) return;
-
-            Log.d(TAG,"************ Attempting to stop media if it is playing *********");
-            mediaPlayer.pause();
-            Log.d(TAG,"************ Pause media was successful *********");
-        }
-
-        super.onStop();
-    }
-
-    /**
-     * Returns the page number represented by this fragment object.
-     */
-    public int getPageNumber() {
-        return shlokas.size();
-    }
 }

@@ -3,6 +3,8 @@ package com.varun.omvishnu.app.home;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import com.etsy.android.grid.StaggeredGridView;
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.detail.SampleAdapter;
+import com.varun.omvishnu.app.settings.SettingsActivity;
 
 import java.util.List;
 
@@ -78,9 +81,15 @@ public class TiledHomeScreen extends FragmentActivity {
                 builder.show();
 
                 return true;
+            case R.id.languageselector:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                Log.d(TAG, "Launching Settings Activity");
+                startActivity(intent);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private class DataProviderTask extends AsyncTask<AssetManager, Void, Long> {
@@ -108,7 +117,8 @@ public class TiledHomeScreen extends FragmentActivity {
 
                     SampleAdapter mAdapter = new SampleAdapter(activity, R.id.txt_line1);
 
-                    final List<String> sectionNames = DataProvider.getMenuNames();
+                    String langSelected = getSharedPreferences(DataProvider.PREFS_NAME, 0).getString(DataProvider.SHLOKA_DISP_LANGUAGE, "");
+                    final List<String> sectionNames = DataProvider.getMenuNames(Language.getLanguageEnum(langSelected));
 
                     for (String data : sectionNames) {
                         mAdapter.add(data);
@@ -129,7 +139,8 @@ public class TiledHomeScreen extends FragmentActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String item = (String) parent.getAdapter().getItem(position);
 
-                    SahasranamaMenu.getEnum(item).execute(activity, item, position);
+                    String langSelected = getSharedPreferences(DataProvider.PREFS_NAME, 0).getString(DataProvider.SHLOKA_DISP_LANGUAGE, "");
+                    SahasranamaMenu.getEnum(item).execute(activity, item, position, Language.getLanguageEnum(langSelected));
 
                 }
             };
@@ -138,7 +149,20 @@ public class TiledHomeScreen extends FragmentActivity {
         @Override
         protected Long doInBackground(AssetManager... assetManagers) {
 
-            DataProvider.init(getAssets());
+            SharedPreferences settings = getSharedPreferences(DataProvider.PREFS_NAME, 0);
+            String isSettingAlreadySaved = settings.getString(DataProvider.SHLOKA_DISP_LANGUAGE, "");
+            if (isSettingAlreadySaved.isEmpty()) {
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString(DataProvider.SHLOKA_DISP_LANGUAGE, Language.san.toString());
+
+                editor.commit();
+
+                Log.d(TAG, "Setting the default launch preference to Sanskrit at startup - " + settings.getString(DataProvider.SHLOKA_DISP_LANGUAGE, ""));
+            }
+
+            String langSelected = getSharedPreferences(DataProvider.PREFS_NAME, 0).getString(DataProvider.SHLOKA_DISP_LANGUAGE, "");
+
+            DataProvider.init(getAssets(), Language.getLanguageEnum(langSelected));
             Log.d(TAG, "Finished background task execution.");
             return 1l;
         }

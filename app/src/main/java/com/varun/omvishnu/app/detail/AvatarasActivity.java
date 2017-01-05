@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.adapters.StableArrayAdapter;
+import com.varun.omvishnu.app.home.Language;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -42,11 +43,12 @@ public class AvatarasActivity extends ListActivity {
 
         Log.d(TAG, "avatara -> " + item);
         Log.d(TAG, "shlokas -> " + DataProvider.getShlokaForAvatara(item));
-
+        Language lang = (Language) getIntent().getSerializableExtra("lang");
         Intent intent = new Intent(getBaseContext(), ShlokaSlideActivity.class);
         intent.putExtra("sectionName", item);
         intent.putExtra("menuPosition", getIntent().getIntExtra("menuPosition", 0));
         intent.putExtra("shlokaList", (Serializable) DataProvider.getShlokaForAvatara(item));
+        intent.putExtra("lang", lang);
         startActivity(intent);
     }
 }

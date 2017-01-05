@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.varun.omvishnu.app.data.DataProvider;
+import com.varun.omvishnu.app.home.Language;
 import com.varun.omvishnu.app.home.SahasranamaMenu;
 
 /**
@@ -40,7 +41,8 @@ public class SahasranamaShlokaSlideActivity extends ShlokaSlideActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        mShlokas = DataProvider.getSahasranama().getSection(SahasranamaMenu.DEEP_DIVE.getMenuDisplayKey()).getShlokaList();
+        Language lang = (Language) getIntent().getSerializableExtra("lang");
+        mShlokas = DataProvider.getSahasranama(lang).getSection(SahasranamaMenu.DEEP_DIVE.getMenuDisplayKey()).getShlokaList();
         Log.d(TAG, "-> Starting SahasranamaScreenSlideActivity <-");
 
         super.onCreate(savedInstanceState);

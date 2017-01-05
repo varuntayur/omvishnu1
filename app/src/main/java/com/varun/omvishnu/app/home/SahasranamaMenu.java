@@ -22,42 +22,45 @@ public enum SahasranamaMenu {
 
     IN_BRIEF("Quick glance", "") {
         @Override
-        public void execute(Activity activity, String item, int position) {
+        public void execute(Activity activity, String item, int position, Language languageEnum) {
             Intent intent = new Intent(activity, ThousandNamesActivity.class);
             intent.putExtra("menuPosition", position);
             activity.startActivity(intent);
         }
     }, DEEP_DIVE("Complete Sahasranama explanation", "Sahasranama") {
         @Override
-        public void execute(Activity activity, String item, int position) {
+        public void execute(Activity activity, String item, int position, Language languageEnum) {
             Intent intent = new Intent(activity, SahasranamaShlokaSlideActivity.class);
             intent.putExtra("sectionName", SahasranamaMenu.DEEP_DIVE.getMenuDisplayKey());
             intent.putExtra("menuPosition", position);
             intent.putExtra("shlokaList", (Serializable) new ArrayList<Shloka>());
+            intent.putExtra("lang", languageEnum);
             activity.startActivity(intent);
         }
     }, BY_BIRTH_STAR("For your Birth Star", "") {
         @Override
-        public void execute(Activity activity, String item, int position) {
+        public void execute(Activity activity, String item, int position, Language languageEnum) {
             Intent intent = new Intent(activity, BirthstarsActivity.class);
             intent.putExtra("menuPosition", position);
+            intent.putExtra("lang", languageEnum);
             activity.startActivity(intent);
         }
     }, BY_AVATARA("By Avathara", "") {
         @Override
-        public void execute(Activity activity, String item, int position) {
+        public void execute(Activity activity, String item, int position, Language languageEnum) {
             Intent intent = new Intent(activity, AvatarasActivity.class);
             intent.putExtra("menuPosition", position);
+            intent.putExtra("lang", languageEnum);
             activity.startActivity(intent);
         }
     }, DEFAULT("Default", "") {
         @Override
-        public void execute(Activity activity, String item, int position) {
+        public void execute(Activity activity, String item, int position, Language languageEnum) {
             Intent intent = new Intent(activity, ShlokaSlideActivity.class);
             intent.putExtra("sectionName", item);
             intent.putExtra("menuPosition", position);
-
-            Section section = DataProvider.getSahasranama().getSection(item);
+            intent.putExtra("lang", languageEnum);
+            Section section = DataProvider.getSahasranama(languageEnum).getSection(item);
 
             if (section == null) return;
 
@@ -89,5 +92,5 @@ public enum SahasranamaMenu {
         return menuDisplayKey;
     }
 
-    public abstract void execute(Activity activity, String item, int position);
+    public abstract void execute(Activity activity, String item, int position, Language languageEnum);
 }
