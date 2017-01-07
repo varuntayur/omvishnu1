@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
@@ -41,6 +42,8 @@ public class SettingsActivity extends Activity {
 
                 editor.commit();
 
+                Toast.makeText(SettingsActivity.this, "Shloka repeat settings saved.", Toast.LENGTH_SHORT).show();
+
                 Log.d(TAG, "setOnValueChangedListener - Repeat shloka settings saved - " + getSharedPreferences(DataProvider.PREFS_NAME, 0).getString(DataProvider.REPEAT_SHLOKA, "3"));
             }
         });
@@ -57,6 +60,8 @@ public class SettingsActivity extends Activity {
                 editor.putString(DataProvider.SHLOKA_DISP_LANGUAGE, Language.getLanguageEnum(rb.getText().toString()).toString());
 
                 editor.commit();
+
+                Toast.makeText(SettingsActivity.this, "Shloka language settings saved.", Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "setOnCheckedChangeListener - Language activity_settings saved - " + getSharedPreferences(DataProvider.PREFS_NAME, 0).getString(DataProvider.SHLOKA_DISP_LANGUAGE, ""));
             }
@@ -112,12 +117,11 @@ public class SettingsActivity extends Activity {
 //            rbLearnModeNo.setChecked(true);
 //        }
 
-        if(savedRepeatShlokaCnt.isEmpty()){
+        if (savedRepeatShlokaCnt.isEmpty()) {
             Log.d(TAG, "Repeat Shloka activity_settings are not set - will set to 3");
             NumberPicker repeatShlokasCnt = (NumberPicker) findViewById(R.id.repeatShlokasCount);
             repeatShlokasCnt.setValue(Integer.valueOf(DataProvider.REPEAT_SHLOKA_DEFAULT));
-        }
-        else{
+        } else {
             Log.d(TAG, "Repeat Shloka activity_settings are set - will set to " + savedRepeatShlokaCnt);
             NumberPicker repeatShlokasCnt = (NumberPicker) findViewById(R.id.repeatShlokasCount);
             repeatShlokasCnt.setValue(Integer.valueOf(savedRepeatShlokaCnt));

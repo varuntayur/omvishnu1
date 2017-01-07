@@ -36,7 +36,7 @@ import com.varun.omvishnu.app.home.SahasranamaMenu;
  */
 public class SahasranamaShlokaSlideActivity extends ShlokaSlideActivity {
 
-    private static String TAG = "SahasranamaShlokaSlideActivity";
+    private static String TAG = "SahShlokaSlideActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
