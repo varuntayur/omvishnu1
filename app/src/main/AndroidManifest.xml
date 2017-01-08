@@ -2,7 +2,6 @@
 <manifest
     package="com.varun.omvishnu.app"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-sdk
         android:minSdkVersion="13"
         android:targetSdkVersion="17"/>

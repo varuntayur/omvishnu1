@@ -27,6 +27,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
@@ -82,15 +84,14 @@ public class ShlokaSlideActivity extends FragmentActivity {
         mPager.setBackgroundResource(DataProvider.getBackgroundColor(menuPosition - 1));
 
         mSectionName = getIntent().getStringExtra("sectionName");
-        if (mShlokas == null){
+        if (mShlokas == null) {
             mShlokas = (List<Shloka>) getIntent().getSerializableExtra("shlokaList");
         }
         Language lang = (Language) getIntent().getSerializableExtra("lang");
-        if(Language.san.equals(lang)){
-            mPagerAdapter = new ShlokaSlidePagerAdapter(mSectionName, mShlokas, getFragmentManager(), devnanagariTf);
-        }
-        else if(Language.kan.equals(lang)){
-            mPagerAdapter = new ShlokaSlidePagerAdapter(mSectionName, mShlokas, getFragmentManager(), kannadaTf);
+        if (Language.san.equals(lang)) {
+            mPagerAdapter = new ShlokaSlidePagerAdapter(mSectionName, mShlokas, getFragmentManager(), getWindow(), devnanagariTf);
+        } else if (Language.kan.equals(lang)) {
+            mPagerAdapter = new ShlokaSlidePagerAdapter(mSectionName, mShlokas, getFragmentManager(), getWindow(), kannadaTf);
         }
         mPager.setAdapter(mPagerAdapter);
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -100,6 +101,7 @@ public class ShlokaSlideActivity extends FragmentActivity {
             }
         });
         Log.d(TAG, "* ScreenSlideActivity created *");
+
     }
 
     @Override
@@ -127,17 +129,19 @@ public class ShlokaSlideActivity extends FragmentActivity {
         private final Typeface tf;
         private final String sectionName;
         private List<Shloka> shlokas;
+        private Window curWindow;
 
-        public ShlokaSlidePagerAdapter(String sectionName, List<Shloka> shlokas, FragmentManager fm, Typeface tf) {
-            super(fm);
+        public ShlokaSlidePagerAdapter(String mSectionName, List<Shloka> mShlokas, FragmentManager fragmentManager, Window window, Typeface tf) {
+            super(fragmentManager);
             this.tf = tf;
-            this.shlokas = shlokas;
-            this.sectionName = sectionName;
+            this.shlokas = mShlokas;
+            this.sectionName = mSectionName;
+            this.curWindow = window;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return new ShlokaPageFragment(sectionName, shlokas, position, tf);
+            return new ShlokaPageFragment(sectionName, shlokas, position, curWindow, tf);
         }
 
         @Override

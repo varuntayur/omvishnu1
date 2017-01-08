@@ -27,6 +27,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -59,14 +61,17 @@ public class ShlokaPageFragment extends Fragment {
 
     private int mPageNumber;
 
+    private Window curWindow;
+
     public ShlokaPageFragment() {
     }
 
-    public ShlokaPageFragment(String sectionName, List<Shloka> shlokas, int position, Typeface tf) {
+    public ShlokaPageFragment(String sectionName, List<Shloka> shlokas, int position, Window window, Typeface tf) {
         this.shlokas = shlokas;
         this.devanagariTf = tf;
         this.mPageNumber = position;
         this.sectionName = sectionName;
+        this.curWindow = window;
     }
 
     @Override
@@ -132,6 +137,7 @@ public class ShlokaPageFragment extends Fragment {
 
         Log.d(TAG, "ID fetched for " + resourceName + " -> " + resNameId);
 
+        ShlokaMediaPlayer.setCurrentWindow(curWindow);
 
         ImageButton pauseButton = (ImageButton) rootView.findViewById(R.id.imageButtonPause);
         setVisibility(resNameId, pauseButton);

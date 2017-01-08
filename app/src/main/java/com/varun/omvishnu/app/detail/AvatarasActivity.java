@@ -9,11 +9,13 @@ import android.widget.ListView;
 
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.adapters.StableArrayAdapter;
+import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 import com.varun.omvishnu.app.home.Language;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by varuntayur on 7/2/2014.
@@ -41,14 +43,15 @@ public class AvatarasActivity extends ListActivity {
     public void onListItemClick(ListView l, View v, int position, long id) {
         String item = (String) l.getAdapter().getItem(position);
 
-        Log.d(TAG, "avatara -> " + item);
-        Log.d(TAG, "shlokas -> " + DataProvider.getShlokaForAvatara(item));
         Language lang = (Language) getIntent().getSerializableExtra("lang");
         Intent intent = new Intent(getBaseContext(), ShlokaSlideActivity.class);
         intent.putExtra("sectionName", item);
         intent.putExtra("menuPosition", getIntent().getIntExtra("menuPosition", 0));
-        intent.putExtra("shlokaList", (Serializable) DataProvider.getShlokaForAvatara(item));
+        List<Shloka> shlokaForAvatara = DataProvider.getShlokaForAvatara(item, lang);
+        intent.putExtra("shlokaList", (Serializable) shlokaForAvatara);
         intent.putExtra("lang", lang);
+        Log.d(TAG, "avatara -> " + item);
+        Log.d(TAG, "shlokas -> " + shlokaForAvatara);
         startActivity(intent);
     }
 }

@@ -50,8 +50,10 @@ public final class DataProvider {
     private static Avataras avataras;
 
     private static Map<String, List<Shloka>> nakshatraName2Shlokas = new HashMap<String, List<Shloka>>();
+    private static Map<String, List<Shloka>> nakshatraName2ShlokasKan = new HashMap<String, List<Shloka>>();
 
     private static Map<String, List<Shloka>> avatara2Shlokas = new HashMap<String, List<Shloka>>();
+    private static Map<String, List<Shloka>> avatara2ShlokasKan = new HashMap<String, List<Shloka>>();
 
     private static List<Integer> mBackgroundColors = new ArrayList<Integer>() {
         {
@@ -153,10 +155,10 @@ public final class DataProvider {
             Log.d(TAG, "* Finished de-serializing the file - avataras.xml *");
 
             if (nakshatraName2Shlokas.isEmpty())
-                buildNakshatraToShlokaMap(languageEnum);
+                buildNakshatraToShlokaMap();
 
             if (avatara2Shlokas.isEmpty())
-                buildAvataraToShlokaMap(languageEnum);
+                buildAvataraToShlokaMap();
 
 //            printDetailedSahasranamaNames();
 
@@ -200,16 +202,26 @@ public final class DataProvider {
         return nakshatraName2Shlokas;
     }
 
-    public static List<Shloka> getShlokasForBirthStar(String name) {
-        return new ArrayList<Shloka>(nakshatraName2Shlokas.get(name));
+    public static List<Shloka> getShlokasForBirthStar(String name, Language lang) {
+        if(Language.san.equals(lang)){
+            return Collections.unmodifiableList(nakshatraName2Shlokas.get(name));
+        }else if(Language.kan.equals(lang)){
+            return Collections.unmodifiableList(nakshatraName2ShlokasKan.get(name));
+        }
+        return Collections.emptyList();
     }
 
     public static Map<String, List<Shloka>> getAvatara2Shlokas() {
         return avatara2Shlokas;
     }
 
-    public static List<Shloka> getShlokaForAvatara(String name) {
-        return new ArrayList<Shloka>(avatara2Shlokas.get(name));
+    public static List<Shloka> getShlokaForAvatara(String name, Language lang) {
+        if(Language.san.equals(lang)){
+            return Collections.unmodifiableList(avatara2Shlokas.get(name));
+        }else if(Language.kan.equals(lang)){
+            return Collections.unmodifiableList(avatara2ShlokasKan.get(name));
+        }
+        return Collections.emptyList();
     }
 
     public static int getBackgroundColor(int location) {
@@ -231,40 +243,48 @@ public final class DataProvider {
         return builtSectionNames;
     }
 
-    private static void buildNakshatraToShlokaMap(Language language) {
+    private static void buildNakshatraToShlokaMap() {
 
-        Section sahasranama = getSahasranama(language).getSection("Sahasranama");
+        Section sahasranamaSan = getSahasranama(Language.san).getSection("Sahasranama");
+        Section sahasranamaKan = getSahasranama(Language.kan).getSection("Sahasranama");
 
         for (Star star : birthstars.getLstStars()) {
 
             final List<Shloka> starShlokas = star.getShlokas();
-            List<Shloka> shlokaList = Collections.EMPTY_LIST;
+            List<Shloka> shlokaListSan = Collections.EMPTY_LIST;
+            List<Shloka> shlokaListKan = Collections.EMPTY_LIST;
             if (!starShlokas.isEmpty()) {
 
                 int startIndex = Integer.parseInt(starShlokas.get(0).getNum()) - 1;
                 int lastIndex = Integer.parseInt(starShlokas.get(starShlokas.size() - 1).getNum());
-                shlokaList = sahasranama.getShlokaList(startIndex, lastIndex);
+                shlokaListSan = sahasranamaSan.getShlokaList(startIndex, lastIndex);
+                shlokaListKan = sahasranamaKan.getShlokaList(startIndex, lastIndex);
             }
 
-            nakshatraName2Shlokas.put(star.getName(), shlokaList);
+            nakshatraName2Shlokas.put(star.getName(), shlokaListSan);
+            nakshatraName2ShlokasKan.put(star.getName(), shlokaListKan);
         }
     }
 
-    private static void buildAvataraToShlokaMap(Language language) {
+    private static void buildAvataraToShlokaMap() {
 
-        Section sahasranama = getSahasranama(language).getSection("Sahasranama");
+        Section sahasranama = getSahasranama(Language.san).getSection("Sahasranama");
+        Section sahasranamaKan = getSahasranama(Language.kan).getSection("Sahasranama");
 
         for (Avatara avatara : avataras.getLstAvataras()) {
 
             final List<AvShloka> avataraShlokas = avatara.getAvShlokas();
 
             final List<Shloka> shlokaList = new ArrayList<Shloka>();
+            final List<Shloka> shlokaListKan = new ArrayList<Shloka>();
 
             for (AvShloka shloka : avataraShlokas) {
                 shlokaList.add(sahasranama.getShloka(shloka.getNum()));
+                shlokaListKan.add(sahasranamaKan.getShloka(shloka.getNum()));
             }
 
             avatara2Shlokas.put(avatara.getName(), shlokaList);
+            avatara2ShlokasKan.put(avatara.getName(), shlokaListKan);
         }
     }
 

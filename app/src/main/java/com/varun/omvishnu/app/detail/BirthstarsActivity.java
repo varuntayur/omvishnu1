@@ -9,11 +9,13 @@ import android.widget.ListView;
 
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.data.adapters.StableArrayAdapter;
+import com.varun.omvishnu.app.data.model.sahasranama.Shloka;
 import com.varun.omvishnu.app.home.Language;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by varuntayur on 7/2/2014.
@@ -41,14 +43,15 @@ public class BirthstarsActivity extends ListActivity {
     public void onListItemClick(ListView l, View v, int position, long id) {
         String item = (String) l.getAdapter().getItem(position);
 
-        Log.d(TAG, "nakshatra -> " + item);
-        Log.d(TAG, "shlokas -> " + DataProvider.getShlokasForBirthStar(item));
         Language lang = (Language) getIntent().getSerializableExtra("lang");
         Intent intent = new Intent(getBaseContext(), ShlokaSlideActivity.class);
         intent.putExtra("menuPosition", getIntent().getIntExtra("menuPosition", 0));
         intent.putExtra("sectionName", item);
         intent.putExtra("lang", lang);
-        intent.putExtra("shlokaList", (Serializable) DataProvider.getShlokasForBirthStar(item));
+        List<Shloka> shlokasForBirthStar = DataProvider.getShlokasForBirthStar(item, lang);
+        intent.putExtra("shlokaList", (Serializable) shlokasForBirthStar);
+        Log.d(TAG, "shlokas -> " + shlokasForBirthStar);
+        Log.d(TAG, "nakshatra -> " + item);
         startActivity(intent);
     }
 }
