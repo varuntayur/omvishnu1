@@ -9,6 +9,7 @@ import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,7 +31,7 @@ import java.util.List;
 /**
  * Created by varuntayur on 7/13/2014.
  */
-public class TiledHomeScreen extends FragmentActivity {
+public class TiledHomeScreen extends AppCompatActivity {
 
     private static final String TAG = "TiledHomeScreen";
 
