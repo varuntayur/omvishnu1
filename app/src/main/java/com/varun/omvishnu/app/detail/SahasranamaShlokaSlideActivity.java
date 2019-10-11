@@ -19,13 +19,15 @@ package com.varun.omvishnu.app.detail;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.viewpager.widget.ViewPager;
+
 import com.varun.omvishnu.app.data.DataProvider;
 import com.varun.omvishnu.app.home.Language;
 import com.varun.omvishnu.app.home.SahasranamaMenu;
 
 /**
- * Demonstrates a "screen-slide" animation using a {@link android.support.v4.view.ViewPager}. Because {@link android.support.v4.view.ViewPager}
- * automatically plays such an animation when calling {@link android.support.v4.view.ViewPager#setCurrentItem(int)}, there
+ * Demonstrates a "screen-slide" animation using a {@link ViewPager}. Because {@link ViewPager}
+ * automatically plays such an animation when calling {@link ViewPager#setCurrentItem(int)}, there
  * isn't any animation-specific code in this sample.
  * <p/>
  * <p>This sample shows a "next" button that advances the user to the next step in a wizard,

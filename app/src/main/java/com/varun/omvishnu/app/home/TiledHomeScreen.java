@@ -8,8 +8,8 @@ import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -108,13 +108,6 @@ public class TiledHomeScreen extends AppCompatActivity {
                 public void run() {
 
                     StaggeredGridView listView = (StaggeredGridView) findViewById(R.id.grid_view);
-
-                    View header = inflater.inflate(R.layout.list_item_header_footer, null);
-                    TextView txtHeaderTitle = (TextView) header.findViewById(R.id.txt_title);
-                    txtHeaderTitle.setText(getResources().getString(R.string.app_name));
-
-                    listView.addHeaderView(header);
-                    header.setClickable(false);
 
                     SampleAdapter mAdapter = new SampleAdapter(activity, R.id.txt_line1);
 

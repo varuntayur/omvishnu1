@@ -20,15 +20,14 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v13.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.legacy.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
-import android.view.WindowManager;
 
 import com.varun.omvishnu.app.R;
 import com.varun.omvishnu.app.data.DataProvider;
@@ -38,8 +37,8 @@ import com.varun.omvishnu.app.home.Language;
 import java.util.List;
 
 /**
- * Demonstrates a "screen-slide" animation using a {@link android.support.v4.view.ViewPager}. Because {@link android.support.v4.view.ViewPager}
- * automatically plays such an animation when calling {@link android.support.v4.view.ViewPager#setCurrentItem(int)}, there
+ * Demonstrates a "screen-slide" animation using a {@link ViewPager}. Because {@link ViewPager}
+ * automatically plays such an animation when calling {@link ViewPager#setCurrentItem(int)}, there
  * isn't any animation-specific code in this sample.
  * <p/>
  * <p>This sample shows a "next" button that advances the user to the next step in a wizard,
